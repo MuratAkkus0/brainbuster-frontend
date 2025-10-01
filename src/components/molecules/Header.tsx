@@ -18,31 +18,41 @@ interface CustomNavigationMenuInterface {
   isDropdown?: boolean;
   dropdownContent?: Array<DropdownMenuContentInterface>;
   children: string;
+  route: string;
 }
 
 const CustomNavigationMenu: React.FC<CustomNavigationMenuInterface> = ({
   isDropdown = false,
   dropdownContent = [],
   children,
+  route = "",
 }) => {
   return (
     <>
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger isVisible={isDropdown}>
-              {children}
-            </NavigationMenuTrigger>
+            <NavigationMenuLink
+              className="bg-accent text-theme-dark-bg font-medium px-3 md:px-6 md:text-base"
+              asChild
+            >
+              <Link to={route}>{children}</Link>
+            </NavigationMenuLink>
             {isDropdown ? (
-              <NavigationMenuContent>
-                {dropdownContent
-                  ? dropdownContent.map((i) => (
-                      <NavigationMenuLink asChild>
-                        <Link to={i.route}>{i.name}</Link>
-                      </NavigationMenuLink>
-                    ))
-                  : ""}
-              </NavigationMenuContent>
+              <>
+                <NavigationMenuTrigger className="h-7" isVisible={isDropdown}>
+                  {children}
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  {dropdownContent
+                    ? dropdownContent.map((i) => (
+                        <NavigationMenuLink asChild>
+                          <Link to={i.route}>{i.name}</Link>
+                        </NavigationMenuLink>
+                      ))
+                    : ""}
+                </NavigationMenuContent>
+              </>
             ) : (
               ""
             )}
@@ -57,12 +67,16 @@ export const Header = () => {
   return (
     <>
       <header className="w-full h-32 bg-theme-dark-bg">
-        <div className="container h-full mx-auto flex justify-between items-center">
+        <div className="container px-2 h-full mx-auto flex flex-col gap-3 md:gap-0 md:flex-row justify-center md:justify-between items-center">
           <Logo />
           <div className="flex gap-2">
-            <CustomNavigationMenu>Home</CustomNavigationMenu>
-            <CustomNavigationMenu>Sign in</CustomNavigationMenu>
-            <CustomNavigationMenu>Sign up</CustomNavigationMenu>
+            <CustomNavigationMenu route="/">Home</CustomNavigationMenu>
+            <CustomNavigationMenu route="/sign-in">
+              Sign in
+            </CustomNavigationMenu>
+            <CustomNavigationMenu route="/sign-up">
+              Sign up
+            </CustomNavigationMenu>
           </div>
         </div>
       </header>
