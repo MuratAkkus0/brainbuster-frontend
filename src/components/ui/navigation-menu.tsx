@@ -108,10 +108,10 @@ function NavigationMenuContent({
 
 function NavigationMenuViewport({
   className,
-  isVisible,
+  isVisible = true,
   ...props
 }: React.ComponentProps<typeof NavigationMenuPrimitive.Viewport> & {
-  isVisible: boolean;
+  isVisible?: boolean;
 }) {
   return (
     isVisible && (
