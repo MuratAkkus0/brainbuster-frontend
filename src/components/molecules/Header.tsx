@@ -3,12 +3,10 @@ import { Logo } from "../atoms/Logo";
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 interface DropdownMenuContentInterface {
   name: string;
