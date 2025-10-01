@@ -19,7 +19,8 @@ body,
   --color-theme-second-bg: #ddd;
   --color-theme-main-bg: #193cb8;
   --color-theme-dark-bg: #1c398e;
-  --color-theme-accent: #fdc700;
+  --color-theme-accent: #ffb900;
+  --color-theme-accent-hover: #fe9a00;
   --color-theme-main-text: #fff;
   /* end custom */
   --radius-sm: calc(var(--radius) - 4px);
