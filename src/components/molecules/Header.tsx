@@ -31,7 +31,7 @@ const CustomNavigationMenu: React.FC<CustomNavigationMenuInterface> = ({
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuLink
-              className="bg-accent text-theme-dark-bg font-medium px-3 md:px-6 md:text-base"
+              className="bg-accent text-theme-dark-bg font-medium px-3 md:px-6 md:text-base hover:bg-theme-accent"
               asChild
             >
               <Link to={route}>{children}</Link>
