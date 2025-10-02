@@ -2,6 +2,7 @@ PROJECT_NAME := "BrainBuster"
 #DOCKER_COMPOSE_FILE := $(shell pwd)/compose.yaml
 #test
 #test
+#test
 ACTIVE_BRANCH := $(shell git branch -v | grep '*' | tr -d '*' | tr -d ' ')
 
 #Git
