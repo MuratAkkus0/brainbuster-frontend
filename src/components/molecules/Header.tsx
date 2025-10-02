@@ -69,9 +69,7 @@ export const Header = () => {
           <Logo />
           <div className="flex gap-2">
             <CustomNavigationMenu route="/">Home</CustomNavigationMenu>
-            <CustomNavigationMenu route="/sign-in">
-              Sign in
-            </CustomNavigationMenu>
+            <CustomNavigationMenu route="/login">Sign in</CustomNavigationMenu>
             <CustomNavigationMenu route="/sign-up">
               Sign up
             </CustomNavigationMenu>
