@@ -39,7 +39,7 @@ const CustomSelect = () => {
             <SelectGroup>
               <SelectLabel>Questions</SelectLabel>
               {questions.map((item, i) => (
-                <SelectItem value={i.toString()}>
+                <SelectItem key={i} value={i.toString()}>
                   <span className="max-md:w-[calc(100vw-7rem)] overflow-hidden">
                     {item}
                   </span>
