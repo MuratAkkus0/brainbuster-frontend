@@ -1,4 +1,3 @@
-import { Link } from "react-router";
 import { Logo } from "../atoms/Logo";
 import {
   NavigationMenu,
@@ -8,6 +7,8 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import { cn } from "@/lib/utils";
+import { NavLink } from "react-router";
 interface DropdownMenuContentInterface {
   name: string;
   route: string;
@@ -30,12 +31,21 @@ const CustomNavigationMenu: React.FC<CustomNavigationMenuInterface> = ({
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuLink
-              className="bg-accent text-theme-dark-bg font-medium px-3 md:px-6 md:text-base hover:bg-theme-accent"
-              asChild
+            <NavLink
+              to={route}
+              className={({ isActive }) =>
+                isActive
+                  ? "block bg-theme-accent rounded-sm"
+                  : "block bg-accent hover:bg-theme-accent rounded-sm"
+              }
             >
-              <Link to={route}>{children}</Link>
-            </NavigationMenuLink>
+              <NavigationMenuLink
+                className="text-theme-dark-bg font-medium px-3 md:px-6 md:text-base "
+                style={{}}
+              >
+                {children}
+              </NavigationMenuLink>
+            </NavLink>
             {isDropdown ? (
               <>
                 <NavigationMenuTrigger className="h-7" isVisible={isDropdown}>
@@ -43,9 +53,9 @@ const CustomNavigationMenu: React.FC<CustomNavigationMenuInterface> = ({
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   {dropdownContent
-                    ? dropdownContent.map((i) => (
-                        <NavigationMenuLink asChild>
-                          <Link to={i.route}>{i.name}</Link>
+                    ? dropdownContent.map((item, i) => (
+                        <NavigationMenuLink asChild key={i}>
+                          <NavLink to={item.route}>{item.name}</NavLink>
                         </NavigationMenuLink>
                       ))
                     : ""}
@@ -61,10 +71,10 @@ const CustomNavigationMenu: React.FC<CustomNavigationMenuInterface> = ({
   );
 };
 
-export const Header = () => {
+export const Header = ({ className }: { className?: string }) => {
   return (
     <>
-      <header className="w-full h-32 bg-theme-dark-bg">
+      <header className={cn("w-full bg-theme-dark-bg", className)}>
         <div className="container px-2 h-full mx-auto flex flex-col gap-3 md:gap-0 md:flex-row justify-center md:justify-between items-center">
           <Logo />
           <div className="flex gap-2">
