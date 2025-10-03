@@ -3,6 +3,11 @@ PROJECT_NAME := "BrainBuster"
 ACTIVE_BRANCH := $(shell git branch -v | grep '*' | tr -d '*' | tr -d ' ')
 
 #Git
+update:
+	git switch main; \
+	git fetch -p; \
+	git pull origin --force; \
+	git clean -fd 
 cb:
 	@read -p "Branch name: " BRANCH_NAME; \
 	git switch main; \
