@@ -1,6 +1,7 @@
 import { Button } from "../ui/button";
 import { Logo } from "../atoms/Logo";
 import { Bubble } from "../atoms/Bubble";
+import { Link } from "react-router";
 
 export const Hero = () => {
   return (
@@ -14,18 +15,22 @@ export const Hero = () => {
           </div>
         </div>
         <div className="flex gap-4">
-          <Button
-            size="lg"
-            className="text-lg text-theme-dark-bg bg-accent cursor-pointer hover:bg-theme-accent"
-          >
-            Sign in
-          </Button>
-          <Button
-            size="lg"
-            className="text-lg text-theme-dark-bg bg-accent cursor-pointer hover:bg-theme-accent"
-          >
-            Sign up
-          </Button>
+          <Link to="/login">
+            <Button
+              size="lg"
+              className="text-lg text-theme-dark-bg bg-accent cursor-pointer hover:bg-theme-accent"
+            >
+              Sign in
+            </Button>
+          </Link>
+          <Link to="/register">
+            <Button
+              size="lg"
+              className="text-lg text-theme-dark-bg bg-accent cursor-pointer hover:bg-theme-accent"
+            >
+              Sign up
+            </Button>
+          </Link>
         </div>
       </div>
     </>
