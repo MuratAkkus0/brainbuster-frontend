@@ -5,7 +5,7 @@ export const Logo = () => {
 
   return (
     <div
-      onClick={(e) => navigate("/")}
+      onClick={() => navigate("/")}
       className="flex items-center justify-center max-w-fit max-h-fit p-2 select-none cursor-pointer"
     >
       <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-theme-accent relative">
