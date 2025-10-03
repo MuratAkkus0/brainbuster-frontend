@@ -31,7 +31,7 @@ export function LoginForm({
           <form>
             <div className="flex flex-col gap-6 md:gap-8">
               <div className="grid gap-3">
-                <Label htmlFor="email">Username</Label>
+                <Label htmlFor="username">Username</Label>
                 <Input
                   id="username"
                   type="text"
