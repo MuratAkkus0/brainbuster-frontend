@@ -3,7 +3,6 @@ import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
@@ -34,17 +33,15 @@ const CustomNavigationMenu: React.FC<CustomNavigationMenuInterface> = ({
             <NavLink
               to={route}
               className={({ isActive }) =>
-                isActive
-                  ? "block bg-theme-accent rounded-sm"
-                  : "block bg-accent hover:bg-theme-accent rounded-sm"
+                cn(
+                  "text-theme-dark-bg font-medium py-1 md:py-2 px-3 md:px-6 md:text-base",
+                  isActive
+                    ? "block bg-theme-accent rounded-sm"
+                    : "block bg-accent hover:bg-theme-accent rounded-sm"
+                )
               }
             >
-              <NavigationMenuLink
-                className="text-theme-dark-bg font-medium px-3 md:px-6 md:text-base "
-                style={{}}
-              >
-                {children}
-              </NavigationMenuLink>
+              {children}
             </NavLink>
             {isDropdown ? (
               <>
@@ -54,9 +51,20 @@ const CustomNavigationMenu: React.FC<CustomNavigationMenuInterface> = ({
                 <NavigationMenuContent>
                   {dropdownContent
                     ? dropdownContent.map((item, i) => (
-                        <NavigationMenuLink asChild key={i}>
-                          <NavLink to={item.route}>{item.name}</NavLink>
-                        </NavigationMenuLink>
+                        <NavLink
+                          key={i}
+                          to={item.route}
+                          className={({ isActive }) =>
+                            cn(
+                              "text-theme-dark-bg font-medium py-1 md:py-2 px-3 md:px-6 md:text-base",
+                              isActive
+                                ? "block bg-theme-accent rounded-sm"
+                                : "block bg-accent hover:bg-theme-accent rounded-sm"
+                            )
+                          }
+                        >
+                          {item.name}
+                        </NavLink>
                       ))
                     : ""}
                 </NavigationMenuContent>
@@ -74,8 +82,8 @@ const CustomNavigationMenu: React.FC<CustomNavigationMenuInterface> = ({
 export const Header = ({ className }: { className?: string }) => {
   return (
     <>
-      <header className={cn("w-full bg-theme-dark-bg", className)}>
-        <div className="container px-2 h-full mx-auto flex flex-col gap-3 md:gap-0 md:flex-row justify-center md:justify-between items-center">
+      <header className={cn("w-full bg-theme-dark-bg ", className)}>
+        <div className="container px-2 h-full mx-auto flex flex-col gap-1 md:gap3 md:gap-0 md:flex-row justify-center md:justify-between items-center">
           <Logo />
           <div className="flex gap-2">
             <CustomNavigationMenu route="/">Home</CustomNavigationMenu>
