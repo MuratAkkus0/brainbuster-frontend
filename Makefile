@@ -8,6 +8,9 @@ update:
 	git fetch -p; \
 	git pull origin --force; \
 	git clean -fd 
+rm-branches:
+	git switch main; \
+	git branch | grep -v "main" | xargs git branch -D 
 cb:
 	@read -p "Branch name: " BRANCH_NAME; \
 	git switch main; \
