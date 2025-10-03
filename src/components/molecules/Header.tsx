@@ -3,7 +3,6 @@ import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
@@ -53,6 +52,7 @@ const CustomNavigationMenu: React.FC<CustomNavigationMenuInterface> = ({
                   {dropdownContent
                     ? dropdownContent.map((item, i) => (
                         <NavLink
+                          key={i}
                           to={item.route}
                           className={({ isActive }) =>
                             cn(
