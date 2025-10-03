@@ -74,8 +74,8 @@ const CustomNavigationMenu: React.FC<CustomNavigationMenuInterface> = ({
 export const Header = ({ className }: { className?: string }) => {
   return (
     <>
-      <header className={cn("w-full bg-theme-dark-bg", className)}>
-        <div className="container px-2 h-full mx-auto flex flex-col gap-3 md:gap-0 md:flex-row justify-center md:justify-between items-center">
+      <header className={cn("w-full bg-theme-dark-bg ", className)}>
+        <div className="container px-2 h-full mx-auto flex flex-col gap-1 md:gap3 md:gap-0 md:flex-row justify-center md:justify-between items-center">
           <Logo />
           <div className="flex gap-2">
             <CustomNavigationMenu route="/">Home</CustomNavigationMenu>
