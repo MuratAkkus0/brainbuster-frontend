@@ -1,7 +1,6 @@
 import { MainContainer } from "@/components/atoms/MainContainer";
 import { Header } from "@/components/molecules/Header";
 import { LoginForm } from "@/components/molecules/LoginForm";
-import React from "react";
 
 export const LoginPageView = () => {
   return (
