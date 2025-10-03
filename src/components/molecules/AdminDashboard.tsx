@@ -10,6 +10,7 @@ import data from "./data.json";
 export default function AdminDashboard() {
   return (
     <SidebarProvider
+      className="min-h-0 h-full relative"
       style={
         {
           "--sidebar-width": "calc(var(--spacing) * 72)",
@@ -18,7 +19,7 @@ export default function AdminDashboard() {
       }
     >
       <AppSidebar variant="inset" />
-      <SidebarInset>
+      <SidebarInset className="overflow-y-auto">
         <SiteHeader />
         <div className="flex flex-1 flex-col">
           <div className="@container/main flex flex-1 flex-col gap-2">
