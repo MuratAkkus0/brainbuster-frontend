@@ -80,7 +80,7 @@ export const Header = ({ className }: { className?: string }) => {
           <div className="flex gap-2">
             <CustomNavigationMenu route="/">Home</CustomNavigationMenu>
             <CustomNavigationMenu route="/login">Sign in</CustomNavigationMenu>
-            <CustomNavigationMenu route="/sign-up">
+            <CustomNavigationMenu route="/register">
               Sign up
             </CustomNavigationMenu>
           </div>

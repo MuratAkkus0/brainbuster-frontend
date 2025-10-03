@@ -16,13 +16,13 @@ export const Hero = () => {
         <div className="flex gap-4">
           <Button
             size="lg"
-            className="text-lg text-theme-dark-bg bg-theme-accent cursor-pointer hover:bg-theme-accent-hover"
+            className="text-lg text-theme-dark-bg bg-accent cursor-pointer hover:bg-theme-accent"
           >
             Sign in
           </Button>
           <Button
             size="lg"
-            className="text-lg text-theme-dark-bg bg-theme-accent cursor-pointer hover:bg-theme-accent-hover"
+            className="text-lg text-theme-dark-bg bg-accent cursor-pointer hover:bg-theme-accent"
           >
             Sign up
           </Button>
