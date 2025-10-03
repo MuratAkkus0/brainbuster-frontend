@@ -1,14 +1,22 @@
-import type { ReactElement } from "react";
+import { cn } from "@/lib/utils";
+import type { ReactNode } from "react";
 
 interface MainContainerInterface {
-  children: ReactElement;
+  children: ReactNode;
+  className?: string;
 }
 export const MainContainer: React.FC<MainContainerInterface> = ({
+  className,
   children,
 }) => {
   return (
     <>
-      <div className="w-full h-[calc(100%-128px)] py-1 flex justify-center items-center bg-theme-second-bg ">
+      <div
+        className={cn(
+          "w-full py-1 md:py-16 flex justify-center items-start bg-theme-second-bg overflow-y-auto",
+          className
+        )}
+      >
         {children}
       </div>
     </>
