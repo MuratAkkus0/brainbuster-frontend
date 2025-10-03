@@ -91,6 +91,9 @@ export const Header = ({ className }: { className?: string }) => {
             <CustomNavigationMenu route="/register">
               Sign up
             </CustomNavigationMenu>
+            <CustomNavigationMenu route="/admin/dashboard">
+              Admin Dashboard
+            </CustomNavigationMenu>
           </div>
         </div>
       </header>
