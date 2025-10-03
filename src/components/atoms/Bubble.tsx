@@ -1,8 +1,4 @@
-export const Bubble = ({
-  className = "border-theme-accent bg-theme-dark-bg",
-}: {
-  className?: string;
-}) => {
+export const Bubble = () => {
   return (
     <>
       <div className="max-w-fit max-h-fit bg-transparent absolute top-0 left-0 z-0">
