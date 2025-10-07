@@ -1,5 +1,3 @@
-import React, { type ReactNode } from "react";
-
 const quizChoiceTagArr = ["A", "B", "C", "D"];
 const quizs = [
   {
