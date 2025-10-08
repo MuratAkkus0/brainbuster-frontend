@@ -1,7 +1,5 @@
 import { cn } from "@/lib/utils";
 import { UserAvatar } from "../atoms/UserAvatar";
-import { setTimerAnimation } from "@/utils/setTimerAnimation";
-import { useEffect, useState } from "react";
 
 const quizChoiceTagArr = ["A", "B", "C", "D"];
 const quizs = [
