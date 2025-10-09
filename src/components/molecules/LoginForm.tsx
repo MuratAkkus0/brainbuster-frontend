@@ -10,11 +10,24 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router";
+import axios from "axios";
+import { useState } from "react";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    console.log(e);
+    const response = await axios.post("http://localhost/api/auth/login", {
+      username,
+      password,
+    });
+    console.log(response.data);
+  };
   return (
     <div
       className={cn("max-md:h-full flex flex-col gap-6", className)}
@@ -28,11 +41,13 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-6 md:gap-8">
               <div className="grid gap-3">
                 <Label htmlFor="username">Username</Label>
                 <Input
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   id="username"
                   type="text"
                   placeholder="tony_stark"
@@ -49,7 +64,13 @@ export function LoginForm({
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  id="password"
+                  type="password"
+                  required
+                />
               </div>
               <div className="flex flex-col gap-3">
                 <Button
