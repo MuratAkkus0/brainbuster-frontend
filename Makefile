@@ -2,6 +2,10 @@ PROJECT_NAME := "BrainBuster"
 #DOCKER_COMPOSE_FILE := $(shell pwd)/compose.yaml
 ACTIVE_BRANCH := $(shell git branch -v | grep '*' | tr -d '*' | tr -d ' ')
 
+#Docker
+mysql-sh:
+	docker compose exec mysql mysql -u root -p brainbusterdb
+
 #Git
 update:
 	git switch main; \
