@@ -87,9 +87,9 @@ export const Header = ({ className }: { className?: string }) => {
           <Logo />
           <div className="flex gap-2">
             <CustomNavigationMenu route="/">Home</CustomNavigationMenu>
-            <CustomNavigationMenu route="/login">Sign in</CustomNavigationMenu>
+            <CustomNavigationMenu route="/login">Login</CustomNavigationMenu>
             <CustomNavigationMenu route="/register">
-              Sign up
+              Register
             </CustomNavigationMenu>
             <CustomNavigationMenu route="/admin/dashboard">
               Admin Dashboard
