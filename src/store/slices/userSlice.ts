@@ -19,18 +19,18 @@ const initialState: UserState = {
 
 export const handleLogin = createAsyncThunk(
   "login",
-  async (payload: LoginObjectModel, thunkAPI) => {
-    try {
-      const response = await axios.post("/api/auth/login", payload, {
-        headers: { "Content-Type": "Application/json" },
-        withCredentials: true,
-      });
-      const user: UserModel = response.data;
-      if (response) {
-        return thunkAPI.fulfillWithValue(user);
-      }
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error?.message);
+  async (payload: LoginObjectModel) => {
+    console.log("handle login triggered");
+
+    console.log(payload);
+    if (!payload.username && !payload.password) return;
+    const response = await axios.post("/api/auth/login", payload, {
+      headers: { "Content-Type": "Application/json" },
+      withCredentials: true,
+    });
+    const user: UserModel = response.data;
+    if (response) {
+      return user;
     }
   }
 );
@@ -50,18 +50,19 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(handleLogin.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.user = action.payload ?? null;
-    });
-    builder.addCase(handleLogin.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(handleLogin.rejected, (state, action) => {
-      state.isLoading = false;
-      state.user = null;
-      console.error(action.payload);
-    });
+    builder
+      .addCase(handleLogin.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload ?? null;
+      })
+      .addCase(handleLogin.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(handleLogin.rejected, (state, action) => {
+        state.isLoading = false;
+        state.user = null;
+        console.error(action);
+      });
   },
 });
 
