@@ -9,8 +9,8 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 import { useAuth, useLogin } from "@/hooks";
 
 export function LoginForm({
@@ -21,7 +21,14 @@ export function LoginForm({
   const [password, setPassword] = useState("");
   const auth = useAuth();
   const user = auth();
+  const navigate = useNavigate();
   const login = useLogin();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, []);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
