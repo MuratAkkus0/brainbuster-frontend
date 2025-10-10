@@ -9,34 +9,36 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link, useNavigate } from "react-router";
-import { useEffect, useState } from "react";
-import { useAuth, useLogin } from "@/hooks";
+import { Link } from "react-router";
+import { useEffect, useRef, useState } from "react";
+import { useLogin } from "@/hooks";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const login = useLogin();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const auth = useAuth();
-  const user = auth();
-  const navigate = useNavigate();
-  const login = useLogin();
+  const usernameRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    if (user) {
-      navigate("/");
-    }
+    usernameRef.current?.focus();
   }, []);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const data = await login({
-      username,
-      password,
-    });
-    console.log(data);
+    let data;
+    if (username && password) {
+      console.log("login cagirildi");
+      data = await login({
+        username,
+        password,
+      });
+    }
+    setUsername("");
+    setPassword("");
   };
   return (
     <div
@@ -56,6 +58,7 @@ export function LoginForm({
               <div className="grid gap-3">
                 <Label htmlFor="username">Username</Label>
                 <Input
+                  ref={usernameRef}
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   id="username"
@@ -67,6 +70,17 @@ export function LoginForm({
               <div className="grid gap-3">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
+                </div>
+                <Input
+                  ref={passwordRef}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  id="password"
+                  type="password"
+                  required
+                />
+                <div>
+                  {" "}
                   <a
                     href="#"
                     className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
@@ -74,13 +88,6 @@ export function LoginForm({
                     Forgot your password?
                   </a>
                 </div>
-                <Input
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  id="password"
-                  type="password"
-                  required
-                />
               </div>
               <div className="flex flex-col gap-3">
                 <Button
