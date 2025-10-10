@@ -10,8 +10,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router";
-import axios from "axios";
 import { useState } from "react";
+import { useAuth, useLogin } from "@/hooks";
 
 export function LoginForm({
   className,
@@ -19,14 +19,17 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const auth = useAuth();
+  const user = auth();
+  const login = useLogin();
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(e);
-    const response = await axios.post("http://localhost/api/auth/login", {
+    const data = await login({
       username,
       password,
     });
-    console.log(response.data);
+    console.log(data);
   };
   return (
     <div
