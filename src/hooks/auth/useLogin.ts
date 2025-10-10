@@ -12,11 +12,17 @@ export const useLogin: LoginHook = () => {
   const dispatch = useDispatch<AppDispatch>();
   const login = async (
     loginCredential: LoginObjectModel
-  ): Promise<UserModel> => {
-    const data = await dispatch(handleLogin(loginCredential));
-    console.log(data);
-    const user = data.payload;
-    return user as UserModel;
+  ): Promise<UserModel | void> => {
+    console.log("login useLogin ");
+    dispatch(handleLogin(loginCredential)).then((item) => {
+      const loginData = item.payload;
+      console.log(loginData);
+      if (loginData.user) {
+        return loginData.user;
+      } else {
+        return loginData;
+      }
+    });
   };
   return login;
 };
