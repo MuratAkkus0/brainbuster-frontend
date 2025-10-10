@@ -29,10 +29,8 @@ export function LoginForm({
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    let data;
     if (username && password) {
-      console.log("login cagirildi");
-      data = await login({
+      await login({
         username,
         password,
       });

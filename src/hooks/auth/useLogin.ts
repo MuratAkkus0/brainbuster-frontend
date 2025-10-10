@@ -15,8 +15,10 @@ export const useLogin: LoginHook = () => {
   ): Promise<UserModel | void> => {
     console.log("login useLogin ");
     dispatch(handleLogin(loginCredential)).then((item) => {
-      const loginData = item.payload;
+      const loginData = item.payload as UserModel;
+
       console.log(loginData);
+
       if (loginData.user) {
         return loginData.user;
       } else {
