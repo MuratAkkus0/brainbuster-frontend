@@ -6,7 +6,10 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import { useAuth, useLogout } from "@/hooks";
 import { cn } from "@/lib/utils";
+import { UserRoles } from "@/types/enums/UserRoles";
+import { type MouseEventHandler, type ReactNode } from "react";
 import { NavLink } from "react-router";
 interface DropdownMenuContentInterface {
   name: string;
@@ -14,13 +17,15 @@ interface DropdownMenuContentInterface {
 }
 interface CustomNavigationMenuInterface {
   isDropdown?: boolean;
+  onClick?: MouseEventHandler<HTMLAnchorElement>;
   dropdownContent?: Array<DropdownMenuContentInterface>;
-  children: string;
+  children: ReactNode;
   route: string;
 }
 
 const CustomNavigationMenu: React.FC<CustomNavigationMenuInterface> = ({
   isDropdown = false,
+  onClick,
   dropdownContent = [],
   children,
   route = "",
@@ -31,6 +36,7 @@ const CustomNavigationMenu: React.FC<CustomNavigationMenuInterface> = ({
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavLink
+              onClick={onClick}
               to={route}
               className={({ isActive }) =>
                 cn(
@@ -52,6 +58,7 @@ const CustomNavigationMenu: React.FC<CustomNavigationMenuInterface> = ({
                   {dropdownContent
                     ? dropdownContent.map((item, i) => (
                         <NavLink
+                          onClick={onClick}
                           key={i}
                           to={item.route}
                           className={({ isActive }) =>
@@ -80,6 +87,9 @@ const CustomNavigationMenu: React.FC<CustomNavigationMenuInterface> = ({
 };
 
 export const Header = ({ className }: { className?: string }) => {
+  const { user, isAuthenticated } = useAuth();
+  const logout = useLogout();
+
   return (
     <>
       <header className={cn("w-full bg-theme-dark-bg ", className)}>
@@ -87,13 +97,34 @@ export const Header = ({ className }: { className?: string }) => {
           <Logo />
           <div className="flex gap-2">
             <CustomNavigationMenu route="/">Home</CustomNavigationMenu>
-            <CustomNavigationMenu route="/login">Login</CustomNavigationMenu>
-            <CustomNavigationMenu route="/register">
-              Register
-            </CustomNavigationMenu>
-            <CustomNavigationMenu route="/admin/dashboard">
-              Admin Dashboard
-            </CustomNavigationMenu>
+            {isAuthenticated ? (
+              <>
+                <CustomNavigationMenu route="/profile">
+                  <span>Hi {user.user?.user?.username} ! </span>
+                </CustomNavigationMenu>
+                <CustomNavigationMenu route="/logout" onClick={() => logout()}>
+                  Logout
+                </CustomNavigationMenu>
+              </>
+            ) : (
+              <>
+                <CustomNavigationMenu route="/login">
+                  Login
+                </CustomNavigationMenu>
+                <CustomNavigationMenu route="/register">
+                  Register
+                </CustomNavigationMenu>
+              </>
+            )}
+            {user.user?.user?.role === UserRoles.ADMIN ? (
+              <>
+                <CustomNavigationMenu route="/admin/dashboard">
+                  Admin Dashboard
+                </CustomNavigationMenu>
+              </>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </header>
