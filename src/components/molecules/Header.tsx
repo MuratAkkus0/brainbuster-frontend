@@ -25,6 +25,7 @@ interface CustomNavigationMenuInterface {
 
 const CustomNavigationMenu: React.FC<CustomNavigationMenuInterface> = ({
   isDropdown = false,
+  onClick,
   dropdownContent = [],
   children,
   route = "",
@@ -35,6 +36,7 @@ const CustomNavigationMenu: React.FC<CustomNavigationMenuInterface> = ({
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavLink
+              onClick={onClick}
               to={route}
               className={({ isActive }) =>
                 cn(
@@ -56,6 +58,7 @@ const CustomNavigationMenu: React.FC<CustomNavigationMenuInterface> = ({
                   {dropdownContent
                     ? dropdownContent.map((item, i) => (
                         <NavLink
+                          onClick={onClick}
                           key={i}
                           to={item.route}
                           className={({ isActive }) =>
