@@ -1,7 +1,7 @@
-import { handleLogin, setUser } from "@/store/slices/userSlice";
+import { handleLogin } from "@/store/slices/userSlice";
 import type { LoginObjectModel } from "@/types/models/Auth/LoginObjectModel";
 import { useDispatch } from "react-redux";
-import type { AppDispatch, RootState } from "@/store/store";
+import type { AppDispatch } from "@/store/store";
 import type { UserModel } from "@/types/models/Auth/UserModel";
 
 interface LoginHook {

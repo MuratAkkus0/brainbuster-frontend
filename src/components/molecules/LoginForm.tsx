@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import { useEffect, useRef } from "react";
 import { useLogin } from "@/hooks";
 import { FormInputWrapper } from "../atoms/FormInputWrapper";
