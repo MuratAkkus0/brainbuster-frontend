@@ -18,28 +18,47 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import questionsData from "./secQuestions.json";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { FormErrorLabel } from "../atoms/FormErrorLabel";
+import { FormInputWrapper } from "../atoms/FormInputWrapper";
+import { useRegister } from "@/hooks";
+import type { RegisterObjectModel } from "@/types/models/Auth/RegisterObjectModel";
+import { useNavigate } from "react-router";
+import { registerFormSchema } from "@/schemas/RegisterFormSchema";
 
-const questions = [
-  "What was the name of your first childhood friend that no one else knows?",
-  "What is the nickname you gave to your favorite toy as a child?",
-  "What was the first concert or event you attended without your family?",
-  "What unusual place did you visit that left a strong memory on you?",
-  "What was the exact title of the first book that truly inspired you?",
-];
+const questions = questionsData.questions as string[];
 
-const CustomSelect = () => {
+interface RegisterForm {
+  username: string;
+  password: string;
+  confirmPassword: string;
+  secretQuestionId: number;
+  secretQuestionAnswer: string;
+}
+
+const CustomSelect = ({
+  errMsg,
+  onValueChange,
+}: {
+  errMsg?: string;
+  onValueChange: (value: string) => void;
+}) => {
   return (
     <>
-      <Select>
+      <Select onValueChange={onValueChange}>
         <div className="flex flex-col">
-          <SelectTrigger className="w-full">
+          <SelectTrigger
+            className={cn("w-full", errMsg && "border border-red-500")}
+          >
             <SelectValue placeholder="Select a question" />
           </SelectTrigger>
           <SelectContent className="max-md:w-[calc(100vw-3rem)]">
             <SelectGroup>
               <SelectLabel>Questions</SelectLabel>
               {questions.map((item, i) => (
-                <SelectItem key={i} value={i.toString()}>
+                <SelectItem data-id={i} key={i} value={i.toString()}>
                   <span className="max-md:w-[calc(100vw-7rem)] overflow-hidden">
                     {item}
                   </span>
@@ -57,6 +76,45 @@ const CustomRegisterForm = ({
   className,
   ...props
 }: React.ComponentProps<"div">) => {
+  const callRegister = useRegister();
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    setError,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      username: "",
+      password: "",
+      confirmPassword: "",
+      secretQuestionId: -1,
+      secretQuestionAnswer: "",
+    },
+    resolver: zodResolver(registerFormSchema),
+  });
+
+  const onSubmit = async (e: RegisterForm) => {
+    console.log(e);
+    const data: RegisterObjectModel = {
+      username: e.username,
+      password: e.password,
+      secretQuestionId: e.secretQuestionId,
+      secretQuestionAnswer: e.secretQuestionAnswer,
+    };
+    let res = await callRegister(data);
+    if (res instanceof Error && res.cause === 401) {
+      setError("username", { message: "This username is already exists." });
+    }
+    if (!(res instanceof Error)) {
+      reset();
+      navigate("/");
+    }
+  };
+
   return (
     <div className={cn("flex flex-col", className)} {...props}>
       <Card className="max-md:rounded-none">
@@ -67,43 +125,62 @@ const CustomRegisterForm = ({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-6 md:gap-8">
-              <div className="grid gap-3">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" type="text" placeholder="Tony" required />
-              </div>
-              <div className="grid gap-3">
-                <Label htmlFor="surname">Surname</Label>
-                <Input id="surname" type="text" placeholder="Stark" required />
-              </div>
-              <div className="grid gap-3">
+              <FormInputWrapper>
                 <Label htmlFor="username">Username</Label>
                 <Input
+                  {...register("username")}
+                  errMsg={errors.username?.message}
                   id="username"
                   type="text"
                   placeholder="tony_stark"
                   required
                 />
-              </div>
-              <div className="grid gap-3">
+                <FormErrorLabel errMsg={errors.username?.message} />
+              </FormInputWrapper>
+              <FormInputWrapper>
                 <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" required />
-              </div>
-              <div className="grid gap-3">
-                <Label htmlFor="confirm-password">Confirm Password</Label>
-                <Input id="confirm-password" type="password" required />
-              </div>
-              <div className="grid gap-3">
-                <Label>Your Secret Question</Label>
-                <CustomSelect />
                 <Input
+                  {...register("password")}
+                  errMsg={errors.password?.message}
+                  id="password"
+                  type="password"
+                  required
+                />
+                <FormErrorLabel errMsg={errors.password?.message} />
+              </FormInputWrapper>
+              <FormInputWrapper>
+                <Label htmlFor="confirm-password">Confirm Password</Label>
+                <Input
+                  {...register("confirmPassword")}
+                  errMsg={errors.confirmPassword?.message}
+                  id="confirm-password"
+                  type="password"
+                  required
+                />
+                <FormErrorLabel errMsg={errors.confirmPassword?.message} />
+              </FormInputWrapper>
+              <FormInputWrapper>
+                <Label>Your Secret Question</Label>
+                <CustomSelect
+                  errMsg={errors.secretQuestionId?.message}
+                  onValueChange={(e: string) =>
+                    setValue("secretQuestionId", Number(e))
+                  }
+                  {...register("secretQuestionId")}
+                />
+                <FormErrorLabel errMsg={errors.secretQuestionId?.message} />
+                <Input
+                  {...register("secretQuestionAnswer")}
+                  errMsg={errors.secretQuestionAnswer?.message}
                   id="question-answer"
                   type="text"
                   placeholder="The secret is : i am a nerd..."
                   required
                 />
-              </div>
+                <FormErrorLabel errMsg={errors.secretQuestionAnswer?.message} />
+              </FormInputWrapper>
               <div className="flex flex-col gap-3">
                 <Button
                   size="lg"

@@ -8,23 +8,23 @@ interface LoginHook {
   (): CallableFunction;
 }
 
+interface LoginHookFunction {
+  (loginCredential: LoginObjectModel): Promise<UserModel | void>;
+}
+
 export const useLogin: LoginHook = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const login = async (
-    loginCredential: LoginObjectModel
-  ): Promise<UserModel | void> => {
+  const login: LoginHookFunction = async (loginCredential) => {
     console.log("login useLogin ");
-    dispatch(handleLogin(loginCredential)).then((item) => {
-      const loginData = item.payload as UserModel;
-
-      console.log(loginData);
-
-      if (loginData.user) {
-        return loginData.user;
-      } else {
+    let res = dispatch(handleLogin(loginCredential))
+      .then((item) => {
+        const loginData = item.payload as UserModel;
         return loginData;
-      }
-    });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    return res;
   };
   return login;
 };

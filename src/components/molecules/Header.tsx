@@ -6,7 +6,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { useAuth, useLogout } from "@/hooks";
+import { useAuth } from "@/hooks";
 import { cn } from "@/lib/utils";
 import { UserRoles } from "@/types/enums/UserRoles";
 import { type MouseEventHandler, type ReactNode } from "react";
@@ -88,7 +88,6 @@ const CustomNavigationMenu: React.FC<CustomNavigationMenuInterface> = ({
 
 export const Header = ({ className }: { className?: string }) => {
   const { user, isAuthenticated } = useAuth();
-  const logout = useLogout();
 
   return (
     <>
@@ -102,7 +101,7 @@ export const Header = ({ className }: { className?: string }) => {
                 <CustomNavigationMenu route="/profile">
                   <span>Hi {user.user?.user?.username} ! </span>
                 </CustomNavigationMenu>
-                <CustomNavigationMenu route="/logout" onClick={() => logout()}>
+                <CustomNavigationMenu route="/logout">
                   Logout
                 </CustomNavigationMenu>
               </>
