@@ -9,34 +9,53 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router";
-import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router";
+import { useEffect, useRef } from "react";
 import { useLogin } from "@/hooks";
+import { FormInputWrapper } from "../atoms/FormInputWrapper";
+import { LoginFormSchema } from "@/schemas/LoginFormSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { FormErrorLabel } from "../atoms/FormErrorLabel";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
   const login = useLogin();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const usernameRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      username: "",
+      password: "",
+    },
+    resolver: zodResolver(LoginFormSchema),
+  });
 
   useEffect(() => {
     usernameRef.current?.focus();
   }, []);
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    if (username && password) {
-      await login({
-        username,
-        password,
-      });
+  const onSubmit = async (e: any) => {
+    const { username, password } = e;
+    if (!username || !password) return;
+
+    const res = await login({
+      username,
+      password,
+    });
+
+    if (res instanceof Error && res.cause === 401) {
+      console.log(res);
     }
-    setUsername("");
-    setPassword("");
+    if (!(res instanceof Error)) {
+      console.log(res);
+    }
   };
   return (
     <div
@@ -51,41 +70,41 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-6 md:gap-8">
-              <div className="grid gap-3">
+              <FormInputWrapper>
                 <Label htmlFor="username">Username</Label>
                 <Input
-                  ref={usernameRef}
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  {...register("username")}
+                  errMsg={errors.username?.message}
                   id="username"
                   type="text"
                   placeholder="tony_stark"
                   required
                 />
-              </div>
-              <div className="grid gap-3">
+                <FormErrorLabel errMsg={errors.username?.message} />
+              </FormInputWrapper>
+              <FormInputWrapper>
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
                 </div>
                 <Input
-                  ref={passwordRef}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  {...register("password")}
+                  errMsg={errors.password?.message}
                   id="password"
                   type="password"
                   required
                 />
-                <div>
-                  {" "}
-                  <a
-                    href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
-                </div>
+                <FormErrorLabel errMsg={errors.password?.message} />
+              </FormInputWrapper>
+
+              <div>
+                <a
+                  href="#"
+                  className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                >
+                  Forgot your password?
+                </a>
               </div>
               <div className="flex flex-col gap-3">
                 <Button
