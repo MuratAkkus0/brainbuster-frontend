@@ -17,10 +17,10 @@ export const App = () => {
         <Route path="/" element={<HomePageView />} />
         <Route path="/login" element={<LoginPageView />} />
         <Route path="/register" element={<RegisterFormView />} />
+        <Route path="/logout" element={<LogoutView />} />
 
         {/* has to be authenticated */}
         <Route element={<RequireAuth />}>
-          <Route path="/logout" element={<LogoutView />} />
           <Route path="/admin/dashboard" element={<AdminDashboardView />} />
           <Route path="/quiz" element={<GameOverviewView />} />
         </Route>
