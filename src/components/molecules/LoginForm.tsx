@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLogin } from "@/hooks";
 import { FormInputWrapper } from "../atoms/FormInputWrapper";
 import { LoginFormSchema } from "@/schemas/LoginFormSchema";
@@ -23,6 +23,7 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"div">) {
   const login = useLogin();
+  const [apiFormError, setApiFormError] = useState("");
   const usernameRef = useRef<HTMLInputElement | null>(null);
 
   const {
@@ -50,11 +51,9 @@ export function LoginForm({
       password,
     });
 
-    if (res instanceof Error && res.cause === 401) {
+    if (res?.isError) {
       console.log(res);
-    }
-    if (!(res instanceof Error)) {
-      console.log(res);
+      setApiFormError(res.message);
     }
   };
   return (
@@ -72,6 +71,7 @@ export function LoginForm({
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-6 md:gap-8">
+              <FormErrorLabel errMsg={apiFormError} />
               <FormInputWrapper>
                 <Label htmlFor="username">Username</Label>
                 <Input

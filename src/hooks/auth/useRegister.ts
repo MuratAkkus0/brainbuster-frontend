@@ -16,16 +16,13 @@ export const useRegister: RegisterHook = () => {
   const dispatch = useDispatch<AppDispatch>();
   const register: RegisterHookFunction = async (registerCredential) => {
     console.log("register hook");
-
     let result = dispatch(handleRegister(registerCredential))
       .then((item) => {
         const registerData = item.payload as UserModel;
-        console.log(registerData);
         if (registerData?.user) {
           dispatch(setUser(registerData));
-        } else {
-          return new Error(registerData.message, { cause: 401 });
         }
+        return registerData;
       })
       .catch((err) => {
         console.error(err);
