@@ -1,5 +1,6 @@
 import axios from "@/api/axios";
 import type { LoginObjectModel } from "@/types/models/Auth/LoginObjectModel";
+import type { RegisterObjectModel } from "@/types/models/Auth/RegisterObjectModel";
 import type { UserModel } from "@/types/models/Auth/UserModel";
 import {
   createAsyncThunk,
@@ -19,18 +20,39 @@ const initialState: UserState = {
 
 export const handleLogin = createAsyncThunk(
   "login",
-  async (payload: LoginObjectModel) => {
-    console.log("handle login triggered");
+  async (payload: LoginObjectModel, { rejectWithValue }) => {
+    try {
+      console.log(payload);
+      const response = await axios.post("/api/auth/login", payload, {
+        headers: { "Content-Type": "Application/json" },
+        withCredentials: true,
+      });
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue(error);
+    }
+  }
+);
+export const handleRegister = createAsyncThunk(
+  "register",
+  async (payload: RegisterObjectModel, { rejectWithValue }) => {
+    console.log("handle register triggered");
 
-    console.log(payload);
-    if (!payload.username && !payload.password) return;
-    const response = await axios.post("/api/auth/login", payload, {
-      headers: { "Content-Type": "Application/json" },
-      withCredentials: true,
-    });
-    const user: UserModel = response.data;
-    if (response) {
-      return user;
+    try {
+      const response = await axios.post("/api/auth/register", payload, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      });
+
+      if (!response) {
+        return rejectWithValue("No server response.");
+      }
+
+      return response.data;
+    } catch (err: any) {
+      console.error("Register error:", err);
+      return rejectWithValue(err.response?.data || "Registration failed.");
     }
   }
 );
@@ -59,6 +81,18 @@ export const userSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(handleLogin.rejected, (state, action) => {
+        state.isLoading = false;
+        state.user = null;
+        console.error(action);
+      })
+      .addCase(handleRegister.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload ?? null;
+      })
+      .addCase(handleRegister.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(handleRegister.rejected, (state, action) => {
         state.isLoading = false;
         state.user = null;
         console.error(action);
