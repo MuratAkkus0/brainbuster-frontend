@@ -21,6 +21,9 @@ export const useRegister: RegisterHook = () => {
         const registerData = item.payload as UserModel;
         if (registerData?.user) {
           dispatch(setUser(registerData));
+          localStorage.setItem("ut", registerData.token);
+        } else {
+          return new Error(registerData.message, { cause: 401 });
         }
         return registerData;
       })

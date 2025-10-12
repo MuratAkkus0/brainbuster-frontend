@@ -19,6 +19,7 @@ export const useLogin: LoginHook = () => {
     let res = dispatch(handleLogin(loginCredential))
       .then((item) => {
         const loginData = item.payload as UserModel;
+        localStorage.setItem("ut", loginData.token);
         return loginData;
       })
       .catch((err) => {
