@@ -1,6 +1,6 @@
 import { ClassicPageLayout } from "@/components/atoms/ClassicPageLayout";
 import { MainContainer } from "@/components/atoms/MainContainer";
-import { GameOverview } from "@/components/molecules/GameOverview";
+import { GameOverview } from "@/components/organisms/GameOverview";
 import { Header } from "@/components/molecules/Header";
 
 export const GameOverviewView = () => {

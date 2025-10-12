@@ -1,11 +1,27 @@
-import { AppSidebar } from "@/components/app-sidebar";
-import { ChartAreaInteractive } from "@/components/chart-area-interactive";
+import { AppSidebar } from "@/components/molecules/AppSidebar";
 import { DataTable } from "@/components/data-table";
-import { SectionCards } from "@/components/section-cards";
 import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { SectionCard } from "../molecules/SectionCard";
 
-import data from "./data.json";
+import data from "../molecules/data.json";
+import { ChartAreaInteractive } from "../molecules/ChartAreaInteractive";
+
+const SectionCards = () => {
+  return (
+    <>
+      <SectionCard
+        title="High Score"
+        titleVal="500"
+        tagBadgeVal="+12"
+        secondTitle="Rank"
+        secondVal="Top #14 Player"
+        firstBadgeIcon="IconTrendingUp"
+        secondBadgeIcon="IconTrendingUp"
+      />
+    </>
+  );
+};
 
 export default function AdminDashboard() {
   return (

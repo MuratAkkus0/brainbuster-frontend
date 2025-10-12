@@ -1,7 +1,7 @@
 import { ClassicPageLayout } from "@/components/atoms/ClassicPageLayout";
 import { MainContainer } from "@/components/atoms/MainContainer";
-import AdminDashboard from "@/components/molecules/AdminDashboard";
 import { Header } from "@/components/molecules/Header";
+import AdminDashboard from "@/components/organisms/AdminDashboard";
 
 export const AdminDashboardView = () => {
   return (
