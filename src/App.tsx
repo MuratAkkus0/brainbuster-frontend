@@ -8,6 +8,7 @@ import { GameOverviewView } from "./views/GameOverviewView.tsx";
 import { LogoutView } from "./views/LogoutView.tsx";
 import { RequireAuth } from "./components/RequireAuth.tsx";
 import { NotFoundView } from "./views/NotFoundView.tsx";
+import { UserDashboardView } from "./views/UserDashboardView.tsx";
 
 export const App = () => {
   return (
@@ -22,6 +23,7 @@ export const App = () => {
         {/* has to be authenticated */}
         <Route element={<RequireAuth />}>
           <Route path="/admin/dashboard" element={<AdminDashboardView />} />
+          <Route path="/dashboard" element={<UserDashboardView />} />
           <Route path="/quiz" element={<GameOverviewView />} />
         </Route>
 
