@@ -27,6 +27,7 @@ import { useRegister } from "@/hooks";
 import type { RegisterObjectModel } from "@/types/models/Auth/RegisterObjectModel";
 import { useNavigate } from "react-router";
 import { registerFormSchema } from "@/schemas/RegisterFormSchema";
+import { useState } from "react";
 
 const questions = questionsData.questions as string[];
 
@@ -76,6 +77,7 @@ const CustomRegisterForm = ({
   className,
   ...props
 }: React.ComponentProps<"div">) => {
+  const [apiFormError, setApiFormError] = useState("");
   const callRegister = useRegister();
   const navigate = useNavigate();
 
@@ -98,7 +100,6 @@ const CustomRegisterForm = ({
   });
 
   const onSubmit = async (e: RegisterForm) => {
-    console.log(e);
     const data: RegisterObjectModel = {
       username: e.username,
       password: e.password,
@@ -106,10 +107,13 @@ const CustomRegisterForm = ({
       secretQuestionAnswer: e.secretQuestionAnswer,
     };
     let res = await callRegister(data);
-    if (res instanceof Error && res.cause === 401) {
+    if (res?.isError && res.cause === 401) {
       setError("username", { message: "This username is already exists." });
+    } else if (res?.isError) {
+      setApiFormError(res.message);
     }
-    if (!(res instanceof Error)) {
+
+    if (!res?.isError) {
       reset();
       navigate("/");
     }
@@ -126,6 +130,7 @@ const CustomRegisterForm = ({
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
+            <FormErrorLabel errMsg={apiFormError} />
             <div className="flex flex-col gap-6 md:gap-8">
               <FormInputWrapper>
                 <Label htmlFor="username">Username</Label>

@@ -7,6 +7,7 @@ import {
   createSlice,
   type PayloadAction,
 } from "@reduxjs/toolkit";
+import type { AxiosError } from "axios";
 
 export interface UserState {
   isLoading: boolean;
@@ -28,9 +29,26 @@ export const handleLogin = createAsyncThunk(
         withCredentials: true,
       });
       return response.data;
-    } catch (error) {
+    } catch (err) {
+      const error = err as AxiosError;
       console.error(error);
-      return rejectWithValue(error);
+
+      // if there is a response
+      if (error.response) {
+        return rejectWithValue({
+          isError: true,
+          status: error.response.status,
+          message:
+            (error.response.data as any).message ||
+            "Login failed - Bad network.",
+        });
+      }
+      // no response , network problem
+      return rejectWithValue({
+        isError: true,
+        status: 501,
+        message: error.message || "Unexpected error.",
+      });
     }
   }
 );
@@ -45,14 +63,26 @@ export const handleRegister = createAsyncThunk(
         withCredentials: true,
       });
 
-      if (!response) {
-        return rejectWithValue("No server response.");
-      }
-
       return response.data;
     } catch (err: any) {
       console.error("Register error:", err);
-      return rejectWithValue(err.response?.data || "Registration failed.");
+      const error = err as AxiosError;
+      // if there is a response
+      if (error.response) {
+        return rejectWithValue({
+          isError: true,
+          status: error.response.status,
+          message:
+            (error.response.data as any).message ||
+            "Register failed - Bad network.",
+        });
+      }
+      // no response , network problem
+      return rejectWithValue({
+        isError: true,
+        status: 501,
+        message: error.message || "Unexpected error.",
+      });
     }
   }
 );
