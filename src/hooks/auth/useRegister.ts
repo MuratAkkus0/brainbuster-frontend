@@ -23,7 +23,7 @@ export const useRegister: RegisterHook = () => {
           dispatch(setUser(registerData));
           localStorage.setItem("ut", registerData.token);
         } else {
-          return new Error(registerData.message, { cause: 401 });
+          return registerData;
         }
         return registerData;
       })
@@ -31,6 +31,7 @@ export const useRegister: RegisterHook = () => {
         console.error(err);
         return err;
       });
+
     return result;
   };
   return register;
