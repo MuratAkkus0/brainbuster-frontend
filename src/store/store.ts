@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./slices/userSlice";
+import questionsReducer from "./slices/questionsSlice";
 import {
   persistStore,
   persistReducer,
@@ -12,23 +13,26 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-const persistConfig = {
-  key: "root",
-  version: 1,
-  debug: true,
-  writeFailHandler: (e: Error) => {
-    console.error("Persisting data process failed : ", e);
-  },
+const userConfig = {
+  key: "user",
   storage,
-  whiteList: ["userReducer"],
+  whiteList: ["user"],
+};
+const questionConfig = {
+  key: "question",
+  storage,
+  whiteList: ["questions"],
 };
 
-const persistedReducer = persistReducer(persistConfig, userReducer);
+const persistedUser = persistReducer(userConfig, userReducer);
+const persistedQuestions = persistReducer(questionConfig, questionsReducer);
 
 export const store = configureStore({
   reducer: {
-    user: persistedReducer,
+    user: persistedUser,
+    questions: persistedQuestions,
   },
+
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
