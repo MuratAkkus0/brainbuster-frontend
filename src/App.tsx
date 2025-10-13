@@ -23,7 +23,7 @@ export const App = () => {
         {/* has to be authenticated */}
         <Route element={<RequireAuth />}>
           <Route path="/admin/dashboard" element={<AdminDashboardView />} />
-          <Route path="/dashboard" element={<UserDashboardView />} />
+          <Route path="/profile" element={<UserDashboardView />} />
           <Route path="/quiz" element={<GameOverviewView />} />
         </Route>
 

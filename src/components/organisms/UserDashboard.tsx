@@ -6,28 +6,21 @@ import {
 } from "@/components/ui/sidebar";
 import { SectionCard } from "../molecules/SectionCard";
 import { Separator } from "@radix-ui/react-select";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "../ui/breadcrumb";
+import { UserInformationsCard } from "../molecules/UserInformationsCard";
+import { Button } from "../ui/button";
+import { Link } from "react-router";
 
 const SectionCards = () => {
   return (
-    <>
-      <SectionCard
-        title="High Score"
-        titleVal="500"
-        tagBadgeVal="+12"
-        secondTitle="Rank"
-        secondVal="Top #14 Player"
-        firstBadgeIcon="IconTrendingUp"
-        secondBadgeIcon="IconTrendingUp"
-      />
-    </>
+    <SectionCard
+      title="High Score"
+      titleVal="500"
+      tagBadgeVal="+12"
+      secondTitle="Rank"
+      secondVal="Top #14 Player"
+      firstBadgeIcon="IconTrendingUp"
+      secondBadgeIcon="IconTrendingUp"
+    />
   );
 };
 
@@ -44,9 +37,19 @@ export default function UserDashboard() {
         </header>
         <div className="flex flex-1 flex-col">
           <div className="@container/main flex flex-1 flex-col gap-2">
-            <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-              <SectionCards />
+            <div className="flex flex-wrap gap-4 px-4 py-4 md:gap-6 md:py-6">
+              <UserInformationsCard />
             </div>
+            <SectionCards />
+            <Link
+              to="/quiz"
+              onClick={() => localStorage.setItem("qm", "sp")}
+              className="max-w-1/2 cursor-pointer mx-auto"
+            >
+              <Button className="cursor-pointer bg-theme-accent text-theme-dark-bg hover:bg-theme-accent-hover">
+                Play Single Player
+              </Button>
+            </Link>
           </div>
         </div>
       </SidebarInset>

@@ -24,10 +24,7 @@ export const handleLogin = createAsyncThunk(
   async (payload: LoginObjectModel, { rejectWithValue }) => {
     try {
       console.log(payload);
-      const response = await axios.post("/api/auth/login", payload, {
-        headers: { "Content-Type": "Application/json" },
-        withCredentials: true,
-      });
+      const response = await axios.post("/api/auth/login", payload);
       return response.data;
     } catch (err) {
       const error = err as AxiosError;
@@ -58,10 +55,7 @@ export const handleRegister = createAsyncThunk(
     console.log("handle register triggered");
 
     try {
-      const response = await axios.post("/api/auth/register", payload, {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-      });
+      const response = await axios.post("/api/auth/register", payload);
 
       return response.data;
     } catch (err: any) {

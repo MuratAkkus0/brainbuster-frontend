@@ -1,20 +1,46 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./slices/userSlice";
-import { persistStore, persistReducer } from "redux-persist";
+import questionsReducer from "./slices/questionsSlice";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-const persistConfig = {
-  key: "root",
+const userConfig = {
+  key: "user",
   storage,
+  whiteList: ["user"],
+};
+const questionConfig = {
+  key: "question",
+  storage,
+  whiteList: ["questions"],
 };
 
-const persistedReducer = persistReducer(persistConfig, userReducer);
+const persistedUser = persistReducer(userConfig, userReducer);
+const persistedQuestions = persistReducer(questionConfig, questionsReducer);
 
 export const store = configureStore({
   reducer: {
-    user: persistedReducer,
+    user: persistedUser,
+    questions: persistedQuestions,
   },
+
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
+
 export const persistor = persistStore(store);
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

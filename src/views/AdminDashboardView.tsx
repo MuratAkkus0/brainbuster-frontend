@@ -7,8 +7,8 @@ export const AdminDashboardView = () => {
   return (
     <>
       <ClassicPageLayout>
-        <Header className="row-start-1 row-end-3" />
         <MainContainer className="row-start-3 row-end-13 md:py-0 items-center">
+          <Header className="row-start-1 row-end-3" />
           <AdminDashboard />
         </MainContainer>
       </ClassicPageLayout>
