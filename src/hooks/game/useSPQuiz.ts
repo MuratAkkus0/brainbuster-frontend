@@ -27,29 +27,24 @@ export const useSPQuiz = () => {
       category,
       difficulty,
     });
-    console.log(res.data);
     return res.data;
   };
   const startSession: StartSession = async (sessionId) => {
     const res = await axios.post(`/api/sp/sessions/${sessionId}/start`);
-    console.log(res.data);
     return res.data;
   };
   const answerQuestion: AnswerQuestion = async (sessionId, choiceId) => {
     const res = await axios.post(`/api/sp/sessions/${sessionId}/answer`, {
       choiceId: choiceId,
     });
-    console.log(res.data);
     return res.data;
   };
   const getCurrentSessionInfo: GetCurrentSessionInfo = async (sessionId) => {
     const res = await axios.get(`/api/sp/sessions/${sessionId}`);
-    console.log(res.data);
     return res.data;
   };
   const getCurrentQuestion: GetCurrentQuestion = async (sessionId) => {
     const res = await axios.get(`/api/sp/sessions/${sessionId}/current`);
-    console.log(res.data);
     return res.data;
   };
 

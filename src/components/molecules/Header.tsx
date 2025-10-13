@@ -99,7 +99,7 @@ export const Header = ({ className }: { className?: string }) => {
             {isAuthenticated ? (
               <>
                 <CustomNavigationMenu route="/profile">
-                  <span>Hi {user.user?.user?.username} ! </span>
+                  <span>Profile</span>
                 </CustomNavigationMenu>
                 <CustomNavigationMenu route="/logout">
                   Logout

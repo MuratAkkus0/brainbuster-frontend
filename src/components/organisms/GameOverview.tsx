@@ -1,14 +1,11 @@
 import { cn } from "@/lib/utils";
 import { UserAvatar } from "../atoms/UserAvatar";
-import {
-  useEffect,
-  useState,
-  type HTMLAttributes,
-  type MouseEventHandler,
-} from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks";
 import type { UserModel } from "@/types/models/Auth/UserModel";
 import { useSPQuiz } from "@/hooks/game/useSPQuiz";
+import { useGetQuestions, type Question } from "@/hooks/useGetQuestions";
+import { QuizChoice } from "../atoms/QuizChoice";
 
 const quizChoiceTagArr = ["A", "B", "C", "D"];
 
@@ -37,42 +34,21 @@ const UserAvatarContainer = ({
   );
 };
 
-interface QuizChoiceProps extends HTMLAttributes<HTMLDivElement> {
-  onClick: MouseEventHandler<HTMLDivElement>;
-  tag: string;
-  children: string;
-}
-
-const QuizChoice: React.FC<QuizChoiceProps> = ({
-  onClick,
-  tag,
-  children,
-  ...props
-}) => {
-  return (
-    <div
-      {...props}
-      onClick={onClick}
-      className="grid grid-cols-12 grid-rows-1 border-2 items-center justify-items-center cursor-pointer"
-    >
-      <div className="col-span-3 bg-theme-accent w-full h-full flex items-center justify-center font-bold text-2xl">
-        {tag}
-      </div>
-      <div className="col-span-9 text-theme-main-text text-lg md:text-xl justify-self-start px-4">
-        {children}
-      </div>
-    </div>
-  );
-};
 interface Choice {
   choiceId: string;
   text: string;
 }
 export const GameOverview = () => {
+  const getQuestions = useGetQuestions();
+  const [questionList, setQuestionList] = useState<Question[]>([]);
   const { user } = useAuth().user;
   const [quiz, setQuiz] = useState({
     sessionId: "",
     answerId: "",
+    choosedAnswerId: "",
+    correctAnswerChoiceId: "",
+    isUserChoosed: false,
+    currentQuestionId: 0,
     state: "",
     currentQuestion: {
       choices: [] as Choice[],
@@ -82,24 +58,28 @@ export const GameOverview = () => {
     },
     totalQuestion: 0,
   });
-  const {
-    createSession,
-    startSession,
-    answerQuestion,
-    getCurrentQuestion,
-    getCurrentSessionInfo,
-  } = useSPQuiz();
-  const quizLS: Partial<typeof quiz> = JSON.parse(
-    localStorage.getItem("quiz") || "{}"
-  );
+  const { createSession, startSession, answerQuestion, getCurrentSessionInfo } =
+    useSPQuiz();
+
   const gameMode = localStorage.getItem("qm");
 
   useEffect(() => {
-    console.log(quizLS);
-    if (!quizLS || !quizLS?.sessionId) {
-      console.log(true);
+    console.log("get questions");
+    getQuestions().then((res: any) => {
+      console.log(res);
+      setQuestionList(res);
+    });
+  }, []);
+
+  useEffect(() => {
+    console.log("quiz changed");
+    console.log(quiz);
+  }, [quiz]);
+
+  // Create Session
+  useEffect(() => {
+    if (!quiz.sessionId) {
       createSession("test", "easy", 10).then((res: any) => {
-        console.log(res);
         setQuiz((prev) => ({
           ...prev,
           sessionId: res.sessionId,
@@ -108,43 +88,65 @@ export const GameOverview = () => {
         }));
       });
     }
-    return () => localStorage.removeItem("quiz");
+    // return () => localStorage.removeItem("quiz");
   }, []);
 
+  // Start Session
   useEffect(() => {
-    if (quiz.sessionId && quiz.state != "RUNNING") {
+    if (quiz.sessionId && quiz.state !== "RUNNING") {
       startSession(quiz.sessionId).then((res: any) => {
         console.log(res);
         setQuiz((prev) => ({
           ...prev,
-          currentQuestion: res.current,
           state: res.state,
+          currentQuestion: res.current,
+          currentQuestionId: res.current.questionId,
         }));
       });
-      if (quiz.sessionId && quiz.state == "RUNNING") {
-        getCurrentQuestion(quiz.sessionId).then((res: any) => {
-          console.log("------------------");
-          console.log(res);
-        });
-      }
     }
+  }, [quiz.sessionId]);
+
+  // Get Current Session Info
+  useEffect(() => {
     if (quiz.sessionId) {
-      getCurrentSessionInfo(quiz.sessionId).then((res: any) => {
-        console.log("..................");
-        console.log(res);
-        console.log("..................");
-      });
+      getCurrentSessionInfo(quiz.sessionId);
     }
-    localStorage.setItem("quiz", JSON.stringify(quiz));
-    console.log(quiz);
-  }, [quiz]);
+  }, [quiz.sessionId]);
 
   const handleChooseAnswer = (e: React.MouseEvent<HTMLDivElement>) => {
     const choiceId = e.currentTarget.dataset.id;
-    if (choiceId) {
-      answerQuestion(quiz.sessionId, choiceId);
-      setQuiz((prev) => ({ ...prev, answerId: choiceId }));
-    }
+    if (!choiceId) return;
+
+    const correctAnswerText =
+      questionList[quiz.currentQuestionId].correctAnswer;
+    const correctAnswer = quiz.currentQuestion.choices.find(
+      (item) => item.text === correctAnswerText
+    );
+
+    if (!correctAnswer) return;
+
+    // set isUserChoosed
+    setQuiz((prev) => ({
+      ...prev,
+      choosedAnswerId: choiceId,
+      correctAnswerChoiceId: correctAnswer.choiceId,
+      isUserChoosed: true,
+    }));
+
+    // API call
+    answerQuestion(quiz.sessionId, choiceId).then((res) => {
+      // Wait for be able to show right and wrong answers
+      setTimeout(() => {
+        setQuiz((prev) => ({
+          ...prev,
+          currentQuestion: res.next,
+          currentQuestionId: res.next.questionId,
+          isUserChoosed: false, // yeni soruya geçince resetle
+          choosedAnswerId: "",
+          correctAnswerChoiceId: "",
+        }));
+      }, 2000);
+    });
   };
 
   return (
@@ -158,17 +160,31 @@ export const GameOverview = () => {
           </div>
         </div>
         <div className="bg-theme-dark-bg row-start-8 row-end-13 grid grid-cols-2 grid-rows-2">
-          {quiz.currentQuestion.choices &&
-            quiz.currentQuestion.choices.map((item, i) => (
+          {[].map(() => {
+            return <></>;
+          })}
+          {quiz.currentQuestion?.choices.map((item, i) => {
+            const isCorrect = item.choiceId === quiz.correctAnswerChoiceId;
+            const isChosen = item.choiceId === quiz.choosedAnswerId;
+
+            let bg = "";
+            if (quiz.isUserChoosed) {
+              if (isCorrect) bg = "bg-green-500";
+              else if (isChosen && !isCorrect) bg = "bg-red-500";
+            }
+
+            return (
               <QuizChoice
-                onClick={handleChooseAnswer}
                 key={i}
-                tag={quizChoiceTagArr[i]}
                 data-id={item.choiceId}
+                onClick={handleChooseAnswer}
+                className={cn(bg)}
+                tag={quizChoiceTagArr[i]}
               >
                 {item.text}
               </QuizChoice>
-            ))}
+            );
+          })}
         </div>
       </div>
     </>
