@@ -7,13 +7,8 @@ export const RequireAuth = () => {
 
   const localStorageToken = localStorage.getItem("ut");
   const storeToken = user.user?.token;
-  let token;
   let isAuth = false;
-  if (!storeToken && localStorageToken) {
-    token = localStorageToken;
-  } else if (storeToken && !localStorageToken) {
-    token = localStorageToken;
-  }
+
   if (storeToken && localStorageToken) {
     if (storeToken !== localStorageToken) {
       isAuth = false;

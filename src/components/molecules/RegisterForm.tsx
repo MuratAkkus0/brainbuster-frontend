@@ -107,12 +107,13 @@ const CustomRegisterForm = ({
       secretQuestionAnswer: e.secretQuestionAnswer,
     };
     let res = await callRegister(data);
+    console.log(res);
     if (res?.isError && res.cause === 401) {
       setError("username", { message: "This username is already exists." });
     } else if (res?.isError) {
       setApiFormError(res.message);
     }
-
+    console.log(res);
     if (!res?.isError) {
       reset();
       navigate("/");

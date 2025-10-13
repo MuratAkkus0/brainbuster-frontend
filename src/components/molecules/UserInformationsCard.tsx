@@ -6,7 +6,6 @@ import {
 } from "@/components/ui/card";
 import { UserAvatar } from "../atoms/UserAvatar";
 import { useAuth } from "@/hooks";
-import type { UserModel } from "@/types/models/Auth/UserModel";
 
 export const UserInformationsCard = () => {
   const user = useAuth();
