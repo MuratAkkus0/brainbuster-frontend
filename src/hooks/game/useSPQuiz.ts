@@ -1,7 +1,7 @@
 import axios from "@/api/axios";
 
 interface CreateSession {
-  (category: string, difficulty: string, numQuestions: number): any;
+  (numQuestions: number): any;
 }
 interface StartSession {
   (sessionId: string): any;
@@ -17,16 +17,11 @@ interface GetCurrentQuestion {
 }
 
 export const useSPQuiz = () => {
-  const createSession: CreateSession = async (
-    category = "general",
-    difficulty = "easy",
-    numQuestions = 10
-  ) => {
+  const createSession: CreateSession = async (numQuestions = 10) => {
     const res = await axios.post("/api/sp/sessions", {
       numQuestions,
-      category,
-      difficulty,
     });
+    console.log(res);
     return res.data;
   };
   const startSession: StartSession = async (sessionId) => {
@@ -45,6 +40,7 @@ export const useSPQuiz = () => {
   };
   const getCurrentQuestion: GetCurrentQuestion = async (sessionId) => {
     const res = await axios.get(`/api/sp/sessions/${sessionId}/current`);
+    console.log(res.data);
     return res.data;
   };
 
