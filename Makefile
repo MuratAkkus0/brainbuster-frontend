@@ -4,7 +4,7 @@ ACTIVE_BRANCH := $(shell git branch -v | grep '*' | tr -d '*' | tr -d ' ')
 
 #Docker
 mysql-sh:
-	docker compose exec mysql mysql -u root -p brainbusterdb
+	docker exec -it brainbuster-mysql sh -c "mysql -u root brainbusterdb -prootroot";
 
 #Git
 update:
