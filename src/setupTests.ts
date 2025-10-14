@@ -1,13 +1,13 @@
 import "@testing-library/jest-dom";
 import { cleanup } from "@testing-library/react";
-import { TextEncoder, TextDecoder } from "util";
 
-// Polyfill TextEncoder/TextDecoder for Node.js
+// Polyfill TextEncoder/TextDecoder for Node.js (if not available)
+// Modern Node.js (18+) has these globals built-in
 if (typeof globalThis.TextEncoder === "undefined") {
+  // @ts-ignore - Polyfill for older Node versions
+  const { TextEncoder, TextDecoder } = require("util");
   globalThis.TextEncoder = TextEncoder;
-}
-if (typeof globalThis.TextDecoder === "undefined") {
-  globalThis.TextDecoder = TextDecoder as any;
+  globalThis.TextDecoder = TextDecoder;
 }
 
 // Cleanup after each test
@@ -57,22 +57,24 @@ beforeAll(() => {
   // Suppress console.error for known issues and test artifacts
   console.error = (...args: any[]) => {
     const errorString = String(args[0]);
-    
+
     // Suppress known warnings and test-related errors
     if (
       errorString.includes("Warning: ReactDOM.render") ||
-      errorString.includes("Not implemented: HTMLFormElement.prototype.submit") ||
+      errorString.includes(
+        "Not implemented: HTMLFormElement.prototype.submit"
+      ) ||
       errorString.includes("Login error:") ||
       errorString.includes("type:")
     ) {
       return;
     }
-    
+
     // Suppress Redux action logs
     if (typeof args[0] === "object" && (args[0]?.type || args[0]?.response)) {
       return;
     }
-    
+
     originalError.call(console, ...args);
   };
 
