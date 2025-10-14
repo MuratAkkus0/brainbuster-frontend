@@ -53,7 +53,6 @@ export const CreateQuestionDialog = ({
     formState: { errors },
     control,
     setValue,
-    watch,
     reset,
   } = useForm<CreateQuestionFormData>({
     defaultValues: {
@@ -68,7 +67,7 @@ export const CreateQuestionDialog = ({
   });
 
   const { fields, append, remove } = useFieldArray({
-    control,
+    control: control as any,
     name: "incorrectAnswers",
   });
 
@@ -170,7 +169,7 @@ export const CreateQuestionDialog = ({
                 type="button"
                 variant="outline"
                 size="sm"
-                onClick={() => append("")}
+                onClick={() => append("" as any)}
                 disabled={isLoading}
               >
                 <Plus className="h-4 w-4 mr-1" />

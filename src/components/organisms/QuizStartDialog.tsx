@@ -49,7 +49,6 @@ export const QuizStartDialog = ({
   const [numQuestionsInput, setNumQuestionsInput] = useState<string>("10");
 
   const {
-    register,
     handleSubmit,
     formState: { errors },
     setValue,
