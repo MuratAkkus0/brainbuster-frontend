@@ -74,7 +74,7 @@ export const GameOverview = () => {
     totalQuestion: 0,
     category: "",
   });
-  const { createSession, startSession, answerQuestion } = useSPQuiz();
+  const { createSession, startSession, answerQuestion, getCurrentSessionInfo } = useSPQuiz();
 
   const gameMode = localStorage.getItem("qm");
 
@@ -177,32 +177,42 @@ export const GameOverview = () => {
 
     // API call
     answerQuestion(quiz.sessionId, choiceId)
-      .then((res: any) => {
+      .then(async (res: any) => {
         console.log("Answer response:", res);
         
         // Check if game is over
-        if (!res.next || res.state === "COMPLETED") {
-          // Game is finished - calculate results
-          setTimeout(() => {
-            const correctCount = res.correctAnswers || 0;
-            const wrongCount = quiz.totalQuestion - correctCount;
-            const finalScore = res.score || res.highScore || 0;
+        if (!res.next || res.state === "FINISHED" || res.state === "COMPLETED") {
+          // Game is finished - fetch final session info
+          try {
+            const sessionInfo = await getCurrentSessionInfo(quiz.sessionId);
+            console.log("Session info response:", sessionInfo);
             
-            console.log("Game Over - Setting results:", {
-              score: finalScore,
-              correctAnswers: correctCount,
-              wrongAnswers: wrongCount,
-              totalQuestions: quiz.totalQuestion,
-            });
-            
-            setGameResult({
-              score: finalScore,
-              correctAnswers: correctCount,
-              wrongAnswers: wrongCount,
-              totalQuestions: quiz.totalQuestion,
-            });
-            setIsGameOverDialogOpen(true);
-          }, 2000);
+            setTimeout(() => {
+              const totalQuestionsCount = sessionInfo.totalQuestions || quiz.totalQuestion;
+              const correctCount = sessionInfo.correctAnswers || 0;
+              const wrongCount = totalQuestionsCount - correctCount;
+              const finalScore = res.score || res.highScore || 0;
+              
+              console.log("Game Over - Setting results:", {
+                score: finalScore,
+                correctAnswers: correctCount,
+                wrongAnswers: wrongCount,
+                totalQuestions: totalQuestionsCount,
+                sessionState: sessionInfo.state,
+              });
+              
+              setGameResult({
+                score: finalScore,
+                correctAnswers: correctCount,
+                wrongAnswers: wrongCount,
+                totalQuestions: totalQuestionsCount,
+              });
+              setIsGameOverDialogOpen(true);
+            }, 2000);
+          } catch (error) {
+            console.error("Error fetching session info:", error);
+            toast.error("Failed to load game results. Please try again.");
+          }
         } else {
           // Continue to next question
           setTimeout(() => {
