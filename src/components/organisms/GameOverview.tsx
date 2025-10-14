@@ -118,6 +118,7 @@ export const GameOverview = () => {
     if (!choiceId) return;
 
     console.log(questionList);
+    console.log(quiz);
     const correctAnswerText =
       questionList[quiz.currentQuestion.questionId - 1].correctAnswer;
     const correctAnswer = quiz.currentQuestion.choices.find(

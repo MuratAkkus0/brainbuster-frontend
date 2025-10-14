@@ -1,0 +1,98 @@
+[
+  {
+    "type": "david",
+    "difficulty": "hard",
+    "category": "debug",
+    "question": "Why the API returns 200 but frontend shows an error?",
+    "correctAnswer": "Response shape mismatched with expected schema.",
+    "incorrectAnswers": ["Server timeout", "CORS issue", "Wrong endpoint"]
+  },
+  {
+    "type": "david",
+    "difficulty": "hard",
+    "category": "debug",
+    "question": "Why my Docker container works locally but fails in CI?",
+    "correctAnswer": "Environment variables are missing in CI.",
+    "incorrectAnswers": ["Port conflict", "Out of memory", "Image corrupted"]
+  },
+  {
+    "type": "david",
+    "difficulty": "hard",
+    "category": "debug",
+    "question": "Why database migrations run locally but fail in production?",
+    "correctAnswer": "Production DB user lacks required permissions.",
+    "incorrectAnswers": [
+      "Syntax error in SQL",
+      "Missing ORM config",
+      "Bad network connection"
+    ]
+  },
+  {
+    "type": "david",
+    "difficulty": "hard",
+    "category": "debug",
+    "question": "Why my Node.js app crashes only after several hours?",
+    "correctAnswer": "Memory leak accumulating over time.",
+    "incorrectAnswers": ["Syntax error", "Infinite loop", "Database locked"]
+  },
+  {
+    "type": "david",
+    "difficulty": "hard",
+    "category": "debug",
+    "question": "Why my Nginx reverse proxy randomly drops requests?",
+    "correctAnswer": "Upstream timeout misconfiguration.",
+    "incorrectAnswers": ["Port mismatch", "SSL expired", "DNS cache issue"]
+  },
+  {
+    "type": "david",
+    "difficulty": "hard",
+    "category": "debug",
+    "question": "Why the app works in dev mode but fails after build?",
+    "correctAnswer": "Environment-specific paths or variables missing in production build.",
+    "incorrectAnswers": [
+      "Wrong npm version",
+      "Cache not cleared",
+      "Port blocked"
+    ]
+  },
+  {
+    "type": "david",
+    "difficulty": "hard",
+    "category": "debug",
+    "question": "Why the backend logs show correct output but frontend gets 500?",
+    "correctAnswer": "Response serialization failed.",
+    "incorrectAnswers": [
+      "Network latency",
+      "JSON parsing error",
+      "CORS misconfiguration"
+    ]
+  },
+  {
+    "type": "david",
+    "difficulty": "hard",
+    "category": "debug",
+    "question": "Why the Python Flask app restarts repeatedly in Docker?",
+    "correctAnswer": "Container health check failing continuously.",
+    "incorrectAnswers": [
+      "Code syntax error",
+      "Port unavailable",
+      "Gunicorn misconfigured"
+    ]
+  },
+  {
+    "type": "david",
+    "difficulty": "hard",
+    "category": "debug",
+    "question": "Why my HTTPS endpoint shows invalid certificate only on Android?",
+    "correctAnswer": "Intermediate certificate not included in chain.",
+    "incorrectAnswers": ["Expired cert", "Wrong domain", "TLS version mismatch"]
+  },
+  {
+    "type": "david",
+    "difficulty": "hard",
+    "category": "debug",
+    "question": "Why the GitHub Action workflow fails on checkout?",
+    "correctAnswer": "Token permission insufficient for private submodules.",
+    "incorrectAnswers": ["Wrong branch", "YAML indentation", "Runner offline"]
+  }
+]

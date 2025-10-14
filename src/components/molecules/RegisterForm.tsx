@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import questionsData from "./secQuestions.json";
+import questionsData from "../../../public/data/secQuestions.json";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { FormErrorLabel } from "../atoms/FormErrorLabel";

@@ -1,4 +1,3 @@
-import { useAuth } from "@/hooks";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -30,7 +29,7 @@ const initialState: QuestionsState = {
 
 export const getAllQuestions = createAsyncThunk(
   "getAllQuestions",
-  async (token, { rejectWithValue }) => {
+  async (token: string, { rejectWithValue }) => {
     try {
       const data = await axios.get("/api/questions", {
         headers: {
