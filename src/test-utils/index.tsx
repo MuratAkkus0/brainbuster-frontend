@@ -52,7 +52,13 @@ export function renderWithProviders(
   };
 }
 
-// Re-export everything
+// Re-export everything from testing-library
 export * from '@testing-library/react';
 export { default as userEvent } from '@testing-library/user-event';
+
+// Export test utilities
+export * from './testConstants';
+export * from './testHelpers';
+export * from './mockApi';
+export * from './mockData';
 
