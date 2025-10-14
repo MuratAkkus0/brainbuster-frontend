@@ -23,10 +23,13 @@ const UserAvatarContainer = ({
   return (
     <>
       <div
-        className={cn("absolute ", position == "left" ? "left-4" : "right-4")}
+        className={cn(
+          "md:block hidden absolute ",
+          position == "left" ? "left-4" : "right-4"
+        )}
       >
         <div className="bg-theme-main-bg p-2">
-          <UserAvatar />
+          <UserAvatar className="size-32 lg:size-48" />
         </div>
         {user && (
           <div className="w-full p-2 text-center font-bold">
@@ -74,7 +77,8 @@ export const GameOverview = () => {
     totalQuestion: 0,
     category: "",
   });
-  const { createSession, startSession, answerQuestion, getCurrentSessionInfo } = useSPQuiz();
+  const { createSession, startSession, answerQuestion, getCurrentSessionInfo } =
+    useSPQuiz();
 
   const gameMode = localStorage.getItem("qm");
 
@@ -179,30 +183,34 @@ export const GameOverview = () => {
     answerQuestion(quiz.sessionId, choiceId)
       .then(async (res: any) => {
         console.log("Answer response:", res);
-        
+
         // Check if game is over
-        if (!res.next || res.state === "FINISHED" || res.state === "COMPLETED") {
+        if (
+          !res.next ||
+          res.state === "FINISHED" ||
+          res.state === "COMPLETED"
+        ) {
           // Game is finished - fetch final session info
           try {
             const sessionInfo = await getCurrentSessionInfo(quiz.sessionId);
             console.log("Session info response:", sessionInfo);
-            
+
             setTimeout(() => {
-              const totalQuestionsCount = sessionInfo.totalQuestions || quiz.totalQuestion;
+              const totalQuestionsCount =
+                sessionInfo.totalQuestions || quiz.totalQuestion;
               const correctCount = sessionInfo.correctAnswers || 0;
               const wrongCount = totalQuestionsCount - correctCount;
-              const finalScore = res.score || res.highScore || 0;
-              
+
               console.log("Game Over - Setting results:", {
-                score: finalScore,
+                score: correctCount,
                 correctAnswers: correctCount,
                 wrongAnswers: wrongCount,
                 totalQuestions: totalQuestionsCount,
                 sessionState: sessionInfo.state,
               });
-              
+
               setGameResult({
-                score: finalScore,
+                score: correctCount,
                 correctAnswers: correctCount,
                 wrongAnswers: wrongCount,
                 totalQuestions: totalQuestionsCount,
@@ -252,7 +260,7 @@ export const GameOverview = () => {
         <div className="bg-theme-second-bg row-start-1 row-end-8 flex items-center justify-center relative">
           {gameMode === "mp" && <UserAvatarContainer position="left" />}
           <UserAvatarContainer position="right" user={user ?? undefined} />
-          <div className="p-4 text-2xl md:text-3xl font-medium">
+          <div className="max-w-[55%] xl:max-w-full text-center p-4 text-2xl md:text-3xl font-medium">
             {quiz.currentQuestion?.prompt || "Loading..."}
           </div>
         </div>
