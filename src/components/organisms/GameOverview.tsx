@@ -25,7 +25,7 @@ const UserAvatarContainer = ({
         )}
       >
         <div className="bg-theme-main-bg p-2">
-          <UserAvatar />
+          <UserAvatar className="size-24 lg:size-48" />
         </div>
         {user && (
           <div className="w-full p-2 text-center font-bold">
@@ -161,7 +161,7 @@ export const GameOverview = () => {
         <div className="bg-theme-second-bg row-start-1 row-end-8 flex items-center justify-center relative">
           {gameMode === "mp" && <UserAvatarContainer position="left" />}
           <UserAvatarContainer position="right" user={user ?? undefined} />
-          <div className="p-4 text-2xl md:text-3xl font-medium">
+          <div className="p-4 text-2xl md:text-3xl font-medium text-center max-w-[90%] sm:max-w-[50%]">
             {quiz.currentQuestion?.prompt || ""}
           </div>
         </div>
