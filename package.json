@@ -8,9 +8,10 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
+    "test:functional": "jest --testPathPatterns=functional",
     "test:ci": "jest --ci --coverage --maxWorkers=2"
   },
   "dependencies": {
