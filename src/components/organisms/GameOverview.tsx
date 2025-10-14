@@ -140,20 +140,33 @@ export const GameOverview = () => {
   };
 
   const handleChooseAnswer = (e: React.MouseEvent<HTMLDivElement>) => {
+    // Prevent multiple selections
+    if (quiz.isUserChoosed) return;
+
     const choiceId = e.currentTarget.dataset.id;
     if (!choiceId) return;
 
-    console.log(questionList);
-    console.log(quiz);
-    const correctAnswerText =
-      questionList[quiz.currentQuestion.questionId - 1].correctAnswer;
+    // Find the correct question by ID, not by index
+    const currentQuestion = questionList.find(
+      (q) => q.id === quiz.currentQuestion.questionId
+    );
+
+    if (!currentQuestion) {
+      console.error("Question not found in question list");
+      return;
+    }
+
+    const correctAnswerText = currentQuestion.correctAnswer;
     const correctAnswer = quiz.currentQuestion.choices.find(
       (item) => item.text === correctAnswerText
     );
 
-    if (!correctAnswer) return;
+    if (!correctAnswer) {
+      console.error("Correct answer not found in choices");
+      return;
+    }
 
-    // set isUserChoosed
+    // set isUserChoosed - this prevents further clicks
     setQuiz((prev) => ({
       ...prev,
       choosedAnswerId: choiceId,
@@ -225,7 +238,10 @@ export const GameOverview = () => {
                 key={i}
                 data-id={item.choiceId}
                 onClick={handleChooseAnswer}
-                className={cn(bg)}
+                className={cn(
+                  bg,
+                  quiz.isUserChoosed && "pointer-events-none cursor-not-allowed"
+                )}
                 tag={quizChoiceTagArr[i]}
               >
                 {item.text}
@@ -236,10 +252,7 @@ export const GameOverview = () => {
       </div>
 
       {/* Quiz Start Dialog */}
-      <Dialog
-        open={isQuizStartDialogOpen}
-        onOpenChange={setIsQuizStartDialogOpen}
-      >
+      <Dialog open={isQuizStartDialogOpen} onOpenChange={setIsQuizStartDialogOpen}>
         <QuizStartDialog
           onStart={handleStartQuiz}
           availableCategories={availableCategories}
