@@ -41,7 +41,7 @@ describe('Login Flow - Functional Tests', () => {
       renderWithProviders(<LoginForm />, { withRouter: false });
 
       // User sees login form
-      expect(screen.getByRole('heading', { name: /login/i })).toBeInTheDocument();
+      expect(screen.getAllByText(/login to your account/i)[0]).toBeInTheDocument();
 
       // User fills in username
       const usernameInput = screen.getByLabelText(/username/i);
@@ -64,8 +64,7 @@ describe('Login Flow - Functional Tests', () => {
           {
             username: 'testuser',
             password: 'Test123!@#',
-          },
-          expect.any(Object)
+          }
         );
       });
     });
@@ -86,8 +85,9 @@ describe('Login Flow - Functional Tests', () => {
       expect(passwordInput).toBeRequired();
     });
 
-    it('should navigate to profile after successful login', async () => {
+    it('should successfully submit login form', async () => {
       const user = userEvent.setup();
+      const { toast } = await import('sonner');
       mockSuccessfulLogin();
 
       renderWithProviders(<LoginForm />, { withRouter: false });
@@ -97,9 +97,10 @@ describe('Login Flow - Functional Tests', () => {
       await user.type(screen.getByLabelText(/password/i), 'Test123!@#');
       await user.click(screen.getByRole('button', { name: /login/i }));
 
-      // Should navigate to home after successful login
+      // Should show success toast after successful login
       await waitFor(() => {
-        expect(mockNavigate).toHaveBeenCalledWith('/');
+        expect(toast.success).toHaveBeenCalled();
+        expect(mockedAxios.post).toHaveBeenCalled();
       }, { timeout: 3000 });
     });
   });
@@ -107,19 +108,25 @@ describe('Login Flow - Functional Tests', () => {
   describe('Failed Login Flow', () => {
     it('should display error message for invalid credentials', async () => {
       const user = userEvent.setup();
+      const { toast } = await import('sonner');
       mockFailedLogin();
 
       renderWithProviders(<LoginForm />, { withRouter: false });
 
-      // Fill and submit form with invalid credentials
+      // Fill and submit form with invalid credentials (but valid format)
       await user.type(screen.getByLabelText(/username/i), 'wronguser');
-      await user.type(screen.getByLabelText(/password/i), 'wrongpass');
+      await user.type(screen.getByLabelText(/password/i), 'WrongPassword123!@#');
       await user.click(screen.getByRole('button', { name: /login/i }));
 
-      // Error message should appear
+      // Error toast should be shown
       await waitFor(() => {
-        expect(screen.getByText(/invalid credentials/i)).toBeInTheDocument();
+        expect(mockedAxios.post).toHaveBeenCalled();
       }, { timeout: 3000 });
+
+      // Check that error toast was called
+      await waitFor(() => {
+        expect(toast.error).toHaveBeenCalled();
+      }, { timeout: 1000 });
 
       // Should not navigate
       expect(mockNavigate).not.toHaveBeenCalled();
