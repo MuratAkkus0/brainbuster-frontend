@@ -1,11 +1,11 @@
-import { render, RenderOptions } from '@testing-library/react';
-import { ReactElement } from 'react';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router';
-import { configureStore } from '@reduxjs/toolkit';
-import userReducer from '@/store/slices/userSlice';
-import questionsReducer from '@/store/slices/questionsSlice';
-import appReducer from '@/store/slices/appSlice';
+import { render, type RenderOptions } from "@testing-library/react";
+import { type ReactElement } from "react";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router";
+import { configureStore } from "@reduxjs/toolkit";
+import userReducer from "@/store/slices/userSlice";
+import questionsReducer from "@/store/slices/questionsSlice";
+import appReducer from "@/store/slices/appSlice";
 
 // Create a test store
 export const createTestStore = (preloadedState = {}) => {
@@ -20,7 +20,7 @@ export const createTestStore = (preloadedState = {}) => {
 };
 
 // Custom render with providers
-interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
+interface CustomRenderOptions extends Omit<RenderOptions, "wrapper"> {
   preloadedState?: any;
   store?: ReturnType<typeof createTestStore>;
   withRouter?: boolean;
@@ -37,11 +37,11 @@ export function renderWithProviders(
 ) {
   function Wrapper({ children }: { children: React.ReactNode }) {
     const content = <Provider store={store}>{children}</Provider>;
-    
+
     if (withRouter) {
       return <BrowserRouter>{content}</BrowserRouter>;
     }
-    
+
     return content;
   }
 
@@ -52,6 +52,5 @@ export function renderWithProviders(
 }
 
 // Re-export everything from React Testing Library
-export * from '@testing-library/react';
-export { default as userEvent } from '@testing-library/user-event';
-
+export * from "@testing-library/react";
+export { default as userEvent } from "@testing-library/user-event";
