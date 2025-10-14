@@ -1,3 +1,4 @@
+/// <reference types="@testing-library/jest-dom" />
 import { screen } from '@testing-library/react';
 import { Hero } from '@/components/molecules/Hero';
 import { renderWithProviders } from '@/test-utils';
