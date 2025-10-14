@@ -1,0 +1,78 @@
+name: Deploy Frontend on main
+
+on:
+  push:
+    branches: [ main ]
+
+concurrency:
+  group: fe-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build
+        env:
+          # ensure same-origin /api in prod builds
+          VITE_API_BASE: /api
+        run: npm run build
+
+      # Upload the build to a staging folder on the VPS
+      - name: Upload dist/ to VPS (staging)
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_SSH_PORT }}
+          source: "dist/*"
+          target: "${{ secrets.SERVER_FE_STAGING || '/home/deploy/fe-upload' }}-${{ github.sha }}/"
+
+      # Publish: move to nginx webroot atomically, set perms, reload nginx
+      - name: Publish on server
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_SSH_PORT }}
+          script: |
+            set -euo pipefail
+            NEW="${{ secrets.SERVER_FE_STAGING || '/home/deploy/fe-upload' }}-${{ github.sha }}"
+            WEBROOT="${{ secrets.SERVER_FE_WEBROOT }}"
+
+            # Ensure rsync exists (fast, --delete safe updates)
+            if ! command -v rsync >/dev/null 2>&1; then
+              sudo apt-get update -y && sudo apt-get install -y rsync
+            fi
+
+            # Make sure webroot exists
+            sudo mkdir -p "$WEBROOT"
+
+            # Sync new build into place atomically
+            sudo rsync -a --delete "$NEW"/ "$WEBROOT"/
+
+            # Ownership + sane perms so nginx can read
+            sudo chown -R www-data:www-data "$WEBROOT"
+            sudo find "$WEBROOT" -type d -exec chmod 755 {} \;
+            sudo find "$WEBROOT" -type f -exec chmod 644 {} \;
+
+            # Reload nginx to pick up any new files (not strictly required)
+            sudo systemctl reload nginx || true
+
+            # Cleanup staging
+            rm -rf "$NEW"
