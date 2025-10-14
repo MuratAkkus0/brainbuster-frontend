@@ -1,4 +1,3 @@
-import axios from "@/api/axios";
 import type { LoginObjectModel } from "@/types/models/Auth/LoginObjectModel";
 import type { RegisterObjectModel } from "@/types/models/Auth/RegisterObjectModel";
 import type { UserModel } from "@/types/models/Auth/UserModel";
@@ -8,6 +7,7 @@ import {
   type PayloadAction,
 } from "@reduxjs/toolkit";
 import type { AxiosError } from "axios";
+import axios from "axios";
 
 export interface UserState {
   isLoading: boolean;

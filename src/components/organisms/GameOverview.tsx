@@ -117,6 +117,7 @@ export const GameOverview = () => {
     const choiceId = e.currentTarget.dataset.id;
     if (!choiceId) return;
 
+    console.log(questionList);
     const correctAnswerText =
       questionList[quiz.currentQuestionId].correctAnswer;
     const correctAnswer = quiz.currentQuestion.choices.find(
