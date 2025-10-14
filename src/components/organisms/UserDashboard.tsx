@@ -10,26 +10,29 @@ import { UserInformationsCard } from "../molecules/UserInformationsCard";
 import { Button } from "../ui/button";
 import { Link } from "react-router";
 import type { MouseEventHandler } from "react";
-
-const SectionCards = () => {
-  return (
-    <SectionCard
-      title="High Score"
-      titleVal="500"
-      tagBadgeVal="+12"
-      secondTitle="Rank"
-      secondVal="Top #14 Player"
-      firstBadgeIcon="IconTrendingUp"
-      secondBadgeIcon="IconTrendingUp"
-    />
-  );
-};
+import { useAuth } from "@/hooks";
 
 const handleEdit: MouseEventHandler<SVGSVGElement> = (e) => {
   console.log(e.currentTarget);
 };
 
 export default function UserDashboard() {
+  const { user } = useAuth();
+  const highScore = user.user?.user.highScore || 0;
+
+  const SectionCards = () => {
+    return (
+      <SectionCard
+        title="High Score"
+        titleVal={highScore.toString()}
+        tagBadgeVal="+12"
+        secondTitle="Rank"
+        secondVal="Top #14 Player"
+        firstBadgeIcon="IconTrendingUp"
+        secondBadgeIcon="IconTrendingUp"
+      />
+    );
+  };
   return (
     <SidebarProvider className="min-h-0 h-full relative">
       <AppSidebar />

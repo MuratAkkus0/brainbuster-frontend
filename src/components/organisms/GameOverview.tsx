@@ -6,6 +6,8 @@ import type { UserModel } from "@/types/models/Auth/UserModel";
 import { useSPQuiz } from "@/hooks/game/useSPQuiz";
 import { useGetQuestions, type Question } from "@/hooks/useGetQuestions";
 import { QuizChoice } from "../atoms/QuizChoice";
+import { Dialog } from "@/components/ui/dialog";
+import { GameOverDialog } from "./GameOverDialog";
 
 const quizChoiceTagArr = ["A", "B", "C", "D"];
 
@@ -42,6 +44,13 @@ export const GameOverview = () => {
   const getQuestions = useGetQuestions();
   const [questionList, setQuestionList] = useState<Question[]>([]);
   const { user } = useAuth().user;
+  const [isGameOverDialogOpen, setIsGameOverDialogOpen] = useState(false);
+  const [gameResult, setGameResult] = useState({
+    score: 0,
+    correctAnswers: 0,
+    totalQuestions: 0,
+  });
+  
   const [quiz, setQuiz] = useState({
     sessionId: "",
     answerId: "",
@@ -137,18 +146,37 @@ export const GameOverview = () => {
 
     // API call
     answerQuestion(quiz.sessionId, choiceId).then((res: any) => {
-      // Wait for be able to show right and wrong answers
-      setTimeout(() => {
-        setQuiz((prev) => ({
-          ...prev,
-          currentQuestion: res.next,
-          currentQuestionId: res.next.questionId,
-          isUserChoosed: false, // yeni soruya geçince resetle
-          choosedAnswerId: "",
-          correctAnswerChoiceId: "",
-        }));
-      }, 2000);
+      // Check if game is over
+      if (!res.next || res.state === "COMPLETED") {
+        // Game is finished
+        setTimeout(() => {
+          setGameResult({
+            score: res.score || 0,
+            correctAnswers: res.correctAnswers || 0,
+            totalQuestions: quiz.totalQuestion,
+          });
+          setIsGameOverDialogOpen(true);
+        }, 2000);
+      } else {
+        // Continue to next question
+        setTimeout(() => {
+          setQuiz((prev) => ({
+            ...prev,
+            currentQuestion: res.next,
+            currentQuestionId: res.next.questionId,
+            isUserChoosed: false,
+            choosedAnswerId: "",
+            correctAnswerChoiceId: "",
+          }));
+        }, 2000);
+      }
     });
+  };
+
+  const handlePlayAgain = () => {
+    setIsGameOverDialogOpen(false);
+    // Reload the page to start a new game
+    window.location.reload();
   };
 
   return (
@@ -189,6 +217,15 @@ export const GameOverview = () => {
           })}
         </div>
       </div>
+
+      <Dialog open={isGameOverDialogOpen} onOpenChange={setIsGameOverDialogOpen}>
+        <GameOverDialog
+          score={gameResult.score}
+          totalQuestions={gameResult.totalQuestions}
+          correctAnswers={gameResult.correctAnswers}
+          onPlayAgain={handlePlayAgain}
+        />
+      </Dialog>
     </>
   );
 };
