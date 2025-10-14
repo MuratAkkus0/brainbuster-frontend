@@ -28,7 +28,10 @@ export default function UserDashboard() {
       try {
         await refreshUserProfile(false);
       } catch (error) {
-        console.error("Failed to refresh user profile on dashboard mount:", error);
+        console.error(
+          "Failed to refresh user profile on dashboard mount:",
+          error
+        );
       }
     };
 

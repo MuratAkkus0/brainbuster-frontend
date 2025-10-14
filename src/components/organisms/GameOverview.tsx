@@ -222,7 +222,10 @@ export const GameOverview = () => {
               setIsGameOverDialogOpen(true);
             }, 2000);
           } catch (error) {
-            console.error("Error fetching session info or refreshing profile:", error);
+            console.error(
+              "Error fetching session info or refreshing profile:",
+              error
+            );
             toast.error("Failed to load game results. Please try again.");
           }
         } else {
