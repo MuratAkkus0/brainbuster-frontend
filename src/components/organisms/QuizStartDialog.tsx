@@ -90,8 +90,8 @@ export const QuizStartDialog = ({
   };
 
   return (
-    <DialogContent 
-      className="sm:max-w-[450px]" 
+    <DialogContent
+      className="sm:max-w-[450px]"
       onInteractOutside={(e) => {
         e.preventDefault();
         // User clicked outside dialog, redirect to profile

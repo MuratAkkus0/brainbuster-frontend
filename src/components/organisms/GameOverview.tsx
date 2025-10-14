@@ -53,6 +53,7 @@ export const GameOverview = () => {
   const [gameResult, setGameResult] = useState({
     score: 0,
     correctAnswers: 0,
+    wrongAnswers: 0,
     totalQuestions: 0,
   });
 
@@ -176,14 +177,21 @@ export const GameOverview = () => {
 
     // API call
     answerQuestion(quiz.sessionId, choiceId).then((res: any) => {
+      console.log("Answer response:", res);
+      
       // Check if game is over
       if (!res.next || res.state === "COMPLETED") {
         // Game is finished
         setTimeout(() => {
+          // Calculate answered questions and wrong answers
+          const totalAnswered = (res.correctAnswers || 0) + (res.wrongAnswers || 0);
+          const actualTotal = totalAnswered || quiz.totalQuestion;
+          
           setGameResult({
-            score: res.score || 0,
+            score: res.score || res.highScore || 0,
             correctAnswers: res.correctAnswers || 0,
-            totalQuestions: quiz.totalQuestion,
+            wrongAnswers: res.wrongAnswers || res.incorrectAnswers || 0,
+            totalQuestions: actualTotal,
           });
           setIsGameOverDialogOpen(true);
         }, 2000);
@@ -252,7 +260,10 @@ export const GameOverview = () => {
       </div>
 
       {/* Quiz Start Dialog */}
-      <Dialog open={isQuizStartDialogOpen} onOpenChange={setIsQuizStartDialogOpen}>
+      <Dialog
+        open={isQuizStartDialogOpen}
+        onOpenChange={setIsQuizStartDialogOpen}
+      >
         <QuizStartDialog
           onStart={handleStartQuiz}
           availableCategories={availableCategories}
@@ -270,6 +281,7 @@ export const GameOverview = () => {
           score={gameResult.score}
           totalQuestions={gameResult.totalQuestions}
           correctAnswers={gameResult.correctAnswers}
+          wrongAnswers={gameResult.wrongAnswers}
           onPlayAgain={handlePlayAgain}
         />
       </Dialog>

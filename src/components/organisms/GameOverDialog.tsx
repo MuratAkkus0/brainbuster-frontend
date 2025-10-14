@@ -13,6 +13,7 @@ interface GameOverDialogProps {
   score: number;
   totalQuestions: number;
   correctAnswers: number;
+  wrongAnswers: number;
   onPlayAgain?: () => void;
 }
 
@@ -20,10 +21,13 @@ export const GameOverDialog = ({
   score,
   totalQuestions,
   correctAnswers,
+  wrongAnswers,
   onPlayAgain,
 }: GameOverDialogProps) => {
   const navigate = useNavigate();
-  const percentage = Math.round((correctAnswers / totalQuestions) * 100);
+  const percentage = totalQuestions > 0 
+    ? Math.round((correctAnswers / totalQuestions) * 100) 
+    : 0;
 
   const getPerformanceMessage = () => {
     if (percentage >= 90) return "Outstanding! 🌟";
@@ -69,7 +73,7 @@ export const GameOverDialog = ({
           <div className="flex flex-col items-center gap-2 p-4 bg-secondary/50 rounded-lg">
             <Target className="h-5 w-5 text-red-500" />
             <div className="text-2xl font-bold text-red-600">
-              {totalQuestions - correctAnswers}
+              {wrongAnswers}
             </div>
             <div className="text-sm text-muted-foreground">Wrong</div>
           </div>
