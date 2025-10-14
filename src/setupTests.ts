@@ -1,12 +1,13 @@
 import "@testing-library/jest-dom";
 import { cleanup } from "@testing-library/react";
 
-// Polyfill TextEncoder/TextDecoder for Node.js (already available in modern Node.js)
+// Polyfill TextEncoder/TextDecoder for Node.js (if not available)
+// Modern Node.js (18+) has these globals built-in
 if (typeof globalThis.TextEncoder === "undefined") {
+  // @ts-ignore - Polyfill for older Node versions
+  const { TextEncoder, TextDecoder } = require("util");
   globalThis.TextEncoder = TextEncoder;
-}
-if (typeof globalThis.TextDecoder === "undefined") {
-  globalThis.TextDecoder = TextDecoder as any;
+  globalThis.TextDecoder = TextDecoder;
 }
 
 // Cleanup after each test
@@ -48,21 +49,46 @@ globalThis.ResizeObserver = class ResizeObserver {
   unobserve() {}
 } as any;
 
-// Suppress console errors in tests
+// Suppress console output during tests for cleaner test results
 const originalError = console.error;
+const originalLog = console.log;
+
 beforeAll(() => {
+  // Suppress console.error for known issues and test artifacts
   console.error = (...args: any[]) => {
+    const errorString = String(args[0]);
+
+    // Suppress known warnings and test-related errors
     if (
-      typeof args[0] === "string" &&
-      (args[0].includes("Warning: ReactDOM.render") ||
-        args[0].includes("Not implemented: HTMLFormElement.prototype.submit"))
+      errorString.includes("Warning: ReactDOM.render") ||
+      errorString.includes(
+        "Not implemented: HTMLFormElement.prototype.submit"
+      ) ||
+      errorString.includes("Login error:") ||
+      errorString.includes("type:")
     ) {
       return;
     }
+
+    // Suppress Redux action logs
+    if (typeof args[0] === "object" && (args[0]?.type || args[0]?.response)) {
+      return;
+    }
+
     originalError.call(console, ...args);
+  };
+
+  // Suppress console.log for test artifacts (credentials, etc)
+  console.log = (...args: any[]) => {
+    // Suppress credential logging during tests
+    if (args[0]?.username || args[0]?.password) {
+      return;
+    }
+    originalLog.call(console, ...args);
   };
 });
 
 afterAll(() => {
   console.error = originalError;
+  console.log = originalLog;
 });

@@ -46,14 +46,19 @@ export function LoginForm({
     const { username, password } = e;
     if (!username || !password) return;
 
-    const res = await login({
-      username,
-      password,
-    });
+    try {
+      const res = await login({
+        username,
+        password,
+      });
 
-    if (res?.isError) {
-      console.log(res);
-      setApiFormError(res.message);
+      if (res?.isError) {
+        console.log(res);
+        setApiFormError(res.message);
+      }
+    } catch (error: any) {
+      // Handle login errors
+      setApiFormError(error?.message || "Login failed");
     }
   };
   return (
