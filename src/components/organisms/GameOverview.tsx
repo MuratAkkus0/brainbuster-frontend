@@ -114,6 +114,7 @@ export const GameOverview = () => {
   }, [quiz.sessionId]);
 
   const handleChooseAnswer = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (quiz.isUserChoosed) return;
     const choiceId = e.currentTarget.dataset.id;
     if (!choiceId) return;
 
@@ -143,7 +144,7 @@ export const GameOverview = () => {
           ...prev,
           currentQuestion: res.next,
           currentQuestionId: res.next.questionId,
-          isUserChoosed: false, // yeni soruya geçince resetle
+          isUserChoosed: false,
           choosedAnswerId: "",
           correctAnswerChoiceId: "",
         }));
