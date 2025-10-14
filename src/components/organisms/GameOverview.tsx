@@ -8,6 +8,8 @@ import { useGetQuestions, type Question } from "@/hooks/useGetQuestions";
 import { QuizChoice } from "../atoms/QuizChoice";
 import { Dialog } from "@/components/ui/dialog";
 import { GameOverDialog } from "./GameOverDialog";
+import { QuizStartDialog } from "./QuizStartDialog";
+import { toast } from "sonner";
 
 const quizChoiceTagArr = ["A", "B", "C", "D"];
 
@@ -45,12 +47,15 @@ export const GameOverview = () => {
   const [questionList, setQuestionList] = useState<Question[]>([]);
   const { user } = useAuth().user;
   const [isGameOverDialogOpen, setIsGameOverDialogOpen] = useState(false);
+  const [isQuizStartDialogOpen, setIsQuizStartDialogOpen] = useState(true);
+  const [isStarting, setIsStarting] = useState(false);
+  const [availableCategories, setAvailableCategories] = useState<string[]>([]);
   const [gameResult, setGameResult] = useState({
     score: 0,
     correctAnswers: 0,
     totalQuestions: 0,
   });
-  
+
   const [quiz, setQuiz] = useState({
     sessionId: "",
     answerId: "",
@@ -66,61 +71,72 @@ export const GameOverview = () => {
       questionId: 0,
     },
     totalQuestion: 0,
+    category: "",
   });
-  const { createSession, startSession, answerQuestion, getCurrentSessionInfo } =
-    useSPQuiz();
+  const { createSession, startSession, answerQuestion } = useSPQuiz();
 
   const gameMode = localStorage.getItem("qm");
 
+  // Load questions and extract categories
   useEffect(() => {
     console.log("get questions");
     getQuestions().then((res: any) => {
       console.log(res);
       setQuestionList(res);
+      
+      // Extract unique categories
+      const categories = [...new Set(res.map((q: Question) => q.category))];
+      setAvailableCategories(categories as string[]);
     });
   }, []);
 
-  useEffect(() => {
-    console.log("quiz changed");
-    console.log(quiz);
-  }, [quiz]);
+  const handleStartQuiz = async (numQuestions: number, category: string) => {
+    setIsStarting(true);
 
-  // Create Session
-  useEffect(() => {
-    if (!quiz.sessionId) {
-      createSession(10).then((res: any) => {
-        setQuiz((prev) => ({
-          ...prev,
-          sessionId: res.sessionId,
-          state: res.state,
-          totalQuestion: res.totalQuestions,
-        }));
-      });
-    }
-    // return () => localStorage.removeItem("quiz");
-  }, []);
+    try {
+      // Filter questions by category if not "all"
+      const filteredQuestions = category === "all" 
+        ? questionList 
+        : questionList.filter(q => q.category === category);
 
-  // Start Session
-  useEffect(() => {
-    if (quiz.sessionId && quiz.state !== "RUNNING") {
-      startSession(quiz.sessionId).then((res: any) => {
-        console.log(res);
-        setQuiz((prev) => ({
-          ...prev,
-          state: res.state,
-          currentQuestion: res.current,
-          currentQuestionId: res.current.questionId,
-        }));
-      });
-    }
-  }, [quiz.sessionId]);
+      // Check if enough questions are available
+      if (filteredQuestions.length < numQuestions) {
+        toast.error(
+          `Not enough questions available in this category. Only ${filteredQuestions.length} questions found. Please choose a lower number or different category.`
+        );
+        setIsStarting(false);
+        return;
+      }
 
-  // Get Current Session Info
-  useEffect(() => {
-    if (quiz.sessionId) {
-      getCurrentSessionInfo(quiz.sessionId);
+      // Create session
+      const sessionRes = await createSession(numQuestions);
+      setQuiz((prev) => ({
+        ...prev,
+        sessionId: sessionRes.sessionId,
+        state: sessionRes.state,
+        totalQuestion: sessionRes.totalQuestions,
+        category: category,
+      }));
+
+      // Start session
+      const startRes = await startSession(sessionRes.sessionId);
+      setQuiz((prev) => ({
+        ...prev,
+        state: startRes.state,
+        currentQuestion: startRes.current,
+        currentQuestionId: startRes.current.questionId,
+      }));
+
+      // Close start dialog
+      setIsQuizStartDialogOpen(false);
+      toast.success("Quiz started! Good luck!");
+    } catch (error) {
+      console.error("Failed to start quiz:", error);
+      toast.error("Failed to start quiz. Please try again.");
+    } finally {
+      setIsStarting(false);
     }
-  }, [quiz.sessionId]);
+  };
 
   const handleChooseAnswer = (e: React.MouseEvent<HTMLDivElement>) => {
     const choiceId = e.currentTarget.dataset.id;
@@ -186,7 +202,7 @@ export const GameOverview = () => {
           {gameMode === "mp" && <UserAvatarContainer position="left" />}
           <UserAvatarContainer position="right" user={user ?? undefined} />
           <div className="p-4 text-2xl md:text-3xl font-medium">
-            {quiz.currentQuestion?.prompt || ""}
+            {quiz.currentQuestion?.prompt || "Loading..."}
           </div>
         </div>
         <div className="bg-theme-dark-bg row-start-8 row-end-13 grid grid-cols-2 grid-rows-2">
@@ -218,7 +234,21 @@ export const GameOverview = () => {
         </div>
       </div>
 
-      <Dialog open={isGameOverDialogOpen} onOpenChange={setIsGameOverDialogOpen}>
+      {/* Quiz Start Dialog */}
+      <Dialog open={isQuizStartDialogOpen} onOpenChange={setIsQuizStartDialogOpen}>
+        <QuizStartDialog
+          onStart={handleStartQuiz}
+          availableCategories={availableCategories}
+          totalAvailableQuestions={questionList.length}
+          isLoading={isStarting}
+        />
+      </Dialog>
+
+      {/* Game Over Dialog */}
+      <Dialog
+        open={isGameOverDialogOpen}
+        onOpenChange={setIsGameOverDialogOpen}
+      >
         <GameOverDialog
           score={gameResult.score}
           totalQuestions={gameResult.totalQuestions}
