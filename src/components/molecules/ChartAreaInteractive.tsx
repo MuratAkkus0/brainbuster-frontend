@@ -26,7 +26,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { chartData } from "./chart-data.json";
+import { chartData } from "../../../public/data/chart-data.json";
 
 export const description = "An interactive area chart";
 

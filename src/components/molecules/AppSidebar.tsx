@@ -5,7 +5,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { data } from "./sidebar-data.json";
+import { data } from "../../../public/data/sidebar-data.json";
 import { TeamSwitcher } from "./TeamSwitcher";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {

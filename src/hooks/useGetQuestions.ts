@@ -16,7 +16,7 @@ export const useGetQuestions = () => {
   const token = user.user?.token;
   const dispatch = useDispatch<AppDispatch>();
   const getQuestions = async () => {
-    const questions = await dispatch(getAllQuestions(token));
+    const questions = await dispatch(getAllQuestions(token as string));
     const questionList = questions.payload as Question[];
     return questionList;
   };
