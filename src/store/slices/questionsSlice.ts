@@ -1,5 +1,6 @@
-import axios from "@/api/axios";
+import { useAuth } from "@/hooks";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 interface Question {
   id: number;
@@ -29,9 +30,15 @@ const initialState: QuestionsState = {
 
 export const getAllQuestions = createAsyncThunk(
   "getAllQuestions",
-  async (_, { rejectWithValue }) => {
+  async (token, { rejectWithValue }) => {
     try {
-      const data = await axios.get("/api/questions");
+      const data = await axios.get("/api/questions", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      });
       return data.data as QuestionList;
     } catch (error) {
       return rejectWithValue(error);

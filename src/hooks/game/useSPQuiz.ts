@@ -1,7 +1,8 @@
-import axios from "@/api/axios";
+import axios from "axios";
+import { useAuth } from "../auth/useAuth";
 
 interface CreateSession {
-  (category: string, difficulty: string, numQuestions: number): any;
+  (numQuestions: number): any;
 }
 interface StartSession {
   (sessionId: string): any;
@@ -17,34 +18,74 @@ interface GetCurrentQuestion {
 }
 
 export const useSPQuiz = () => {
-  const createSession: CreateSession = async (
-    category = "general",
-    difficulty = "easy",
-    numQuestions = 10
-  ) => {
-    const res = await axios.post("/api/sp/sessions", {
-      numQuestions,
-      category,
-      difficulty,
-    });
+  const { user } = useAuth();
+  const token = user.user?.token;
+  const createSession: CreateSession = async (numQuestions = 10) => {
+    const res = await axios.post(
+      "/api/sp/sessions",
+      {
+        numQuestions,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      }
+    );
+    console.log(res);
     return res.data;
   };
   const startSession: StartSession = async (sessionId) => {
-    const res = await axios.post(`/api/sp/sessions/${sessionId}/start`);
+    const res = await axios.post(
+      `/api/sp/sessions/${sessionId}/start`,
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      }
+    );
     return res.data;
   };
   const answerQuestion: AnswerQuestion = async (sessionId, choiceId) => {
-    const res = await axios.post(`/api/sp/sessions/${sessionId}/answer`, {
-      choiceId: choiceId,
-    });
+    const res = await axios.post(
+      `/api/sp/sessions/${sessionId}/answer`,
+      {
+        choiceId: choiceId,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      }
+    );
     return res.data;
   };
   const getCurrentSessionInfo: GetCurrentSessionInfo = async (sessionId) => {
-    const res = await axios.get(`/api/sp/sessions/${sessionId}`);
+    const res = await axios.get(`/api/sp/sessions/${sessionId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    });
     return res.data;
   };
   const getCurrentQuestion: GetCurrentQuestion = async (sessionId) => {
-    const res = await axios.get(`/api/sp/sessions/${sessionId}/current`);
+    const res = await axios.get(`/api/sp/sessions/${sessionId}/current`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    });
+    console.log(res.data);
     return res.data;
   };
 

@@ -79,7 +79,7 @@ export const GameOverview = () => {
   // Create Session
   useEffect(() => {
     if (!quiz.sessionId) {
-      createSession("test", "easy", 10).then((res: any) => {
+      createSession(10).then((res: any) => {
         setQuiz((prev) => ({
           ...prev,
           sessionId: res.sessionId,
@@ -117,6 +117,7 @@ export const GameOverview = () => {
     const choiceId = e.currentTarget.dataset.id;
     if (!choiceId) return;
 
+    console.log(questionList);
     const correctAnswerText =
       questionList[quiz.currentQuestionId].correctAnswer;
     const correctAnswer = quiz.currentQuestion.choices.find(
@@ -134,7 +135,7 @@ export const GameOverview = () => {
     }));
 
     // API call
-    answerQuestion(quiz.sessionId, choiceId).then((res) => {
+    answerQuestion(quiz.sessionId, choiceId).then((res: any) => {
       // Wait for be able to show right and wrong answers
       setTimeout(() => {
         setQuiz((prev) => ({
