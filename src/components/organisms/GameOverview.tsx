@@ -176,39 +176,58 @@ export const GameOverview = () => {
     }));
 
     // API call
-    answerQuestion(quiz.sessionId, choiceId).then((res: any) => {
-      console.log("Answer response:", res);
-      
-      // Check if game is over
-      if (!res.next || res.state === "COMPLETED") {
-        // Game is finished
-        setTimeout(() => {
-          // Calculate answered questions and wrong answers
-          const totalAnswered = (res.correctAnswers || 0) + (res.wrongAnswers || 0);
-          const actualTotal = totalAnswered || quiz.totalQuestion;
-          
-          setGameResult({
-            score: res.score || res.highScore || 0,
-            correctAnswers: res.correctAnswers || 0,
-            wrongAnswers: res.wrongAnswers || res.incorrectAnswers || 0,
-            totalQuestions: actualTotal,
-          });
-          setIsGameOverDialogOpen(true);
-        }, 2000);
-      } else {
-        // Continue to next question
-        setTimeout(() => {
-          setQuiz((prev) => ({
-            ...prev,
-            currentQuestion: res.next,
-            currentQuestionId: res.next.questionId,
-            isUserChoosed: false,
-            choosedAnswerId: "",
-            correctAnswerChoiceId: "",
-          }));
-        }, 2000);
-      }
-    });
+    answerQuestion(quiz.sessionId, choiceId)
+      .then((res: any) => {
+        console.log("Answer response:", res);
+        
+        // Check if game is over
+        if (!res.next || res.state === "COMPLETED") {
+          // Game is finished - calculate results
+          setTimeout(() => {
+            const correctCount = res.correctAnswers || 0;
+            const wrongCount = quiz.totalQuestion - correctCount;
+            const finalScore = res.score || res.highScore || 0;
+            
+            console.log("Game Over - Setting results:", {
+              score: finalScore,
+              correctAnswers: correctCount,
+              wrongAnswers: wrongCount,
+              totalQuestions: quiz.totalQuestion,
+            });
+            
+            setGameResult({
+              score: finalScore,
+              correctAnswers: correctCount,
+              wrongAnswers: wrongCount,
+              totalQuestions: quiz.totalQuestion,
+            });
+            setIsGameOverDialogOpen(true);
+          }, 2000);
+        } else {
+          // Continue to next question
+          setTimeout(() => {
+            setQuiz((prev) => ({
+              ...prev,
+              currentQuestion: res.next,
+              currentQuestionId: res.next.questionId,
+              isUserChoosed: false,
+              choosedAnswerId: "",
+              correctAnswerChoiceId: "",
+            }));
+          }, 2000);
+        }
+      })
+      .catch((error: unknown) => {
+        console.error("Error answering question:", error);
+        toast.error("Failed to submit answer. Please try again.");
+        // Reset isUserChoosed to allow retry
+        setQuiz((prev) => ({
+          ...prev,
+          isUserChoosed: false,
+          choosedAnswerId: "",
+          correctAnswerChoiceId: "",
+        }));
+      });
   };
 
   const handlePlayAgain = () => {
