@@ -8,17 +8,16 @@ import { useAuth } from "./useAuth";
 export const useRefreshUserProfile = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { user } = useAuth();
-  const userId = user.user?.user.id;
   const token = user.user?.token;
 
   const refreshUserProfile = async (showToast = false) => {
-    if (!userId || !token) {
+    if (!token) {
       console.warn("Cannot refresh profile: User not authenticated");
       return null;
     }
 
     try {
-      const response = await axios.get(`/api/users/${userId}`, {
+      const response = await axios.get(`/api/users/getCurrentUser`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -34,11 +33,11 @@ export const useRefreshUserProfile = () => {
           user: response.data,
         };
         dispatch(setUser(updatedUserData));
-        
+
         if (showToast) {
           toast.success("Profile refreshed successfully!");
         }
-        
+
         console.log("User profile refreshed:", response.data);
         return response.data;
       }
@@ -48,15 +47,13 @@ export const useRefreshUserProfile = () => {
 
       if (showToast) {
         const errorMessage =
-          (error.response?.data as any)?.message ||
-          "Failed to refresh profile";
+          (error.response?.data as any)?.message || "Failed to refresh profile";
         toast.error(errorMessage);
       }
-      
+
       throw error;
     }
   };
 
   return { refreshUserProfile };
 };
-
