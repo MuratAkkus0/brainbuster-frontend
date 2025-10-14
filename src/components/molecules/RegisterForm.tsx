@@ -18,6 +18,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Dialog } from "@/components/ui/dialog";
 import questionsData from "../../../public/data/secQuestions.json";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -28,6 +30,7 @@ import type { RegisterObjectModel } from "@/types/models/Auth/RegisterObjectMode
 import { useNavigate } from "react-router";
 import { registerFormSchema } from "@/schemas/RegisterFormSchema";
 import { useState } from "react";
+import { PrivacyPolicyDialog } from "../organisms/PrivacyPolicyDialog";
 
 const questions = questionsData.questions as string[];
 
@@ -37,6 +40,7 @@ interface RegisterForm {
   confirmPassword: string;
   secretQuestionId: number;
   secretQuestionAnswer: string;
+  privacyPolicyAccepted: boolean;
 }
 
 const CustomSelect = ({
@@ -78,6 +82,7 @@ const CustomRegisterForm = ({
   ...props
 }: React.ComponentProps<"div">) => {
   const [apiFormError, setApiFormError] = useState("");
+  const [isPrivacyDialogOpen, setIsPrivacyDialogOpen] = useState(false);
   const callRegister = useRegister();
   const navigate = useNavigate();
 
@@ -85,6 +90,7 @@ const CustomRegisterForm = ({
     register,
     handleSubmit,
     setValue,
+    watch,
     setError,
     reset,
     formState: { errors },
@@ -95,9 +101,21 @@ const CustomRegisterForm = ({
       confirmPassword: "",
       secretQuestionId: -1,
       secretQuestionAnswer: "",
+      privacyPolicyAccepted: false,
     },
     resolver: zodResolver(registerFormSchema),
   });
+
+  const privacyPolicyAccepted = watch("privacyPolicyAccepted");
+
+  const handlePrivacyPolicyClick = () => {
+    setIsPrivacyDialogOpen(true);
+  };
+
+  const handleAcceptPrivacyPolicy = () => {
+    setValue("privacyPolicyAccepted", true);
+    setIsPrivacyDialogOpen(false);
+  };
 
   const onSubmit = async (e: RegisterForm) => {
     const data: RegisterObjectModel = {
@@ -187,6 +205,41 @@ const CustomRegisterForm = ({
                 />
                 <FormErrorLabel errMsg={errors.secretQuestionAnswer?.message} />
               </FormInputWrapper>
+
+              {/* Privacy Policy Checkbox */}
+              <FormInputWrapper>
+                <div className="flex items-start space-x-3">
+                  <Checkbox
+                    id="privacy-policy"
+                    checked={privacyPolicyAccepted}
+                    onCheckedChange={(checked) =>
+                      setValue("privacyPolicyAccepted", checked as boolean)
+                    }
+                    className={cn(
+                      errors.privacyPolicyAccepted && "border-red-500"
+                    )}
+                  />
+                  <div className="space-y-1">
+                    <Label
+                      htmlFor="privacy-policy"
+                      className="text-sm font-normal leading-none cursor-pointer"
+                    >
+                      I accept the{" "}
+                      <button
+                        type="button"
+                        onClick={handlePrivacyPolicyClick}
+                        className="text-primary underline underline-offset-4 hover:text-primary/80"
+                      >
+                        Privacy Policy and Data Protection Agreement
+                      </button>
+                    </Label>
+                    <FormErrorLabel
+                      errMsg={errors.privacyPolicyAccepted?.message}
+                    />
+                  </div>
+                </div>
+              </FormInputWrapper>
+
               <div className="flex flex-col gap-3">
                 <Button
                   size="lg"
@@ -199,6 +252,11 @@ const CustomRegisterForm = ({
           </form>
         </CardContent>
       </Card>
+
+      {/* Privacy Policy Dialog */}
+      <Dialog open={isPrivacyDialogOpen} onOpenChange={setIsPrivacyDialogOpen}>
+        <PrivacyPolicyDialog onAccept={handleAcceptPrivacyPolicy} />
+      </Dialog>
     </div>
   );
 };

@@ -48,14 +48,10 @@ export const Hero = () => {
                 </Button>
               </Link>
             )}
-            <Link
-              to="/quiz"
-              onClick={() => localStorage.setItem("qm", "sp")}
-            >
+            <Link to="/quiz" onClick={() => localStorage.setItem("qm", "sp")}>
               <Button
                 size="lg"
-                variant="outline"
-                className="text-lg border-accent text-accent cursor-pointer hover:bg-accent hover:text-theme-dark-bg"
+                className="text-lg text-theme-dark-bg bg-accent cursor-pointer hover:bg-theme-accent"
               >
                 Play Quiz
               </Button>

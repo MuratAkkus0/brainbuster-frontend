@@ -59,6 +59,11 @@ export const registerFormSchema = z
         message: questionSpaceMsg,
       }),
     secretQuestionAnswer: z.string().min(3, answerMinMsg).max(32, answerMaxMsg),
+    privacyPolicyAccepted: z
+      .boolean()
+      .refine((val) => val === true, {
+        message: "You must accept the Privacy Policy to register",
+      }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: passwordMatchMsg,
