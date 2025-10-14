@@ -1,10 +1,13 @@
-import '@testing-library/jest-dom';
-import { cleanup } from '@testing-library/react';
-import { TextEncoder, TextDecoder } from 'util';
+import "@testing-library/jest-dom";
+import { cleanup } from "@testing-library/react";
 
-// Polyfill TextEncoder/TextDecoder for Node.js
-global.TextEncoder = TextEncoder;
-global.TextDecoder = TextDecoder as any;
+// Polyfill TextEncoder/TextDecoder for Node.js (already available in modern Node.js)
+if (typeof globalThis.TextEncoder === "undefined") {
+  globalThis.TextEncoder = TextEncoder;
+}
+if (typeof globalThis.TextDecoder === "undefined") {
+  globalThis.TextDecoder = TextDecoder as any;
+}
 
 // Cleanup after each test
 afterEach(() => {
@@ -12,7 +15,7 @@ afterEach(() => {
 });
 
 // Mock window.matchMedia
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: jest.fn().mockImplementation((query) => ({
     matches: false,
@@ -27,7 +30,7 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // Mock IntersectionObserver
-global.IntersectionObserver = class IntersectionObserver {
+globalThis.IntersectionObserver = class IntersectionObserver {
   constructor() {}
   disconnect() {}
   observe() {}
@@ -38,7 +41,7 @@ global.IntersectionObserver = class IntersectionObserver {
 } as any;
 
 // Mock ResizeObserver
-global.ResizeObserver = class ResizeObserver {
+globalThis.ResizeObserver = class ResizeObserver {
   constructor() {}
   disconnect() {}
   observe() {}
@@ -50,9 +53,9 @@ const originalError = console.error;
 beforeAll(() => {
   console.error = (...args: any[]) => {
     if (
-      typeof args[0] === 'string' &&
-      (args[0].includes('Warning: ReactDOM.render') ||
-        args[0].includes('Not implemented: HTMLFormElement.prototype.submit'))
+      typeof args[0] === "string" &&
+      (args[0].includes("Warning: ReactDOM.render") ||
+        args[0].includes("Not implemented: HTMLFormElement.prototype.submit"))
     ) {
       return;
     }
@@ -63,4 +66,3 @@ beforeAll(() => {
 afterAll(() => {
   console.error = originalError;
 });
-
