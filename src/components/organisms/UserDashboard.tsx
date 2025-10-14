@@ -10,7 +10,8 @@ import { UserInformationsCard } from "../molecules/UserInformationsCard";
 import { Button } from "../ui/button";
 import { Link } from "react-router";
 import type { MouseEventHandler } from "react";
-import { useAuth } from "@/hooks";
+import { useAuth, useRefreshUserProfile } from "@/hooks";
+import { useEffect } from "react";
 
 const handleEdit: MouseEventHandler<SVGSVGElement> = (e) => {
   console.log(e.currentTarget);
@@ -18,7 +19,21 @@ const handleEdit: MouseEventHandler<SVGSVGElement> = (e) => {
 
 export default function UserDashboard() {
   const { user } = useAuth();
+  const { refreshUserProfile } = useRefreshUserProfile();
   const highScore = user.user?.user.highScore || 0;
+
+  // Refresh user profile when dashboard mounts
+  useEffect(() => {
+    const refreshProfile = async () => {
+      try {
+        await refreshUserProfile(false);
+      } catch (error) {
+        console.error("Failed to refresh user profile on dashboard mount:", error);
+      }
+    };
+
+    refreshProfile();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const SectionCards = () => {
     return (

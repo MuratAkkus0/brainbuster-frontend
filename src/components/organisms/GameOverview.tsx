@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { UserAvatar } from "../atoms/UserAvatar";
 import { useEffect, useState } from "react";
-import { useAuth } from "@/hooks";
+import { useAuth, useRefreshUserProfile } from "@/hooks";
 import type { UserModel } from "@/types/models/Auth/UserModel";
 import { useSPQuiz } from "@/hooks/game/useSPQuiz";
 import { useGetQuestions, type Question } from "@/hooks/useGetQuestions";
@@ -79,6 +79,7 @@ export const GameOverview = () => {
   });
   const { createSession, startSession, answerQuestion, getCurrentSessionInfo } =
     useSPQuiz();
+  const { refreshUserProfile } = useRefreshUserProfile();
 
   const gameMode = localStorage.getItem("qm");
 
@@ -190,10 +191,13 @@ export const GameOverview = () => {
           res.state === "FINISHED" ||
           res.state === "COMPLETED"
         ) {
-          // Game is finished - fetch final session info
+          // Game is finished - fetch final session info and refresh user profile
           try {
             const sessionInfo = await getCurrentSessionInfo(quiz.sessionId);
             console.log("Session info response:", sessionInfo);
+
+            // Refresh user profile to get updated high score
+            await refreshUserProfile(false);
 
             setTimeout(() => {
               const totalQuestionsCount =
@@ -218,7 +222,7 @@ export const GameOverview = () => {
               setIsGameOverDialogOpen(true);
             }, 2000);
           } catch (error) {
-            console.error("Error fetching session info:", error);
+            console.error("Error fetching session info or refreshing profile:", error);
             toast.error("Failed to load game results. Please try again.");
           }
         } else {
