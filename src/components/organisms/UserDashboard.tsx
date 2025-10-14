@@ -9,6 +9,7 @@ import { Separator } from "@radix-ui/react-select";
 import { UserInformationsCard } from "../molecules/UserInformationsCard";
 import { Button } from "../ui/button";
 import { Link } from "react-router";
+import type { MouseEventHandler } from "react";
 
 const SectionCards = () => {
   return (
@@ -22,6 +23,10 @@ const SectionCards = () => {
       secondBadgeIcon="IconTrendingUp"
     />
   );
+};
+
+const handleEdit: MouseEventHandler<SVGSVGElement> = (e) => {
+  console.log(e.currentTarget);
 };
 
 export default function UserDashboard() {
@@ -39,7 +44,7 @@ export default function UserDashboard() {
           <div className="@container/main grid grid-cols-1 md:grid-cols-2 grid-rows-12 px-4">
             <div className="row-start-1 row-end-4 md:col-span-2 flex justify-center flex-wrap gap-4 md:gap-5 lg:gap-6 ">
               <div className="min-w-46 max-w-80 w-full shrink-0">
-                <UserInformationsCard />
+                <UserInformationsCard onEditIconClick={handleEdit} />
               </div>
               <div className="min-w-46 max-w-80 flex-1 shrink-0 w-full">
                 <SectionCards />

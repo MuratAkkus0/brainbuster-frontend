@@ -6,9 +6,11 @@ import {
 } from "@/components/ui/card";
 import { UserAvatar } from "../atoms/UserAvatar";
 import { useAuth } from "@/hooks";
-import { Edit } from "lucide-react";
+import type { MouseEventHandler } from "react";
 
-export const UserInformationsCard = () => {
+export const UserInformationsCard = ({}: {
+  onEditIconClick: MouseEventHandler<SVGSVGElement>;
+}) => {
   const user = useAuth();
   return (
     <Card className="w-80 md:w-full h-full">
@@ -18,7 +20,12 @@ export const UserInformationsCard = () => {
           <CardTitle>{user.user.user?.user.username ?? ""}</CardTitle>
           <CardDescription>{user.user.user?.user.role ?? ""}</CardDescription>
         </div>
-        <Edit className="size-5" />
+        {/* <Dialog>
+          <DialogTrigger asChild>
+            <Edit onClick={onEditIconClick} className="size-5 cursor-pointer" />
+          </DialogTrigger>
+          <EditUserInfoDialogBox />
+        </Dialog> */}
       </CardHeader>
     </Card>
   );
