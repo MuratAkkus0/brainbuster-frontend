@@ -119,7 +119,7 @@ export const GameOverview = () => {
 
     console.log(questionList);
     const correctAnswerText =
-      questionList[quiz.currentQuestionId].correctAnswer;
+      questionList[quiz.currentQuestion.questionId - 1].correctAnswer;
     const correctAnswer = quiz.currentQuestion.choices.find(
       (item) => item.text === correctAnswerText
     );
