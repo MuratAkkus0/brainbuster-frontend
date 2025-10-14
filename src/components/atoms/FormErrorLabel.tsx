@@ -4,5 +4,7 @@ type Props = {
 
 export function FormErrorLabel({ errMsg }: Props) {
   if (!errMsg) return <></>;
-  return <div className="w-full text-red-500 break-words">* {errMsg}</div>;
+  return (
+    <div className="text-sm w-full text-red-500 break-words">* {errMsg}</div>
+  );
 }
