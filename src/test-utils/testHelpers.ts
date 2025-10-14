@@ -3,7 +3,7 @@
  * Reusable helper functions for common test operations
  */
 
-import { screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from "@testing-library/react";
 
 /**
  * Wait for an element to appear with a custom error message
@@ -15,8 +15,8 @@ export const waitForElement = async (
     errorMessage?: string;
   }
 ) => {
-  const { timeout = 3000, errorMessage = 'Element not found' } = options || {};
-  
+  const { timeout = 3000, errorMessage = "Element not found" } = options || {};
+
   await waitFor(selector, {
     timeout,
     onTimeout: () => new Error(errorMessage),
@@ -34,14 +34,14 @@ export const fillFormField = async (
 ) => {
   const { shouldValidate = true } = options || {};
   const input = screen.getByLabelText(label);
-  
+
   await user.clear(input);
   await user.type(input, value);
-  
+
   if (shouldValidate) {
     expect(input).toHaveValue(value);
   }
-  
+
   return input;
 };
 
@@ -54,12 +54,12 @@ export const clickButton = async (
   options?: { shouldExist?: boolean }
 ) => {
   const { shouldExist = true } = options || {};
-  const button = screen.getByRole('button', { name: label });
-  
+  const button = screen.getByRole("button", { name: label });
+
   if (shouldExist) {
     expect(button).toBeInTheDocument();
   }
-  
+
   await user.click(button);
   return button;
 };
@@ -71,9 +71,9 @@ export const assertElementVisible = (
   label: RegExp | string,
   options?: { role?: string }
 ) => {
-  const { role = 'button' } = options || {};
+  const { role = "button" } = options || {};
   const element = screen.getByRole(role as any, { name: label });
-  
+
   expect(element).toBeInTheDocument();
   return element;
 };
@@ -85,9 +85,9 @@ export const assertElementNotVisible = (
   label: RegExp | string,
   options?: { role?: string }
 ) => {
-  const { role = 'button' } = options || {};
+  const { role = "button" } = options || {};
   const element = screen.queryByRole(role as any, { name: label });
-  
+
   expect(element).not.toBeInTheDocument();
   return element;
 };
@@ -103,7 +103,7 @@ export const waitForApiCall = async (
   }
 ) => {
   const { timeout = 3000 } = options || {};
-  
+
   await waitFor(
     () => {
       expect(mockFn).toHaveBeenCalledWith(...expectedArgs);
@@ -117,21 +117,23 @@ export const waitForApiCall = async (
  */
 export const assertToastCalled = async (
   toastMock: jest.Mock,
-  _type: 'success' | 'error',
+  _type: "success" | "error",
   options?: {
     timeout?: number;
     message?: RegExp | string;
   }
 ) => {
   const { timeout = 1000, message } = options || {};
-  
+
   await waitFor(
     () => {
       expect(toastMock).toHaveBeenCalled();
-      
+
       if (message) {
         expect(toastMock).toHaveBeenCalledWith(
-          expect.stringMatching(message instanceof RegExp ? message : new RegExp(message))
+          expect.stringMatching(
+            message instanceof RegExp ? message : new RegExp(message)
+          )
         );
       }
     },
@@ -143,13 +145,15 @@ export const assertToastCalled = async (
  * Get form validation state
  */
 export const getFormValidationState = () => {
-  const inputs = screen.getAllByRole('textbox');
+  const inputs = screen.getAllByRole("textbox");
   const passwordInputs = document.querySelectorAll('input[type="password"]');
-  
+
   return {
     inputs,
     passwordInputs,
-    hasErrors: inputs.some((input) => input.getAttribute('aria-invalid') === 'true'),
+    hasErrors: inputs.some(
+      (input) => input.getAttribute("aria-invalid") === "true"
+    ),
   };
 };
 
@@ -168,7 +172,9 @@ export const simulateLoginFlow = async (
 /**
  * Create test description with context
  */
-export const describeWithContext = (description: string, testFn: () => void) => {
+export const describeWithContext = (
+  description: string,
+  testFn: () => void
+) => {
   describe(`[Functional Test] ${description}`, testFn);
 };
-
