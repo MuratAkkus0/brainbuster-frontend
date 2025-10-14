@@ -4,7 +4,6 @@
  */
 
 import { screen, waitFor } from '@testing-library/react';
-import type { RenderResult } from '@testing-library/react';
 
 /**
  * Wait for an element to appear with a custom error message
@@ -118,7 +117,7 @@ export const waitForApiCall = async (
  */
 export const assertToastCalled = async (
   toastMock: jest.Mock,
-  type: 'success' | 'error',
+  _type: 'success' | 'error',
   options?: {
     timeout?: number;
     message?: RegExp | string;
