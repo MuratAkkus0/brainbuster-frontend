@@ -1,11 +1,15 @@
 import { cn } from "@/lib/utils";
 import { UserAvatar } from "../atoms/UserAvatar";
 import { useEffect, useState } from "react";
-import { useAuth } from "@/hooks";
+import { useAuth, useRefreshUserProfile } from "@/hooks";
 import type { UserModel } from "@/types/models/Auth/UserModel";
 import { useSPQuiz } from "@/hooks/game/useSPQuiz";
 import { useGetQuestions, type Question } from "@/hooks/useGetQuestions";
 import { QuizChoice } from "../atoms/QuizChoice";
+import { Dialog } from "@/components/ui/dialog";
+import { GameOverDialog } from "./GameOverDialog";
+import { QuizStartDialog } from "./QuizStartDialog";
+import { toast } from "sonner";
 
 const quizChoiceTagArr = ["A", "B", "C", "D"];
 
@@ -20,12 +24,12 @@ const UserAvatarContainer = ({
     <>
       <div
         className={cn(
-          "absolute hidden sm:block",
+          "md:block hidden absolute ",
           position == "left" ? "left-4" : "right-4"
         )}
       >
         <div className="bg-theme-main-bg p-2">
-          <UserAvatar className="size-24 lg:size-48" />
+          <UserAvatar className="size-32 lg:size-48" />
         </div>
         {user && (
           <div className="w-full p-2 text-center font-bold">
@@ -45,6 +49,17 @@ export const GameOverview = () => {
   const getQuestions = useGetQuestions();
   const [questionList, setQuestionList] = useState<Question[]>([]);
   const { user } = useAuth().user;
+  const [isGameOverDialogOpen, setIsGameOverDialogOpen] = useState(false);
+  const [isQuizStartDialogOpen, setIsQuizStartDialogOpen] = useState(true);
+  const [isStarting, setIsStarting] = useState(false);
+  const [availableCategories, setAvailableCategories] = useState<string[]>([]);
+  const [gameResult, setGameResult] = useState({
+    score: 0,
+    correctAnswers: 0,
+    wrongAnswers: 0,
+    totalQuestions: 0,
+  });
+
   const [quiz, setQuiz] = useState({
     sessionId: "",
     answerId: "",
@@ -60,78 +75,104 @@ export const GameOverview = () => {
       questionId: 0,
     },
     totalQuestion: 0,
+    category: "",
   });
   const { createSession, startSession, answerQuestion, getCurrentSessionInfo } =
     useSPQuiz();
+  const { refreshUserProfile } = useRefreshUserProfile();
 
   const gameMode = localStorage.getItem("qm");
 
+  // Load questions and extract categories
   useEffect(() => {
     console.log("get questions");
     getQuestions().then((res: any) => {
       console.log(res);
       setQuestionList(res);
+
+      // Extract unique categories
+      const categories = [...new Set(res.map((q: Question) => q.category))];
+      setAvailableCategories(categories as string[]);
     });
   }, []);
 
-  useEffect(() => {
-    console.log("quiz changed");
-    console.log(quiz);
-  }, [quiz]);
+  const handleStartQuiz = async (numQuestions: number, category: string) => {
+    setIsStarting(true);
 
-  // Create Session
-  useEffect(() => {
-    if (!quiz.sessionId) {
-      createSession(10).then((res: any) => {
-        setQuiz((prev) => ({
-          ...prev,
-          sessionId: res.sessionId,
-          state: res.state,
-          totalQuestion: res.totalQuestions,
-        }));
-      });
-    }
-    // return () => localStorage.removeItem("quiz");
-  }, []);
+    try {
+      // Filter questions by category if not "all"
+      const filteredQuestions =
+        category === "all"
+          ? questionList
+          : questionList.filter((q) => q.category === category);
 
-  // Start Session
-  useEffect(() => {
-    if (quiz.sessionId && quiz.state !== "RUNNING") {
-      startSession(quiz.sessionId).then((res: any) => {
-        console.log(res);
-        setQuiz((prev) => ({
-          ...prev,
-          state: res.state,
-          currentQuestion: res.current,
-          currentQuestionId: res.current.questionId,
-        }));
-      });
-    }
-  }, [quiz.sessionId]);
+      // Check if enough questions are available
+      if (filteredQuestions.length < numQuestions) {
+        toast.error(
+          `Not enough questions available in this category. Only ${filteredQuestions.length} questions found. Please choose a lower number or different category.`
+        );
+        setIsStarting(false);
+        return;
+      }
 
-  // Get Current Session Info
-  useEffect(() => {
-    if (quiz.sessionId) {
-      getCurrentSessionInfo(quiz.sessionId);
+      // Create session
+      const sessionRes = await createSession(numQuestions);
+      setQuiz((prev) => ({
+        ...prev,
+        sessionId: sessionRes.sessionId,
+        state: sessionRes.state,
+        totalQuestion: sessionRes.totalQuestions,
+        category: category,
+      }));
+
+      // Start session
+      const startRes = await startSession(sessionRes.sessionId);
+      setQuiz((prev) => ({
+        ...prev,
+        state: startRes.state,
+        currentQuestion: startRes.current,
+        currentQuestionId: startRes.current.questionId,
+      }));
+
+      // Close start dialog
+      setIsQuizStartDialogOpen(false);
+      toast.success("Quiz started! Good luck!");
+    } catch (error) {
+      console.error("Failed to start quiz:", error);
+      toast.error("Failed to start quiz. Please try again.");
+    } finally {
+      setIsStarting(false);
     }
-  }, [quiz.sessionId]);
+  };
 
   const handleChooseAnswer = (e: React.MouseEvent<HTMLDivElement>) => {
+    // Prevent multiple selections
     if (quiz.isUserChoosed) return;
+
     const choiceId = e.currentTarget.dataset.id;
     if (!choiceId) return;
 
-    console.log(questionList);
-    console.log(quiz);
-    const correctAnswerText =
-      questionList[quiz.currentQuestion.questionId - 1].correctAnswer;
+    // Find the correct question by ID, not by index
+    const currentQuestion = questionList.find(
+      (q) => q.id === quiz.currentQuestion.questionId
+    );
+
+    if (!currentQuestion) {
+      console.error("Question not found in question list");
+      return;
+    }
+
+    const correctAnswerText = currentQuestion.correctAnswer;
     const correctAnswer = quiz.currentQuestion.choices.find(
       (item) => item.text === correctAnswerText
     );
 
-    if (!correctAnswer) return;
+    if (!correctAnswer) {
+      console.error("Correct answer not found in choices");
+      return;
+    }
 
-    // set isUserChoosed
+    // set isUserChoosed - this prevents further clicks
     setQuiz((prev) => ({
       ...prev,
       choosedAnswerId: choiceId,
@@ -140,19 +181,84 @@ export const GameOverview = () => {
     }));
 
     // API call
-    answerQuestion(quiz.sessionId, choiceId).then((res: any) => {
-      // Wait for be able to show right and wrong answers
-      setTimeout(() => {
+    answerQuestion(quiz.sessionId, choiceId)
+      .then(async (res: any) => {
+        console.log("Answer response:", res);
+
+        // Check if game is over
+        if (
+          !res.next ||
+          res.state === "FINISHED" ||
+          res.state === "COMPLETED"
+        ) {
+          // Game is finished - fetch final session info and refresh user profile
+          try {
+            const sessionInfo = await getCurrentSessionInfo(quiz.sessionId);
+            console.log("Session info response:", sessionInfo);
+
+            // Refresh user profile to get updated high score
+            await refreshUserProfile(false);
+
+            setTimeout(() => {
+              const totalQuestionsCount =
+                sessionInfo.totalQuestions || quiz.totalQuestion;
+              const correctCount = sessionInfo.correctAnswers || 0;
+              const wrongCount = totalQuestionsCount - correctCount;
+
+              console.log("Game Over - Setting results:", {
+                score: correctCount,
+                correctAnswers: correctCount,
+                wrongAnswers: wrongCount,
+                totalQuestions: totalQuestionsCount,
+                sessionState: sessionInfo.state,
+              });
+
+              setGameResult({
+                score: correctCount,
+                correctAnswers: correctCount,
+                wrongAnswers: wrongCount,
+                totalQuestions: totalQuestionsCount,
+              });
+              setIsGameOverDialogOpen(true);
+            }, 2000);
+          } catch (error) {
+            console.error(
+              "Error fetching session info or refreshing profile:",
+              error
+            );
+            toast.error("Failed to load game results. Please try again.");
+          }
+        } else {
+          // Continue to next question
+          setTimeout(() => {
+            setQuiz((prev) => ({
+              ...prev,
+              currentQuestion: res.next,
+              currentQuestionId: res.next.questionId,
+              isUserChoosed: false,
+              choosedAnswerId: "",
+              correctAnswerChoiceId: "",
+            }));
+          }, 2000);
+        }
+      })
+      .catch((error: unknown) => {
+        console.error("Error answering question:", error);
+        toast.error("Failed to submit answer. Please try again.");
+        // Reset isUserChoosed to allow retry
         setQuiz((prev) => ({
           ...prev,
-          currentQuestion: res.next,
-          currentQuestionId: res.next.questionId,
           isUserChoosed: false,
           choosedAnswerId: "",
           correctAnswerChoiceId: "",
         }));
-      }, 2000);
-    });
+      });
+  };
+
+  const handlePlayAgain = () => {
+    setIsGameOverDialogOpen(false);
+    // Reload the page to start a new game
+    window.location.reload();
   };
 
   return (
@@ -161,8 +267,8 @@ export const GameOverview = () => {
         <div className="bg-theme-second-bg row-start-1 row-end-8 flex items-center justify-center relative">
           {gameMode === "mp" && <UserAvatarContainer position="left" />}
           <UserAvatarContainer position="right" user={user ?? undefined} />
-          <div className="p-4 text-2xl md:text-3xl font-medium text-center max-w-[90%] sm:max-w-[50%]">
-            {quiz.currentQuestion?.prompt || ""}
+          <div className="max-w-[55%] xl:max-w-full text-center p-4 text-2xl md:text-3xl font-medium">
+            {quiz.currentQuestion?.prompt || "Loading..."}
           </div>
         </div>
         <div className="bg-theme-dark-bg row-start-8 row-end-13 grid grid-cols-2 grid-rows-2">
@@ -184,7 +290,10 @@ export const GameOverview = () => {
                 key={i}
                 data-id={item.choiceId}
                 onClick={handleChooseAnswer}
-                className={cn(bg)}
+                className={cn(
+                  bg,
+                  quiz.isUserChoosed && "pointer-events-none cursor-not-allowed"
+                )}
                 tag={quizChoiceTagArr[i]}
               >
                 {item.text}
@@ -193,6 +302,33 @@ export const GameOverview = () => {
           })}
         </div>
       </div>
+
+      {/* Quiz Start Dialog */}
+      <Dialog
+        open={isQuizStartDialogOpen}
+        onOpenChange={setIsQuizStartDialogOpen}
+      >
+        <QuizStartDialog
+          onStart={handleStartQuiz}
+          availableCategories={availableCategories}
+          totalAvailableQuestions={questionList.length}
+          isLoading={isStarting}
+        />
+      </Dialog>
+
+      {/* Game Over Dialog */}
+      <Dialog
+        open={isGameOverDialogOpen}
+        onOpenChange={setIsGameOverDialogOpen}
+      >
+        <GameOverDialog
+          score={gameResult.score}
+          totalQuestions={gameResult.totalQuestions}
+          correctAnswers={gameResult.correctAnswers}
+          wrongAnswers={gameResult.wrongAnswers}
+          onPlayAgain={handlePlayAgain}
+        />
+      </Dialog>
     </>
   );
 };

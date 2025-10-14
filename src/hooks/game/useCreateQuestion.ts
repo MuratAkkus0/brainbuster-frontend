@@ -1,5 +1,6 @@
-import axios from "axios";
+import axios, { type AxiosError } from "axios";
 import { useAuth } from "../auth/useAuth";
+import { toast } from "sonner";
 
 interface CreateQuestion {
   (
@@ -23,25 +24,42 @@ export const useCreateQuestion = () => {
   ) => {
     const { user } = useAuth();
     const token = user.user?.token;
-    const res = await axios.post(
-      "/api/questions",
-      {
-        type,
-        difficulty,
-        category,
-        question,
-        correctAnswer,
-        incorrectAnswers,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+    
+    if (!token) {
+      toast.error("Authentication required");
+      throw new Error("User not authenticated");
+    }
+
+    try {
+      const res = await axios.post(
+        "/api/questions",
+        {
+          type,
+          difficulty,
+          category,
+          question,
+          correctAnswer,
+          incorrectAnswers,
         },
-        withCredentials: true,
-      }
-    );
-    return res.data;
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
+      );
+      toast.success("Question created successfully!");
+      return res.data;
+    } catch (err) {
+      const error = err as AxiosError;
+      console.error("Create question error:", error);
+      
+      const errorMessage =
+        (error.response?.data as any)?.message || "Failed to create question";
+      toast.error(errorMessage);
+      throw error;
+    }
   };
   return createQuestion;
 };

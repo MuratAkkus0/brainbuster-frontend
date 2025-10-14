@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./slices/userSlice";
 import questionsReducer from "./slices/questionsSlice";
+import appReducer from "./slices/appSlice";
 import {
   persistStore,
   persistReducer,
@@ -23,12 +24,19 @@ const questionConfig = {
   storage,
   whiteList: ["questions"],
 };
+const appConfig = {
+  key: "app",
+  storage,
+  whiteList: ["app"],
+};
 
 const persistedUser = persistReducer(userConfig, userReducer);
 const persistedQuestions = persistReducer(questionConfig, questionsReducer);
+const persistedApp = persistReducer(appConfig, appReducer);
 
 export const store = configureStore({
   reducer: {
+    app: persistedApp,
     user: persistedUser,
     questions: persistedQuestions,
   },

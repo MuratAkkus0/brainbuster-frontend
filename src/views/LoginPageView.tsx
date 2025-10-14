@@ -8,7 +8,7 @@ import { Navigate, useLocation } from "react-router";
 export const LoginPageView = () => {
   const { isAuthenticated } = useAuth();
   const location = useLocation();
-  const from = location.state?.from || "/";
+  const from = location.state?.from || "/profile";
 
   return isAuthenticated ? (
     <>

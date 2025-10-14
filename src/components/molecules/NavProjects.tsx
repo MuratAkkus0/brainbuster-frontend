@@ -34,16 +34,18 @@ export const CustomNavLink = ({
 
 export function NavProjects({
   projects,
+  label = "Menu",
 }: {
   projects: {
     name: string;
     url: string;
     icon: string;
   }[];
+  label?: string;
 }) {
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>Projects</SidebarGroupLabel>
+      <SidebarGroupLabel>{label}</SidebarGroupLabel>
       <SidebarMenu>
         {projects.map((item) => (
           <SidebarMenuItem key={item.name}>

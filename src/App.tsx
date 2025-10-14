@@ -7,6 +7,7 @@ import { GameOverviewView } from "./views/GameOverviewView.tsx";
 
 import { LogoutView } from "./views/LogoutView.tsx";
 import { RequireAuth } from "./components/RequireAuth.tsx";
+import { RequireAdminAuth } from "./components/RequireAdminAuth.tsx";
 import { NotFoundView } from "./views/NotFoundView.tsx";
 import { UserDashboardView } from "./views/UserDashboardView.tsx";
 import { CreateMockQuestions } from "./views/CreateMockQuestions.tsx";
@@ -20,13 +21,17 @@ export const App = () => {
         <Route path="/login" element={<LoginPageView />} />
         <Route path="/register" element={<RegisterFormView />} />
         <Route path="/logout" element={<LogoutView />} />
+        <Route path="/mock" element={<CreateMockQuestions />} />
 
-        {/* has to be authenticated */}
+        {/* authenticated users only */}
         <Route element={<RequireAuth />}>
-          <Route path="/mock" element={<CreateMockQuestions />} />
-          <Route path="/admin/dashboard" element={<AdminDashboardView />} />
           <Route path="/profile" element={<UserDashboardView />} />
           <Route path="/quiz" element={<GameOverviewView />} />
+        </Route>
+
+        {/* admin only */}
+        <Route element={<RequireAdminAuth />}>
+          <Route path="/admin/dashboard" element={<AdminDashboardView />} />
         </Route>
 
         {/* not found */}

@@ -9,22 +9,48 @@ import { Separator } from "@radix-ui/react-select";
 import { UserInformationsCard } from "../molecules/UserInformationsCard";
 import { Button } from "../ui/button";
 import { Link } from "react-router";
+import type { MouseEventHandler } from "react";
+import { useAuth, useRefreshUserProfile } from "@/hooks";
+import { useEffect } from "react";
 
-const SectionCards = () => {
-  return (
-    <SectionCard
-      title="High Score"
-      titleVal="500"
-      tagBadgeVal="+12"
-      secondTitle="Rank"
-      secondVal="Top #14 Player"
-      firstBadgeIcon="IconTrendingUp"
-      secondBadgeIcon="IconTrendingUp"
-    />
-  );
+const handleEdit: MouseEventHandler<SVGSVGElement> = (e) => {
+  console.log(e.currentTarget);
 };
 
 export default function UserDashboard() {
+  const { user } = useAuth();
+  const { refreshUserProfile } = useRefreshUserProfile();
+  const highScore = user.user?.user.highScore || 0;
+
+  // Refresh user profile when dashboard mounts
+  useEffect(() => {
+    const refreshProfile = async () => {
+      try {
+        await refreshUserProfile(false);
+      } catch (error) {
+        console.error(
+          "Failed to refresh user profile on dashboard mount:",
+          error
+        );
+      }
+    };
+
+    refreshProfile();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const SectionCards = () => {
+    return (
+      <SectionCard
+        title="High Score"
+        titleVal={highScore.toString()}
+        tagBadgeVal="+12"
+        secondTitle="Rank"
+        secondVal="Top #14 Player"
+        firstBadgeIcon="IconTrendingUp"
+        secondBadgeIcon="IconTrendingUp"
+      />
+    );
+  };
   return (
     <SidebarProvider className="min-h-0 h-full relative">
       <AppSidebar />
@@ -36,20 +62,32 @@ export default function UserDashboard() {
           </div>
         </header>
         <div className="flex flex-1 flex-col">
-          <div className="@container/main flex flex-1 flex-col gap-2">
-            <div className="flex flex-wrap gap-4 px-4 py-4 md:gap-6 md:py-6">
-              <UserInformationsCard />
+          <div className="@container/main grid grid-cols-1 md:grid-cols-2 grid-rows-12 px-4">
+            <div className="row-start-1 row-end-4 md:col-span-2 flex justify-center flex-wrap gap-4 md:gap-5 lg:gap-6 ">
+              <div className="min-w-46 max-w-80 w-full shrink-0">
+                <UserInformationsCard onEditIconClick={handleEdit} />
+              </div>
+              <div className="min-w-46 max-w-80 flex-1 shrink-0 w-full">
+                <SectionCards />
+              </div>
             </div>
-            <SectionCards />
-            <Link
-              to="/quiz"
-              onClick={() => localStorage.setItem("qm", "sp")}
-              className="max-w-1/2 cursor-pointer mx-auto"
+            <div
+              className="row-start-4 sm:row-start-5 row-span-3 md:col-span-2 flex flex-wrap gap-4 px-4 py-4 md:gap-6 md:py-6 animate-pulse 
+            "
             >
-              <Button className="cursor-pointer bg-theme-accent text-theme-dark-bg hover:bg-theme-accent-hover">
-                Play Single Player
-              </Button>
-            </Link>
+              <Link
+                to="/quiz"
+                onClick={() => localStorage.setItem("qm", "sp")}
+                className="max-w-1/2 cursor-pointer mx-auto"
+              >
+                <Button
+                  className="cursor-pointer bg-theme-accent text-theme-dark-bg hover:bg-theme-accent-hover"
+                  size={"lg"}
+                >
+                  Play Single Player
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </SidebarInset>

@@ -98,9 +98,18 @@ export const Header = ({ className }: { className?: string }) => {
             <CustomNavigationMenu route="/">Home</CustomNavigationMenu>
             {isAuthenticated ? (
               <>
-                <CustomNavigationMenu route="/profile">
-                  <span>Profile</span>
-                </CustomNavigationMenu>
+                {user.user?.user?.role === UserRoles.ADMIN ? (
+                  <>
+                    <CustomNavigationMenu route="/admin/dashboard">
+                      Admin Dashboard
+                    </CustomNavigationMenu>
+                  </>
+                ) : (
+                  <CustomNavigationMenu route="/profile">
+                    <span>Profile</span>
+                  </CustomNavigationMenu>
+                )}
+
                 <CustomNavigationMenu route="/logout">
                   Logout
                 </CustomNavigationMenu>
@@ -114,15 +123,6 @@ export const Header = ({ className }: { className?: string }) => {
                   Register
                 </CustomNavigationMenu>
               </>
-            )}
-            {user.user?.user?.role === UserRoles.ADMIN ? (
-              <>
-                <CustomNavigationMenu route="/admin/dashboard">
-                  Admin Dashboard
-                </CustomNavigationMenu>
-              </>
-            ) : (
-              ""
             )}
           </div>
         </div>

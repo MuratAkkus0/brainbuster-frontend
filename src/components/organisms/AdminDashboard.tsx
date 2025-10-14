@@ -1,52 +1,53 @@
 import { AppSidebar } from "@/components/molecules/AppSidebar";
-import { DataTable } from "@/components/data-table";
-import { SiteHeader } from "@/components/site-header";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { SectionCard } from "../molecules/SectionCard";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { UsersManagement } from "./UsersManagement";
+import { QuestionsManagement } from "./QuestionsManagement";
+import { Users, HelpCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-import data from "../../../public/data/data.json";
-import { ChartAreaInteractive } from "../molecules/ChartAreaInteractive";
-
-const SectionCards = () => {
+export default function AdminDashboard({ className }: { className?: string }) {
   return (
-    <>
-      <SectionCard
-        title="High Score"
-        titleVal="500"
-        tagBadgeVal="+12"
-        secondTitle="Rank"
-        secondVal="Top #14 Player"
-        firstBadgeIcon="IconTrendingUp"
-        secondBadgeIcon="IconTrendingUp"
-      />
-    </>
-  );
-};
-
-export default function AdminDashboard() {
-  return (
-    <SidebarProvider
-      className="min-h-0 h-full relative"
-      style={
-        {
-          "--sidebar-width": "calc(var(--spacing) * 72)",
-          "--header-height": "calc(var(--spacing) * 12)",
-        } as React.CSSProperties
-      }
-    >
-      <AppSidebar variant="inset" />
+    <SidebarProvider className={cn("min-h-0 h-full relative", className)}>
+      <AppSidebar />
       <SidebarInset className="overflow-y-auto">
-        <SiteHeader />
-        <div className="flex flex-1 flex-col">
-          <div className="@container/main flex flex-1 flex-col gap-2">
-            <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-              <SectionCards />
-              <div className="px-4 lg:px-6">
-                <ChartAreaInteractive />
-              </div>
-              <DataTable data={data} />
-            </div>
+        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+          <div className="flex items-center gap-2 px-4">
+            <SidebarTrigger className="-ml-1" />
+            <Separator orientation="vertical" className="mr-2 h-4" />
+            <h1 className="text-xl font-semibold">Admin Dashboard</h1>
           </div>
+        </header>
+
+        <div className="flex flex-1 flex-col p-4 md:p-6">
+          <Tabs defaultValue="users" className="w-full">
+            <TabsList className="grid w-full max-w-md grid-cols-2">
+              <TabsTrigger value="users" className="flex items-center gap-2">
+                <Users className="h-4 w-4" />
+                Users
+              </TabsTrigger>
+              <TabsTrigger
+                value="questions"
+                className="flex items-center gap-2"
+              >
+                <HelpCircle className="h-4 w-4" />
+                Questions
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="users" className="mt-6">
+              <UsersManagement />
+            </TabsContent>
+
+            <TabsContent value="questions" className="mt-6">
+              <QuestionsManagement />
+            </TabsContent>
+          </Tabs>
         </div>
       </SidebarInset>
     </SidebarProvider>
