@@ -19,7 +19,10 @@ const UserAvatarContainer = ({
   return (
     <>
       <div
-        className={cn("absolute ", position == "left" ? "left-4" : "right-4")}
+        className={cn(
+          "absolute hidden sm:block",
+          position == "left" ? "left-4" : "right-4"
+        )}
       >
         <div className="bg-theme-main-bg p-2">
           <UserAvatar />
