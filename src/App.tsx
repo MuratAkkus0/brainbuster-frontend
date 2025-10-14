@@ -21,6 +21,7 @@ export const App = () => {
         <Route path="/login" element={<LoginPageView />} />
         <Route path="/register" element={<RegisterFormView />} />
         <Route path="/logout" element={<LogoutView />} />
+        <Route path="/mock" element={<CreateMockQuestions />} />
 
         {/* authenticated users only */}
         <Route element={<RequireAuth />}>
@@ -31,7 +32,6 @@ export const App = () => {
         {/* admin only */}
         <Route element={<RequireAdminAuth />}>
           <Route path="/admin/dashboard" element={<AdminDashboardView />} />
-          <Route path="/mock" element={<CreateMockQuestions />} />
         </Route>
 
         {/* not found */}

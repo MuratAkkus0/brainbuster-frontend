@@ -83,7 +83,7 @@ export const GameOverview = () => {
     getQuestions().then((res: any) => {
       console.log(res);
       setQuestionList(res);
-      
+
       // Extract unique categories
       const categories = [...new Set(res.map((q: Question) => q.category))];
       setAvailableCategories(categories as string[]);
@@ -95,9 +95,10 @@ export const GameOverview = () => {
 
     try {
       // Filter questions by category if not "all"
-      const filteredQuestions = category === "all" 
-        ? questionList 
-        : questionList.filter(q => q.category === category);
+      const filteredQuestions =
+        category === "all"
+          ? questionList
+          : questionList.filter((q) => q.category === category);
 
       // Check if enough questions are available
       if (filteredQuestions.length < numQuestions) {
@@ -235,7 +236,10 @@ export const GameOverview = () => {
       </div>
 
       {/* Quiz Start Dialog */}
-      <Dialog open={isQuizStartDialogOpen} onOpenChange={setIsQuizStartDialogOpen}>
+      <Dialog
+        open={isQuizStartDialogOpen}
+        onOpenChange={setIsQuizStartDialogOpen}
+      >
         <QuizStartDialog
           onStart={handleStartQuiz}
           availableCategories={availableCategories}
