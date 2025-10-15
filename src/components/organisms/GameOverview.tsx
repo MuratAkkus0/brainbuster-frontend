@@ -103,6 +103,14 @@ export const GameOverview = () => {
     navigate("/profile");
   };
 
+  const handleQuizStartDialogChange = (open: boolean) => {
+    setIsQuizStartDialogOpen(open);
+    // If dialog is being closed (X button clicked) and quiz hasn't started yet, redirect to profile
+    if (!open && !quiz.state) {
+      navigate("/profile");
+    }
+  };
+
   const handleStartQuiz = async (numQuestions: number, category: string) => {
     setIsStarting(true);
 
@@ -313,7 +321,7 @@ export const GameOverview = () => {
       {/* Quiz Start Dialog */}
       <Dialog
         open={isQuizStartDialogOpen}
-        onOpenChange={setIsQuizStartDialogOpen}
+        onOpenChange={handleQuizStartDialogChange}
       >
         <QuizStartDialog
           onStart={handleStartQuiz}
