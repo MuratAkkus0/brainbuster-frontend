@@ -3,7 +3,7 @@ import { useAuth } from "../auth/useAuth";
 import { toast } from "sonner";
 
 interface CreateSession {
-  (numQuestions: number): any;
+  (numQuestions: number, category?: string): any;
 }
 interface StartSession {
   (sessionId: string): any;
@@ -22,16 +22,26 @@ export const useSPQuiz = () => {
   const { user } = useAuth();
   const token = user.user?.token;
 
-  const createSession: CreateSession = async (numQuestions = 10) => {
+  const createSession: CreateSession = async (numQuestions = 10, category) => {
     if (!token) {
       toast.error("Authentication required");
       throw new Error("User not authenticated");
     }
 
     try {
+      // Build request body with optional category filter
+      const requestBody: { numQuestions: number; category?: string } = {
+        numQuestions,
+      };
+      
+      // Only add category if it's specified and not "all"
+      if (category && category !== "all") {
+        requestBody.category = category;
+      }
+
       const res = await axios.post(
         "/api/sp/sessions",
-        { numQuestions },
+        requestBody,
         {
           headers: {
             "Content-Type": "application/json",

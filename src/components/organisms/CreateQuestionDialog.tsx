@@ -106,18 +106,12 @@ export const CreateQuestionDialog = ({
           <div className="grid grid-cols-3 gap-3">
             <div className="grid gap-3">
               <Label htmlFor="type">Type</Label>
-              <Select
-                onValueChange={(value) => setValue("type", value)}
+              <Input
+                {...register("type")}
+                id="type"
+                placeholder="e.g., Multiple Choice"
                 disabled={isLoading}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="multiple">Multiple Choice</SelectItem>
-                  <SelectItem value="boolean">True/False</SelectItem>
-                </SelectContent>
-              </Select>
+              />
               <FormErrorLabel errMsg={errors.type?.message} />
             </div>
 
