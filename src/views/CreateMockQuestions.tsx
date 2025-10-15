@@ -10,16 +10,16 @@ export const CreateMockQuestions = () => {
       difficulty,
       category,
       question,
-      correct_answer,
-      incorrect_answers,
+      correctAnswer,
+      incorrectAnswers,
     } = questionList[i];
     createQuestion(
       type,
       difficulty,
       category,
       question,
-      correct_answer,
-      incorrect_answers
+      correctAnswer,
+      incorrectAnswers
     );
   }
 

@@ -15,9 +15,9 @@ export const UserInformationsCard = ({}: {
 }) => {
   const user = useAuth();
   return (
-    <Card className="w-80 md:w-full h-full">
+    <Card className="w-full h-full">
       <CardHeader className="flex gap-4 w-full">
-        <UserAvatar className="bg-theme-second-bg p-2 size-32 rounded-lg" />
+        <UserAvatar className="shrink-0 bg-theme-second-bg p-2 size-32 rounded-lg" />
         <div>
           <CardTitle>{user.user.user?.user.username ?? ""}</CardTitle>
           <CardDescription>{user.user.user?.user.role ?? ""}</CardDescription>
@@ -29,7 +29,7 @@ export const UserInformationsCard = ({}: {
             className="cursor-pointer"
           >
             <Button
-              className="cursor-pointer bg-theme-accent text-theme-dark-bg hover:bg-theme-accent-hover animate-pulse"
+              className="cursor-pointer bg-theme-accent text-theme-dark-bg hover:bg-theme-accent-hover animate-pulse w-full"
               size={"lg"}
             >
               Play Single Player

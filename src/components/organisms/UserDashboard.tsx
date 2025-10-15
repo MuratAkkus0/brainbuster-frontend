@@ -8,8 +8,6 @@ import { SectionCard } from "../molecules/SectionCard";
 import { Separator } from "@radix-ui/react-select";
 import { UserInformationsCard } from "../molecules/UserInformationsCard";
 import { LeaderboardCard } from "../molecules/LeaderboardCard";
-import { Button } from "../ui/button";
-import { Link } from "react-router";
 import type { MouseEventHandler } from "react";
 import { useAuth, useRefreshUserProfile } from "@/hooks";
 import { useEffect } from "react";
