@@ -115,8 +115,8 @@ export const GameOverview = () => {
         return;
       }
 
-      // Create session
-      const sessionRes = await createSession(numQuestions);
+      // Create session with category filter
+      const sessionRes = await createSession(numQuestions, category);
       setQuiz((prev) => ({
         ...prev,
         sessionId: sessionRes.sessionId,
