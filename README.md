@@ -38,12 +38,14 @@ BrainBuster is a modern, interactive quiz application that provides an engaging 
 ### For Users
 
 - **🔐 Authentication System**
+
   - Secure login/register with JWT tokens
   - Password validation with strong requirements
   - Session management with refresh tokens
   - Privacy policy acceptance (GDPR compliant)
 
 - **🎯 Quiz Experience**
+
   - Multiple categories (Science, History, Geography, etc.)
   - Customizable quiz settings (number of questions, category)
   - Real-time answer feedback
@@ -59,6 +61,7 @@ BrainBuster is a modern, interactive quiz application that provides an engaging 
 ### For Admins
 
 - **👥 User Management**
+
   - View all users
   - Create/Edit/Delete users
   - Manage user roles
@@ -77,45 +80,45 @@ BrainBuster is a modern, interactive quiz application that provides an engaging 
 
 ### Core Technologies
 
-| Technology | Version | Purpose |
-|-----------|---------|---------|
-| [React](https://reactjs.org/) | 19.1.1 | UI Library |
-| [TypeScript](https://www.typescriptlang.org/) | 5.8.3 | Type Safety |
-| [Vite](https://vitejs.dev/) | 7.1.7 | Build Tool |
-| [TailwindCSS](https://tailwindcss.com/) | 4.1.13 | Styling |
+| Technology                                    | Version | Purpose     |
+| --------------------------------------------- | ------- | ----------- |
+| [React](https://reactjs.org/)                 | 19.1.1  | UI Library  |
+| [TypeScript](https://www.typescriptlang.org/) | 5.8.3   | Type Safety |
+| [Vite](https://vitejs.dev/)                   | 7.1.7   | Build Tool  |
+| [TailwindCSS](https://tailwindcss.com/)       | 4.1.13  | Styling     |
 
 ### State Management & Routing
 
-| Technology | Version | Purpose |
-|-----------|---------|---------|
-| [Redux Toolkit](https://redux-toolkit.js.org/) | 2.9.0 | State Management |
-| [Redux Persist](https://github.com/rt2zz/redux-persist) | 6.0.0 | State Persistence |
-| [React Router](https://reactrouter.com/) | 7.9.3 | Client-side Routing |
+| Technology                                              | Version | Purpose             |
+| ------------------------------------------------------- | ------- | ------------------- |
+| [Redux Toolkit](https://redux-toolkit.js.org/)          | 2.9.0   | State Management    |
+| [Redux Persist](https://github.com/rt2zz/redux-persist) | 6.0.0   | State Persistence   |
+| [React Router](https://reactrouter.com/)                | 7.9.3   | Client-side Routing |
 
 ### UI Components & Styling
 
-| Technology | Version | Purpose |
-|-----------|---------|---------|
-| [Radix UI](https://www.radix-ui.com/) | Various | Accessible Components |
-| [Lucide React](https://lucide.dev/) | 0.544.0 | Icon Library |
-| [Recharts](https://recharts.org/) | 2.15.4 | Data Visualization |
-| [Sonner](https://sonner.emilkowal.ski/) | 2.0.7 | Toast Notifications |
+| Technology                              | Version | Purpose               |
+| --------------------------------------- | ------- | --------------------- |
+| [Radix UI](https://www.radix-ui.com/)   | Various | Accessible Components |
+| [Lucide React](https://lucide.dev/)     | 0.544.0 | Icon Library          |
+| [Recharts](https://recharts.org/)       | 2.15.4  | Data Visualization    |
+| [Sonner](https://sonner.emilkowal.ski/) | 2.0.7   | Toast Notifications   |
 
 ### Forms & Validation
 
-| Technology | Version | Purpose |
-|-----------|---------|---------|
-| [React Hook Form](https://react-hook-form.com/) | 7.64.0 | Form Management |
-| [Zod](https://zod.dev/) | 4.1.12 | Schema Validation |
-| [@hookform/resolvers](https://github.com/react-hook-form/resolvers) | 5.2.2 | Form Validation |
+| Technology                                                          | Version | Purpose           |
+| ------------------------------------------------------------------- | ------- | ----------------- |
+| [React Hook Form](https://react-hook-form.com/)                     | 7.64.0  | Form Management   |
+| [Zod](https://zod.dev/)                                             | 4.1.12  | Schema Validation |
+| [@hookform/resolvers](https://github.com/react-hook-form/resolvers) | 5.2.2   | Form Validation   |
 
 ### Testing
 
-| Technology | Version | Purpose |
-|-----------|---------|---------|
-| [Jest](https://jestjs.io/) | 30.2.0 | Testing Framework |
-| [React Testing Library](https://testing-library.com/react) | 16.3.0 | Component Testing |
-| [ts-jest](https://kulshekhar.github.io/ts-jest/) | 29.4.5 | TypeScript Support |
+| Technology                                                 | Version | Purpose            |
+| ---------------------------------------------------------- | ------- | ------------------ |
+| [Jest](https://jestjs.io/)                                 | 30.2.0  | Testing Framework  |
+| [React Testing Library](https://testing-library.com/react) | 16.3.0  | Component Testing  |
+| [ts-jest](https://kulshekhar.github.io/ts-jest/)           | 29.4.5  | TypeScript Support |
 
 ---
 
@@ -129,12 +132,14 @@ BrainBuster is a modern, interactive quiz application that provides an engaging 
 ### Installation
 
 1. **Clone the repository**
+
 ```bash
 git clone https://github.com/davidzus/brainbuster-frontend.git
 cd brainbuster-frontend
 ```
 
 2. **Install dependencies**
+
 ```bash
 npm install
 ```
@@ -148,16 +153,17 @@ Create a proxy configuration in `vite.config.ts` or set up environment variables
 export default defineConfig({
   server: {
     proxy: {
-      '/api': {
-        target: 'http://localhost:8080', // Your backend URL
+      "/api": {
+        target: "http://localhost:8080", // Your backend URL
         changeOrigin: true,
       },
     },
   },
-})
+});
 ```
 
 4. **Start the development server**
+
 ```bash
 npm run dev
 ```
@@ -166,16 +172,16 @@ The application will be available at `http://localhost:5173`
 
 ### Available Scripts
 
-| Script | Description |
-|--------|-------------|
-| `npm run dev` | Start development server with HMR |
-| `npm run build` | Build for production |
-| `npm run preview` | Preview production build |
-| `npm run lint` | Run ESLint |
-| `npm test` | Run all tests |
-| `npm run test:watch` | Run tests in watch mode |
-| `npm run test:coverage` | Generate test coverage report |
-| `npm run test:functional` | Run functional tests only |
+| Script                    | Description                       |
+| ------------------------- | --------------------------------- |
+| `npm run dev`             | Start development server with HMR |
+| `npm run build`           | Build for production              |
+| `npm run preview`         | Preview production build          |
+| `npm run lint`            | Run ESLint                        |
+| `npm test`                | Run all tests                     |
+| `npm run test:watch`      | Run tests in watch mode           |
+| `npm run test:coverage`   | Generate test coverage report     |
+| `npm run test:functional` | Run functional tests only         |
 
 ---
 
@@ -221,12 +227,12 @@ src/
 
 ### Test Coverage Goals
 
-| Metric | Target |
-|--------|--------|
-| Statements | 70% |
-| Branches | 70% |
-| Functions | 70% |
-| Lines | 70% |
+| Metric     | Target |
+| ---------- | ------ |
+| Statements | 70%    |
+| Branches   | 70%    |
+| Functions  | 70%    |
+| Lines      | 70%    |
 
 ---
 
@@ -276,6 +282,7 @@ brainbuster-frontend/
 ### Component Library
 
 Built with [Shadcn UI](https://ui.shadcn.com/) and [Radix UI](https://www.radix-ui.com/) for:
+
 - ✅ Accessibility (WCAG 2.1 compliant)
 - ✅ Keyboard navigation
 - ✅ Screen reader support
@@ -302,10 +309,10 @@ Built with [Shadcn UI](https://ui.shadcn.com/) and [Radix UI](https://www.radix-
 
 ### Authorization Levels
 
-| Role | Permissions |
-|------|------------|
-| **Guest** | View homepage, register, login |
-| **User** | Play quizzes, view profile, edit profile |
+| Role      | Permissions                                     |
+| --------- | ----------------------------------------------- |
+| **Guest** | View homepage, register, login                  |
+| **User**  | Play quizzes, view profile, edit profile        |
 | **Admin** | All user permissions + manage users & questions |
 
 ---
@@ -316,34 +323,35 @@ Built with [Shadcn UI](https://ui.shadcn.com/) and [Radix UI](https://www.radix-
 
 ```typescript
 // Authentication
-POST   /api/auth/login
-POST   /api/auth/register
-POST   /api/auth/logout
+POST / api / auth / login;
+POST / api / auth / register;
+POST / api / auth / logout;
 
 // Users
-GET    /api/users
-GET    /api/users/{id}
-PUT    /api/users/{id}
-DELETE /api/users/{id}
-POST   /api/users
+GET / api / users;
+GET / api / users / { id };
+PUT / api / users / { id };
+DELETE / api / users / { id };
+POST / api / users;
 
 // Questions
-GET    /api/questions
-GET    /api/questions/{id}
-PUT    /api/questions/{id}
-DELETE /api/questions/{id}
-POST   /api/questions
+GET / api / questions;
+GET / api / questions / { id };
+PUT / api / questions / { id };
+DELETE / api / questions / { id };
+POST / api / questions;
 
 // Quiz (Single Player)
-POST   /api/sp/sessions
-POST   /api/sp/sessions/{id}/start
-POST   /api/sp/sessions/{id}/answer
-GET    /api/sp/sessions/{id}
+POST / api / sp / sessions;
+POST / api / sp / sessions / { id } / start;
+POST / api / sp / sessions / { id } / answer;
+GET / api / sp / sessions / { id };
 ```
 
 ### Request/Response Examples
 
 **Login Request:**
+
 ```typescript
 POST /api/auth/login
 Content-Type: application/json
@@ -355,6 +363,7 @@ Content-Type: application/json
 ```
 
 **Login Response:**
+
 ```typescript
 {
   "token": "eyJhbGciOiJIUzI1NiIs...",
@@ -385,11 +394,13 @@ This generates optimized static files in the `dist/` directory.
 ### Deployment Options
 
 - **Vercel** (Recommended)
+
   ```bash
   vercel deploy
   ```
 
 - **Netlify**
+
   ```bash
   netlify deploy --prod
   ```
@@ -460,9 +471,9 @@ chore: update dependencies
 
 ## 📚 Documentation
 
+- [Testing Guide](TESTING.md) - Comprehensive testing documentation
 - [API Documentation](docs/API.md) (if available)
 - [Component Documentation](docs/COMPONENTS.md) (if available)
-- [Testing Guide](docs/TESTING.md) (if available)
 
 ---
 
@@ -471,6 +482,7 @@ chore: update dependencies
 ### Common Issues
 
 **Problem**: `npm install` fails
+
 ```bash
 # Solution: Clear cache and reinstall
 rm -rf node_modules package-lock.json
@@ -479,12 +491,14 @@ npm install
 ```
 
 **Problem**: TypeScript errors
+
 ```bash
 # Solution: Rebuild TypeScript
 npm run build
 ```
 
 **Problem**: Tests fail
+
 ```bash
 # Solution: Clear Jest cache
 npm test -- --clearCache
