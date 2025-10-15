@@ -7,6 +7,7 @@ import {
 import { SectionCard } from "../molecules/SectionCard";
 import { Separator } from "@radix-ui/react-select";
 import { UserInformationsCard } from "../molecules/UserInformationsCard";
+import { LeaderboardCard } from "../molecules/LeaderboardCard";
 import { Button } from "../ui/button";
 import { Link } from "react-router";
 import type { MouseEventHandler } from "react";
@@ -71,22 +72,25 @@ export default function UserDashboard() {
                 <SectionCards />
               </div>
             </div>
-            <div
-              className="row-start-4 sm:row-start-5 row-span-3 md:col-span-2 flex flex-wrap gap-4 px-4 py-4 md:gap-6 md:py-6 animate-pulse 
-            "
-            >
-              <Link
-                to="/quiz"
-                onClick={() => localStorage.setItem("qm", "sp")}
-                className="max-w-1/2 cursor-pointer mx-auto"
-              >
-                <Button
-                  className="cursor-pointer bg-theme-accent text-theme-dark-bg hover:bg-theme-accent-hover"
-                  size={"lg"}
+            <div className="row-start-4 sm:row-start-5 row-span-3 md:col-span-2 flex flex-col gap-6 px-4 py-4">
+              <div className="flex justify-center">
+                <Link
+                  to="/quiz"
+                  onClick={() => localStorage.setItem("qm", "sp")}
+                  className="cursor-pointer"
                 >
-                  Play Single Player
-                </Button>
-              </Link>
+                  <Button
+                    className="cursor-pointer bg-theme-accent text-theme-dark-bg hover:bg-theme-accent-hover animate-pulse"
+                    size={"lg"}
+                  >
+                    Play Single Player
+                  </Button>
+                </Link>
+              </div>
+              
+              <div className="max-w-2xl mx-auto w-full">
+                <LeaderboardCard />
+              </div>
             </div>
           </div>
         </div>
