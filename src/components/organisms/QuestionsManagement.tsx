@@ -51,7 +51,7 @@ export const QuestionsManagement = () => {
   };
 
   const handleEdit = (question: Question) => {
-    setSelectedQuestion(question);
+    setSelectedQuestion({ ...question });
     setIsEditDialogOpen(true);
   };
 
@@ -161,7 +161,11 @@ export const QuestionsManagement = () => {
       </div>
 
       {selectedQuestion && (
-        <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <Dialog
+          key={selectedQuestion.id}
+          open={isEditDialogOpen}
+          onOpenChange={setIsEditDialogOpen}
+        >
           <EditQuestionDialog
             question={selectedQuestion}
             onSuccess={handleEditSuccess}
