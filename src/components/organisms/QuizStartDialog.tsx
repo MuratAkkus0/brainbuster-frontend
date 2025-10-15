@@ -34,6 +34,7 @@ type QuizStartFormData = z.infer<typeof QuizStartSchema>;
 
 interface QuizStartDialogProps {
   onStart: (numQuestions: number, category: string) => void;
+  onCancel?: () => void;
   availableCategories: string[];
   totalAvailableQuestions: number;
   isLoading?: boolean;
@@ -41,6 +42,7 @@ interface QuizStartDialogProps {
 
 export const QuizStartDialog = ({
   onStart,
+  onCancel,
   availableCategories,
   totalAvailableQuestions,
   isLoading = false,
@@ -88,19 +90,17 @@ export const QuizStartDialog = ({
     setValue("category", value);
   };
 
+  const handleDialogClose = (e: Event) => {
+    e.preventDefault();
+    // User closed dialog without starting quiz, redirect to profile
+    onCancel?.();
+  };
+
   return (
     <DialogContent
       className="sm:max-w-[450px]"
-      onInteractOutside={(e) => {
-        e.preventDefault();
-        // User clicked outside dialog, redirect to profile
-        window.location.href = "/profile";
-      }}
-      onEscapeKeyDown={(e) => {
-        e.preventDefault();
-        // User pressed Escape, redirect to profile
-        window.location.href = "/profile";
-      }}
+      onInteractOutside={handleDialogClose}
+      onEscapeKeyDown={handleDialogClose}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <DialogHeader>

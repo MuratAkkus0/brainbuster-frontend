@@ -10,6 +10,7 @@ import { Dialog } from "@/components/ui/dialog";
 import { GameOverDialog } from "./GameOverDialog";
 import { QuizStartDialog } from "./QuizStartDialog";
 import { toast } from "sonner";
+import { useNavigate } from "react-router";
 
 const quizChoiceTagArr = ["A", "B", "C", "D"];
 
@@ -46,6 +47,7 @@ interface Choice {
   text: string;
 }
 export const GameOverview = () => {
+  const navigate = useNavigate();
   const getQuestions = useGetQuestions();
   const [questionList, setQuestionList] = useState<Question[]>([]);
   const { user } = useAuth().user;
@@ -95,6 +97,11 @@ export const GameOverview = () => {
       setAvailableCategories(categories as string[]);
     });
   }, []);
+
+  const handleCancelQuizStart = () => {
+    // User cancelled quiz start, redirect to profile
+    navigate("/profile");
+  };
 
   const handleStartQuiz = async (numQuestions: number, category: string) => {
     setIsStarting(true);
@@ -310,6 +317,7 @@ export const GameOverview = () => {
       >
         <QuizStartDialog
           onStart={handleStartQuiz}
+          onCancel={handleCancelQuizStart}
           availableCategories={availableCategories}
           totalAvailableQuestions={questionList.length}
           isLoading={isStarting}
