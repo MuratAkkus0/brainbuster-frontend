@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FormErrorLabel } from "@/components/atoms/FormErrorLabel";
 import { useQuestions } from "@/hooks/admin/useQuestions";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useRef } from "react";
@@ -22,7 +22,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Trash2, Plus } from "lucide-react";
 
 const CreateQuestionSchema = z.object({
   type: z.string().min(1, "Type is required"),
@@ -32,7 +31,7 @@ const CreateQuestionSchema = z.object({
   correctAnswer: z.string().min(1, "Correct answer is required"),
   incorrectAnswers: z
     .array(z.string().min(1, "Answer cannot be empty"))
-    .min(1, "At least one incorrect answer is required"),
+    .length(3, "Exactly 3 incorrect answers are required"),
 });
 
 type CreateQuestionFormData = z.infer<typeof CreateQuestionSchema>;
@@ -51,7 +50,6 @@ export const CreateQuestionDialog = ({
     register,
     handleSubmit,
     formState: { errors },
-    control,
     setValue,
     reset,
   } = useForm<CreateQuestionFormData>({
@@ -64,11 +62,6 @@ export const CreateQuestionDialog = ({
       incorrectAnswers: ["", "", ""],
     },
     resolver: zodResolver(CreateQuestionSchema),
-  });
-
-  const { fields, append, remove } = useFieldArray({
-    control: control as any,
-    name: "incorrectAnswers",
   });
 
   const onSubmit = async (data: CreateQuestionFormData) => {
@@ -88,7 +81,7 @@ export const CreateQuestionDialog = ({
         <DialogHeader>
           <DialogTitle>Create New Question</DialogTitle>
           <DialogDescription>
-            Add a new quiz question to the system. All fields are required.
+            Add a new quiz question with 1 correct answer and 3 incorrect answers. All fields are required.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -157,38 +150,14 @@ export const CreateQuestionDialog = ({
           </div>
 
           <div className="grid gap-3">
-            <div className="flex items-center justify-between">
-              <Label>Incorrect Answers</Label>
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                onClick={() => append("" as any)}
+            <Label>Incorrect Answers (3 required)</Label>
+            {[0, 1, 2].map((index) => (
+              <Input
+                key={index}
+                {...register(`incorrectAnswers.${index}`)}
+                placeholder={`Incorrect answer ${index + 1}`}
                 disabled={isLoading}
-              >
-                <Plus className="h-4 w-4 mr-1" />
-                Add Answer
-              </Button>
-            </div>
-            {fields.map((field, index) => (
-              <div key={field.id} className="flex gap-2">
-                <Input
-                  {...register(`incorrectAnswers.${index}`)}
-                  placeholder={`Incorrect answer ${index + 1}`}
-                  disabled={isLoading}
-                />
-                {fields.length > 1 && (
-                  <Button
-                    type="button"
-                    variant="destructive"
-                    size="sm"
-                    onClick={() => remove(index)}
-                    disabled={isLoading}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                )}
-              </div>
+              />
             ))}
             <FormErrorLabel errMsg={errors.incorrectAnswers?.message} />
           </div>
