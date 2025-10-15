@@ -1,586 +1,702 @@
 [
-    {
-      "type": "multiple",
-      "difficulty": "hard",
-      "category": "Geography",
-      "question": "The Hunua Ranges is located in...",
-      "correctAnswer": "New Zealand",
-      "incorrectAnswers": [
-        "Nepal",
-        "China",
-        "Mexico"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "hard",
-      "category": "Science: Computers",
-      "question": "How many Hz does the video standard PAL support?",
-      "correctAnswer": "50",
-      "incorrectAnswers": [
-        "59",
-        "60",
-        "25"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "medium",
-      "category": "Politics",
-      "question": "What are the first names of the first father and son pair that were both Prime Ministers of Canada?",
-      "correctAnswer": "Justin and Pierre",
-      "incorrectAnswers": [
-        "John and Louis",
-        "Brian and Justin",
-        "Brian and Pierre"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "hard",
-      "category": "Entertainment: Film",
-      "question": "In the 1974 Christmas flick &quot;The Year Without a Santa Claus,&quot; what are the names of the two elves who help Mrs. Claus save Christmas?",
-      "correctAnswer": "Jingle &amp; Jangle",
-      "incorrectAnswers": [
-        "Buddy &amp; Bobby",
-        "Holly &amp; Jolly",
-        "Snowflake &amp; Icicle"
-      ]
-    },
-    {
-      "type": "boolean",
-      "difficulty": "medium",
-      "category": "Entertainment: Music",
-      "question": "Ashley Frangipane performs under the stage name Halsey.",
-      "correctAnswer": "True",
-      "incorrectAnswers": [
-        "False"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "easy",
-      "category": "Entertainment: Japanese Anime &amp; Manga",
-      "question": "What animation studio produced &quot;Gurren Lagann&quot;?",
-      "correctAnswer": "Gainax",
-      "incorrectAnswers": [
-        "Kyoto Animation",
-        "Pierrot",
-        "A-1 Pictures"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "easy",
-      "category": "Entertainment: Video Games",
-      "question": "Blinky, Pinky, Inky and Clyde are characters from which classic video game?",
-      "correctAnswer": "Pac-Man",
-      "incorrectAnswers": [
-        "Gauntlet",
-        "Space Invaders",
-        "Street Fighter"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "medium",
-      "category": "Animals",
-      "question": "What color/colour is a polar bear&#039;s skin?",
-      "correctAnswer": "Black",
-      "incorrectAnswers": [
-        "White",
-        "Pink",
-        "Green"
-      ]
-    },
-    {
-      "type": "boolean",
-      "difficulty": "medium",
-      "category": "Entertainment: Comics",
-      "question": "The X-Men&#039;s Storm and Nightcrawler were originally planned to be characters in DC Comics&#039; Legion of Super-Heroes.",
-      "correctAnswer": "True",
-      "incorrectAnswers": [
-        "False"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "easy",
-      "category": "Entertainment: Film",
-      "question": "In which film does Humphrey Bogart say the famous line, &quot;Here&#039;s looking at you, kid&quot;?",
-      "correctAnswer": "Casablanca",
-      "incorrectAnswers": [
-        "The Maltese Falcon",
-        "The Treasure of the Sierra Madre",
-        "Citizen Kane"
-      ]
-    },
-    {
-      "type": "boolean",
-      "difficulty": "easy",
-      "category": "Science: Computers",
-      "question": "Time on Computers is measured via the EPOX System.",
-      "correctAnswer": "False",
-      "incorrectAnswers": [
-        "True"
-      ]
-    },
-    {
-      "type": "boolean",
-      "difficulty": "medium",
-      "category": "Science &amp; Nature",
-      "question": "The &quot;Gympie Stinger&quot; is the deadliest plant in the world.",
-      "correctAnswer": "False",
-      "incorrectAnswers": [
-        "True"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "easy",
-      "category": "Entertainment: Video Games",
-      "question": "In Need for Speed: Most Wanted (2005), what was the name of the main antagonist?",
-      "correctAnswer": "Clarence &quot;Razor&quot; Callahan",
-      "incorrectAnswers": [
-        "Hector &quot;Ming&quot; Domingo",
-        "Toru &quot;Bull&quot; Sato",
-        "Karl &quot;Baron&quot; Smit"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "easy",
-      "category": "Science &amp; Nature",
-      "question": "Which of the following is not one of the groups on the periodic table?",
-      "correctAnswer": "Fluorines",
-      "incorrectAnswers": [
-        "Alkali Metals",
-        "Halogens",
-        "Noble Gases"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "easy",
-      "category": "Entertainment: Television",
-      "question": "In which British seaside town was the BBC sitcom &quot;Fawlty Towers&quot; set?",
-      "correctAnswer": "Torquay",
-      "incorrectAnswers": [
-        "Blackpool",
-        "Bournemouth",
-        "Great Yarmouth"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "medium",
-      "category": "General Knowledge",
-      "question": "A statue of Charles Darwin sits in what London museum?",
-      "correctAnswer": "Natural History Museum",
-      "incorrectAnswers": [
-        "Tate",
-        "British Museum",
-        "Science Museum"
-      ]
-    },
-    {
-      "type": "boolean",
-      "difficulty": "easy",
-      "category": "Entertainment: Board Games",
-      "question": "Snakes and Ladders was originally created in India?",
-      "correctAnswer": "True",
-      "incorrectAnswers": [
-        "False"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "hard",
-      "category": "Entertainment: Music",
-      "question": "In the metal band Slipknot, there are 9 members, which member labelled themselves number 6? ",
-      "correctAnswer": "Shawn Crahan (Clown)",
-      "incorrectAnswers": [
-        "Sid Wilson",
-        "Cory Taylor",
-        "Mick Thomson"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "hard",
-      "category": "Entertainment: Japanese Anime &amp; Manga",
-      "question": "Who is One Punch Man voiced by in the Japanese version.",
-      "correctAnswer": "Makoto Furukawa",
-      "incorrectAnswers": [
-        "Zach Aguilar",
-        "Kaito Ishikawa",
-        "Max Mittelman "
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "easy",
-      "category": "Entertainment: Music",
-      "question": "What is the name of the album released in 2014 by American band Maroon 5?",
-      "correctAnswer": "V",
-      "incorrectAnswers": [
-        "X",
-        "III",
-        "IV"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "medium",
-      "category": "Entertainment: Music",
-      "question": "What date is referenced in the 1971 song &quot;September&quot; by Earth, Wind &amp; Fire?",
-      "correctAnswer": "21st of September",
-      "incorrectAnswers": [
-        "26th of September",
-        "23rd of September",
-        "24th of September"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "easy",
-      "category": "Geography",
-      "question": "Which nation claims ownership of Antarctica?",
-      "correctAnswer": "No one, but there are claims.",
-      "incorrectAnswers": [
-        "United States of America",
-        "United Nations",
-        "Australia"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "medium",
-      "category": "Entertainment: Film",
-      "question": "Which of these Disney classics was released in 1970?",
-      "correctAnswer": "The Aristocats",
-      "incorrectAnswers": [
-        "One Hundred and One Dalmatians",
-        "The Fox and the Hound",
-        "The Little Mermaid"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "medium",
-      "category": "Entertainment: Japanese Anime &amp; Manga",
-      "question": "What is the name of the protagonist of the 2017 anime &quot;Land of the Lustrous&quot;?",
-      "correctAnswer": "Phosphophyllite",
-      "incorrectAnswers": [
-        "Watermelon Tourmaline",
-        "Cinnabar",
-        "Padparadscha"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "easy",
-      "category": "Celebrities",
-      "question": "Named after a character he played in a 1969 film, what is the name of the ski resort in Utah that Robert Redford bought in 1968?",
-      "correctAnswer": "Sundance",
-      "incorrectAnswers": [
-        "Woodward",
-        "Turner",
-        "Booker"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "hard",
-      "category": "Entertainment: Comics",
-      "question": "Which of the following rings from the DC Comics&#039; &quot;Lantern Corps&quot; are classified as Parasitic?",
-      "correctAnswer": "Indigo (Compassion)",
-      "incorrectAnswers": [
-        "Green (Willpower)",
-        "White (Life)",
-        "Yellow (Fear)"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "medium",
-      "category": "Entertainment: Music",
-      "question": "What was the title of ABBA`s first UK hit single?",
-      "correctAnswer": "Waterloo",
-      "incorrectAnswers": [
-        "Mamma Mia",
-        "Fernando",
-        "Dancing Queen"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "medium",
-      "category": "Celebrities",
-      "question": "Who out of these actresses is the youngest?",
-      "correctAnswer": "Kiernan Shipka",
-      "incorrectAnswers": [
-        "Ariel Winter",
-        "Emma Watson",
-        "Bonnie Wright"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "easy",
-      "category": "Entertainment: Film",
-      "question": "Who is the main protagonist in, the 1985 film, Back to the Future?",
-      "correctAnswer": "Marty McFly",
-      "incorrectAnswers": [
-        "Emmett &quot;Doc&quot; Brown",
-        "Biff Tannen",
-        "George McFly"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "hard",
-      "category": "Entertainment: Video Games",
-      "question": "Which of these characters wasn&#039;t a villian in Club Penguin?",
-      "correctAnswer": "The Director",
-      "incorrectAnswers": [
-        "Herbert P. Bear",
-        "Tusk",
-        "Ultimate Proto-Bot 10000"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "medium",
-      "category": "Geography",
-      "question": "Which of the following countries does NOT recognize Armenia as an independent country?",
-      "correctAnswer": "Pakistan",
-      "incorrectAnswers": [
-        "Iran",
-        "Turkey",
-        "Azerbaijan"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "hard",
-      "category": "General Knowledge",
-      "question": "Located in Chile, El Teniente is the world&#039;s largest underground mine for what metal?",
-      "correctAnswer": "Copper",
-      "incorrectAnswers": [
-        "Iron",
-        "Nickel",
-        "Silver"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "medium",
-      "category": "History",
-      "question": "When did construction of the Suez Canal finish?",
-      "correctAnswer": "1869",
-      "incorrectAnswers": [
-        "1859",
-        "1860",
-        "1850"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "easy",
-      "category": "Entertainment: Music",
-      "question": "Which singer was featured in Jack &Uuml; (Skrillex &amp; Diplo)&#039;s 2015 song &#039;Where Are &Uuml; Now&#039;?",
-      "correctAnswer": "Justin Bieber",
-      "incorrectAnswers": [
-        "Selena Gomez",
-        "Ellie Goulding",
-        "The Weeknd"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "medium",
-      "category": "Entertainment: Comics",
-      "question": "In Bionicle, who was formerly a Av-Matoran and is now the Toa of Light?",
-      "correctAnswer": "Takua",
-      "incorrectAnswers": [
-        "Jaller",
-        "Vakama",
-        "Tahu"
-      ]
-    },
-    {
-      "type": "boolean",
-      "difficulty": "medium",
-      "category": "Politics",
-      "question": "The State of Queensland, Australia voted NO to a referendum for daylight savings in 1992.",
-      "correctAnswer": "True",
-      "incorrectAnswers": [
-        "False"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "medium",
-      "category": "Entertainment: Comics",
-      "question": "In &quot;Sonic the Hedgehog&quot; comic, who was the creator of Roboticizer? ",
-      "correctAnswer": "Professor Charles the Hedgehog",
-      "incorrectAnswers": [
-        "Julian Robotnik",
-        "Ivo Robotnik",
-        "Snively Robotnik"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "hard",
-      "category": "Entertainment: Television",
-      "question": "What&#039;s Dr. Doofenshmirtz first name?",
-      "correctAnswer": "Heinz",
-      "incorrectAnswers": [
-        "Hans",
-        "Hank",
-        "Heidi"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "easy",
-      "category": "Science &amp; Nature",
-      "question": "What is the standard SI unit for time?",
-      "correctAnswer": "Second",
-      "incorrectAnswers": [
-        "Minute",
-        "Hour",
-        "Day"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "hard",
-      "category": "History",
-      "question": "When did Spanish Peninsular War start?",
-      "correctAnswer": "1808",
-      "incorrectAnswers": [
-        "1806",
-        "1810",
-        "1809"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "medium",
-      "category": "Entertainment: Video Games",
-      "question": "What former MOBA, created by Waystone Games and published by EA, was shut down in 2014?",
-      "correctAnswer": "Dawngate",
-      "incorrectAnswers": [
-        "Strife",
-        "League of Legends",
-        "Heroes of Newerth"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "medium",
-      "category": "Entertainment: Music",
-      "question": "&#039;74&ndash;&#039;75 is a 1993 single from the album Ring by what American band?",
-      "correctAnswer": "The Connells",
-      "incorrectAnswers": [
-        "R.E.M.",
-        "The Ocean Blue",
-        "The Bangles"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "hard",
-      "category": "Celebrities",
-      "question": "What was the religion of famous singer &quot;Freddie Mercury&quot;?",
-      "correctAnswer": "Zoroastrianism",
-      "incorrectAnswers": [
-        "Paganism",
-        "Ashurism",
-        "Judaism"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "hard",
-      "category": "Entertainment: Japanese Anime &amp; Manga",
-      "question": "Akatsuki&#039;s subclass in &quot;Log Horizon&quot; is what?",
-      "correctAnswer": " Tracker",
-      "incorrectAnswers": [
-        "Assassin",
-        "Scribe",
-        "Apprentice"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "medium",
-      "category": "Science &amp; Nature",
-      "question": "At what temperature does water boil?",
-      "correctAnswer": "212&deg;F",
-      "incorrectAnswers": [
-        "200&deg;F",
-        "181&deg;F",
-        "178&deg;F"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "medium",
-      "category": "Entertainment: Video Games",
-      "question": "When Halo 3: ODST was unveiled in 2008, it had a different title. What was the game formally called?",
-      "correctAnswer": "Halo 3: Recon",
-      "incorrectAnswers": [
-        "Halo 3: Helljumpers",
-        "Halo 3: Phantom",
-        "Halo 3: Guerilla"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "medium",
-      "category": "Entertainment: Video Games",
-      "question": "Where does &quot;The Legend of Zelda: Majora&#039;s Mask&quot; take place?",
-      "correctAnswer": "Termina",
-      "incorrectAnswers": [
-        "Hyrule",
-        "Gysahl",
-        "Besaid"
-      ]
-    },
-    {
-      "type": "multiple",
-      "difficulty": "hard",
-      "category": "Science &amp; Nature",
-      "question": "What is isobutylphenylpropanoic acid more commonly known as?",
-      "correctAnswer": "Ibuprofen",
-      "incorrectAnswers": [
-        "Morphine",
-        "Ketamine",
-        "Aspirin"
-      ]
-    },
-    {
-      "type": "boolean",
-      "difficulty": "medium",
-      "category": "Entertainment: Video Games",
-      "question": "DragonForce&#039;s &#039;Through the Fire and Flames&#039; is widely considered to be the hardest song in the Guitar Hero series.",
-      "correctAnswer": "True",
-      "incorrectAnswers": [
-        "False"
-      ]
-    },
-    {
-      "type": "boolean",
-      "difficulty": "easy",
-      "category": "Science: Mathematics",
-      "question": "The sum of any two odd integers is odd.",
-      "correctAnswer": "False",
-      "incorrectAnswers": [
-        "True"
-      ]
-    }
-  ]
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "HARD",
+    "category": "Geography",
+    "question": "The Hunua Ranges is located in...",
+    "correctAnswer": "New Zealand",
+    "incorrectAnswers": [
+      "Nepal",
+      "China",
+      "Mexico"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "HARD",
+    "category": "Science: Computers",
+    "question": "How many Hz does the video standard PAL support?",
+    "correctAnswer": "50",
+    "incorrectAnswers": [
+      "59",
+      "60",
+      "25"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "MEDIUM",
+    "category": "Politics",
+    "question": "What are the first names of the first father and son pair that were both Prime Ministers of Canada?",
+    "correctAnswer": "Justin and Pierre",
+    "incorrectAnswers": [
+      "John and Louis",
+      "Brian and Justin",
+      "Brian and Pierre"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "HARD",
+    "category": "Entertainment: Film",
+    "question": "In the 1974 Christmas flick \"The Year Without a Santa Claus,\" what are the names of the two elves who help Mrs. Claus save Christmas?",
+    "correctAnswer": "Jingle and Jangle",
+    "incorrectAnswers": [
+      "Buddy and Bobby",
+      "Holly and Jolly",
+      "Snowflake and Icicle"
+    ]
+  },
+  {
+    "type": "TRUE_FALSE",
+    "difficulty": "MEDIUM",
+    "category": "Entertainment: Music",
+    "question": "Ashley Frangipane performs under the stage name Halsey.",
+    "correctAnswer": "True",
+    "incorrectAnswers": [
+      "False"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "EASY",
+    "category": "Entertainment: Japanese Anime & Manga",
+    "question": "What animation studio produced \"Gurren Lagann\"?",
+    "correctAnswer": "Gainax",
+    "incorrectAnswers": [
+      "Kyoto Animation",
+      "Pierrot",
+      "A-1 Pictures"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "EASY",
+    "category": "Entertainment: Video Games",
+    "question": "Blinky, Pinky, Inky and Clyde are characters from which classic video game?",
+    "correctAnswer": "Pac-Man",
+    "incorrectAnswers": [
+      "Gauntlet",
+      "Space Invaders",
+      "Street Fighter"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "MEDIUM",
+    "category": "Animals",
+    "question": "What color/colour is a polar bear's skin?",
+    "correctAnswer": "Black",
+    "incorrectAnswers": [
+      "White",
+      "Pink",
+      "Green"
+    ]
+  },
+  {
+    "type": "TRUE_FALSE",
+    "difficulty": "MEDIUM",
+    "category": "Entertainment: Comics",
+    "question": "The X-Men's Storm and Nightcrawler were originally planned to be characters in DC Comics' Legion of Super-Heroes.",
+    "correctAnswer": "True",
+    "incorrectAnswers": [
+      "False"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "EASY",
+    "category": "Entertainment: Film",
+    "question": "In which film does Humphrey Bogart say the famous line, \"Here's looking at you, kid\"?",
+    "correctAnswer": "Casablanca",
+    "incorrectAnswers": [
+      "The Maltese Falcon",
+      "The Treasure of the Sierra Madre",
+      "Citizen Kane"
+    ]
+  },
+  {
+    "type": "TRUE_FALSE",
+    "difficulty": "EASY",
+    "category": "Science: Computers",
+    "question": "Time on Computers is measured via the EPOX System.",
+    "correctAnswer": "False",
+    "incorrectAnswers": [
+      "True"
+    ]
+  },
+  {
+    "type": "TRUE_FALSE",
+    "difficulty": "MEDIUM",
+    "category": "Science & Nature",
+    "question": "The \"Gympie Stinger\" is the deadliest plant in the world.",
+    "correctAnswer": "False",
+    "incorrectAnswers": [
+      "True"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "EASY",
+    "category": "Entertainment: Video Games",
+    "question": "In Need for Speed: Most Wanted (2005), what was the name of the main antagonist?",
+    "correctAnswer": "Clarence \"Razor\" Callahan",
+    "incorrectAnswers": [
+      "Hector \"Ming\" Domingo",
+      "Toru \"Bull\" Sato",
+      "Karl \"Baron\" Smit"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "EASY",
+    "category": "Science & Nature",
+    "question": "Which of the following is not one of the groups on the periodic table?",
+    "correctAnswer": "Fluorines",
+    "incorrectAnswers": [
+      "Alkali Metals",
+      "Halogens",
+      "Noble Gases"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "EASY",
+    "category": "Entertainment: Television",
+    "question": "In which British seaside town was the BBC sitcom \"Fawlty Towers\" set?",
+    "correctAnswer": "Torquay",
+    "incorrectAnswers": [
+      "Blackpool",
+      "Bournemouth",
+      "Great Yarmouth"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "MEDIUM",
+    "category": "General Knowledge",
+    "question": "A statue of Charles Darwin sits in what London museum?",
+    "correctAnswer": "Natural History Museum",
+    "incorrectAnswers": [
+      "Tate",
+      "British Museum",
+      "Science Museum"
+    ]
+  },
+  {
+    "type": "TRUE_FALSE",
+    "difficulty": "EASY",
+    "category": "Entertainment: Board Games",
+    "question": "Snakes and Ladders was originally created in India?",
+    "correctAnswer": "True",
+    "incorrectAnswers": [
+      "False"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "HARD",
+    "category": "Entertainment: Music",
+    "question": "In the metal band Slipknot, there are 9 members, which member labelled themselves number 6?",
+    "correctAnswer": "Shawn Crahan (Clown)",
+    "incorrectAnswers": [
+      "Sid Wilson",
+      "Cory Taylor",
+      "Mick Thomson"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "HARD",
+    "category": "Entertainment: Japanese Anime & Manga",
+    "question": "Who is One Punch Man voiced by in the Japanese version.",
+    "correctAnswer": "Makoto Furukawa",
+    "incorrectAnswers": [
+      "Zach Aguilar",
+      "Kaito Ishikawa",
+      "Max Mittelman"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "EASY",
+    "category": "Entertainment: Music",
+    "question": "What is the name of the album released in 2014 by American band Maroon 5?",
+    "correctAnswer": "V",
+    "incorrectAnswers": [
+      "X",
+      "III",
+      "IV"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "MEDIUM",
+    "category": "Entertainment: Music",
+    "question": "What date is referenced in the 1971 song \"September\" by Earth, Wind & Fire?",
+    "correctAnswer": "21st of September",
+    "incorrectAnswers": [
+      "26th of September",
+      "23rd of September",
+      "24th of September"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "EASY",
+    "category": "Geography",
+    "question": "Which nation claims ownership of Antarctica?",
+    "correctAnswer": "No one, but there are claims.",
+    "incorrectAnswers": [
+      "United States of America",
+      "United Nations",
+      "Australia"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "MEDIUM",
+    "category": "Entertainment: Film",
+    "question": "Which of these Disney classics was released in 1970?",
+    "correctAnswer": "The Aristocats",
+    "incorrectAnswers": [
+      "One Hundred and One Dalmatians",
+      "The Fox and the Hound",
+      "The Little Mermaid"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "MEDIUM",
+    "category": "Entertainment: Japanese Anime & Manga",
+    "question": "What is the name of the protagonist of the 2017 anime \"Land of the Lustrous\"?",
+    "correctAnswer": "Phosphophyllite",
+    "incorrectAnswers": [
+      "Watermelon Tourmaline",
+      "Cinnabar",
+      "Padparadscha"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "EASY",
+    "category": "Celebrities",
+    "question": "Named after a character he played in a 1969 film, what is the name of the ski resort in Utah that Robert Redford bought in 1968?",
+    "correctAnswer": "Sundance",
+    "incorrectAnswers": [
+      "Woodward",
+      "Turner",
+      "Booker"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "HARD",
+    "category": "Entertainment: Comics",
+    "question": "Which of the following rings from the DC Comics' \"Lantern Corps\" are classified as Parasitic?",
+    "correctAnswer": "Indigo (Compassion)",
+    "incorrectAnswers": [
+      "Green (Willpower)",
+      "White (Life)",
+      "Yellow (Fear)"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "MEDIUM",
+    "category": "Entertainment: Music",
+    "question": "What was the title of ABBA`s first UK hit single?",
+    "correctAnswer": "Waterloo",
+    "incorrectAnswers": [
+      "Mamma Mia",
+      "Fernando",
+      "Dancing Queen"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "MEDIUM",
+    "category": "Celebrities",
+    "question": "Who out of these actresses is the youngest?",
+    "correctAnswer": "Kiernan Shipka",
+    "incorrectAnswers": [
+      "Ariel Winter",
+      "Emma Watson",
+      "Bonnie Wright"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "EASY",
+    "category": "Entertainment: Film",
+    "question": "Who is the main protagonist in, the 1985 film, Back to the Future?",
+    "correctAnswer": "Marty McFly",
+    "incorrectAnswers": [
+      "Emmett \"Doc\" Brown",
+      "Biff Tannen",
+      "George McFly"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "HARD",
+    "category": "Entertainment: Video Games",
+    "question": "Which of these characters wasn't a villian in Club Penguin?",
+    "correctAnswer": "The Director",
+    "incorrectAnswers": [
+      "Herbert P. Bear",
+      "Tusk",
+      "Ultimate Proto-Bot 10000"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "MEDIUM",
+    "category": "Geography",
+    "question": "Which of the following countries does NOT recognize Armenia as an independent country?",
+    "correctAnswer": "Pakistan",
+    "incorrectAnswers": [
+      "Iran",
+      "Turkey",
+      "Azerbaijan"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "HARD",
+    "category": "General Knowledge",
+    "question": "Located in Chile, El Teniente is the world's largest underground mine for what metal?",
+    "correctAnswer": "Copper",
+    "incorrectAnswers": [
+      "Iron",
+      "Nickel",
+      "Silver"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "MEDIUM",
+    "category": "History",
+    "question": "When did construction of the Suez Canal finish?",
+    "correctAnswer": "1869",
+    "incorrectAnswers": [
+      "1859",
+      "1860",
+      "1850"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "EASY",
+    "category": "Entertainment: Music",
+    "question": "Which singer was featured in Jack Ü (Skrillex & Diplo)'s 2015 song 'Where Are Ü Now'?",
+    "correctAnswer": "Justin Bieber",
+    "incorrectAnswers": [
+      "Selena Gomez",
+      "Ellie Goulding",
+      "The Weeknd"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "MEDIUM",
+    "category": "Entertainment: Comics",
+    "question": "In Bionicle, who was formerly a Av-Matoran and is now the Toa of Light?",
+    "correctAnswer": "Takua",
+    "incorrectAnswers": [
+      "Jaller",
+      "Vakama",
+      "Tahu"
+    ]
+  },
+  {
+    "type": "TRUE_FALSE",
+    "difficulty": "MEDIUM",
+    "category": "Politics",
+    "question": "The State of Queensland, Australia voted NO to a referendum for daylight savings in 1992.",
+    "correctAnswer": "True",
+    "incorrectAnswers": [
+      "False"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "MEDIUM",
+    "category": "Entertainment: Comics",
+    "question": "In \"Sonic the Hedgehog\" comic, who was the creator of Roboticizer?",
+    "correctAnswer": "Professor Charles the Hedgehog",
+    "incorrectAnswers": [
+      "Julian Robotnik",
+      "Ivo Robotnik",
+      "Snively Robotnik"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "HARD",
+    "category": "Entertainment: Television",
+    "question": "What's Dr. Doofenshmirtz first name?",
+    "correctAnswer": "Heinz",
+    "incorrectAnswers": [
+      "Hans",
+      "Hank",
+      "Heidi"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "EASY",
+    "category": "Science & Nature",
+    "question": "What is the standard SI unit for time?",
+    "correctAnswer": "Second",
+    "incorrectAnswers": [
+      "Minute",
+      "Hour",
+      "Day"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "HARD",
+    "category": "History",
+    "question": "When did Spanish Peninsular War start?",
+    "correctAnswer": "1808",
+    "incorrectAnswers": [
+      "1806",
+      "1810",
+      "1809"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "MEDIUM",
+    "category": "Entertainment: Video Games",
+    "question": "What former MOBA, created by Waystone Games and published by EA, was shut down in 2014?",
+    "correctAnswer": "Dawngate",
+    "incorrectAnswers": [
+      "Strife",
+      "League of Legends",
+      "Heroes of Newerth"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "MEDIUM",
+    "category": "Entertainment: Music",
+    "question": "'74–'75 is a 1993 single from the album Ring by what American band?",
+    "correctAnswer": "The Connells",
+    "incorrectAnswers": [
+      "R.E.M.",
+      "The Ocean Blue",
+      "The Bangles"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "HARD",
+    "category": "Celebrities",
+    "question": "What was the religion of famous singer \"Freddie Mercury\"?",
+    "correctAnswer": "Zoroastrianism",
+    "incorrectAnswers": [
+      "Paganism",
+      "Ashurism",
+      "Judaism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "HARD",
+    "category": "Entertainment: Japanese Anime & Manga",
+    "question": "Akatsuki's subclass in \"Log Horizon\" is what?",
+    "correctAnswer": "Tracker",
+    "incorrectAnswers": [
+      "Assassin",
+      "Scribe",
+      "Apprentice"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "MEDIUM",
+    "category": "Science & Nature",
+    "question": "At what temperature does water boil?",
+    "correctAnswer": "212°F",
+    "incorrectAnswers": [
+      "200°F",
+      "181°F",
+      "178°F"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "MEDIUM",
+    "category": "Entertainment: Video Games",
+    "question": "When Halo 3: ODST was unveiled in 2008, it had a different title. What was the game formally called?",
+    "correctAnswer": "Halo 3: Recon",
+    "incorrectAnswers": [
+      "Halo 3: Helljumpers",
+      "Halo 3: Phantom",
+      "Halo 3: Guerilla"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "MEDIUM",
+    "category": "Entertainment: Video Games",
+    "question": "Where does \"The Legend of Zelda: Majora's Mask\" take place?",
+    "correctAnswer": "Termina",
+    "incorrectAnswers": [
+      "Hyrule",
+      "Gysahl",
+      "Besaid"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "HARD",
+    "category": "Science & Nature",
+    "question": "What is isobutylphenylpropanoic acid more commonly known as?",
+    "correctAnswer": "Ibuprofen",
+    "incorrectAnswers": [
+      "Morphine",
+      "Ketamine",
+      "Aspirin"
+    ]
+  },
+  {
+    "type": "TRUE_FALSE",
+    "difficulty": "MEDIUM",
+    "category": "Entertainment: Video Games",
+    "question": "DragonForce Through the Fire and Flames is widely considered to be the hardest song in the Guitar Hero series.",
+    "correctAnswer": "True",
+    "incorrectAnswers": [
+      "False"
+    ]
+  },
+  {
+    "type": "TRUE_FALSE",
+    "difficulty": "EASY",
+    "category": "Science: Mathematics",
+    "question": "The sum of any two odd integers is odd.",
+    "correctAnswer": "False",
+    "incorrectAnswers": [
+      "True"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "MEDIUM",
+    "category": "Science: Space",
+    "question": "Which planet has the largest volcano in the solar system?",
+    "correctAnswer": "Mars",
+    "incorrectAnswers": [
+      "Earth",
+      "Venus",
+      "Jupiter"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "EASY",
+    "category": "Entertainment: Film",
+    "question": "What is the name of the kingdom in Disney's 'Frozen'?",
+    "correctAnswer": "Arendelle",
+    "incorrectAnswers": [
+      "Agrabah",
+      "Corona",
+      "Andalasia"
+    ]
+  },
+  {
+    "type": "TRUE_FALSE",
+    "difficulty": "MEDIUM",
+    "category": "Geography",
+    "question": "Mount Kilimanjaro is located in Kenya.",
+    "correctAnswer": "False",
+    "incorrectAnswers": [
+      "True"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "HARD",
+    "category": "Science: Computers",
+    "question": "What does the acronym 'GPU' stand for?",
+    "correctAnswer": "Graphics Processing Unit",
+    "incorrectAnswers": [
+      "General Processing Unit",
+      "Graphical Performance Utility",
+      "Game Processing Unit"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "MEDIUM",
+    "category": "Entertainment: Television",
+    "question": "In 'Breaking Bad', what subject did Walter White teach?",
+    "correctAnswer": "Chemistry",
+    "incorrectAnswers": [
+      "Physics",
+      "Mathematics",
+      "Biology"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "EASY",
+    "category": "General Knowledge",
+    "question": "Which language has the most native speakers in the world?",
+    "correctAnswer": "Mandarin Chinese",
+    "incorrectAnswers": [
+      "English",
+      "Spanish",
+      "Hindi"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "HARD",
+    "category": "History",
+    "question": "Which treaty ended World War I?",
+    "correctAnswer": "Treaty of Versailles",
+    "incorrectAnswers": [
+      "Treaty of Paris",
+      "Treaty of Rome",
+      "Treaty of Tordesillas"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "MEDIUM",
+    "category": "Entertainment: Music",
+    "question": "Which British band released the album 'The Dark Side of the Moon'?",
+    "correctAnswer": "Pink Floyd",
+    "incorrectAnswers": [
+      "The Beatles",
+      "Led Zeppelin",
+      "The Rolling Stones"
+    ]
+  },
+  {
+    "type": "TRUE_FALSE",
+    "difficulty": "EASY",
+    "category": "Science & Nature",
+    "question": "Humans share about 60% of their DNA with bananas.",
+    "correctAnswer": "True",
+    "incorrectAnswers": [
+      "False"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "difficulty": "MEDIUM",
+    "category": "Entertainment: Video Games",
+    "question": "What is the highest-selling video game of all time?",
+    "correctAnswer": "Minecraft",
+    "incorrectAnswers": [
+      "Grand Theft Auto V",
+      "Tetris",
+      "Wii Sports"
+    ]
+  }
+]
