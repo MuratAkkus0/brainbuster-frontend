@@ -282,7 +282,7 @@ export const GameOverview = () => {
         <div className="bg-theme-second-bg row-start-1 row-end-8 flex items-center justify-center relative">
           {gameMode === "mp" && <UserAvatarContainer position="left" />}
           <UserAvatarContainer position="right" user={user ?? undefined} />
-          <div className="max-w-[55%] xl:max-w-full text-center p-4 text-2xl md:text-3xl font-medium">
+          <div className="max-w-[55%] xl:max-w-[75%] text-center p-4 text-2xl md:text-3xl font-medium">
             {quiz.currentQuestion?.prompt || "Loading..."}
           </div>
         </div>

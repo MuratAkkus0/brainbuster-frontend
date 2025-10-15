@@ -7,6 +7,7 @@ import {
 import { SectionCard } from "../molecules/SectionCard";
 import { Separator } from "@radix-ui/react-select";
 import { UserInformationsCard } from "../molecules/UserInformationsCard";
+import { LeaderboardCard } from "../molecules/LeaderboardCard";
 import { Button } from "../ui/button";
 import { Link } from "react-router";
 import type { MouseEventHandler } from "react";
@@ -62,31 +63,20 @@ export default function UserDashboard() {
           </div>
         </header>
         <div className="flex flex-1 flex-col">
-          <div className="@container/main grid grid-cols-1 md:grid-cols-2 grid-rows-12 px-4">
-            <div className="row-start-1 row-end-4 md:col-span-2 flex justify-center flex-wrap gap-4 md:gap-5 lg:gap-6 ">
-              <div className="min-w-46 max-w-80 w-full shrink-0">
+          <div className="@container/main grid grid-cols-1 md:grid-cols-12 gap-4 px-4">
+            {/* User information card - full width on all screens */}
+            <div className="col-span-1 md:col-span-12 mb-6">
+              <div className="h-fit w-full max-w-md mx-auto md:max-w-none">
                 <UserInformationsCard onEditIconClick={handleEdit} />
               </div>
-              <div className="min-w-46 max-w-80 flex-1 shrink-0 w-full">
-                <SectionCards />
-              </div>
             </div>
-            <div
-              className="row-start-4 sm:row-start-5 row-span-3 md:col-span-2 flex flex-wrap gap-4 px-4 py-4 md:gap-6 md:py-6 animate-pulse 
-            "
-            >
-              <Link
-                to="/quiz"
-                onClick={() => localStorage.setItem("qm", "sp")}
-                className="max-w-1/2 cursor-pointer mx-auto"
-              >
-                <Button
-                  className="cursor-pointer bg-theme-accent text-theme-dark-bg hover:bg-theme-accent-hover"
-                  size={"lg"}
-                >
-                  Play Single Player
-                </Button>
-              </Link>
+
+            {/* Stats section - left side on desktop */}
+            <div className="col-span-1 md:col-span-12 space-y-6 p-4 ">
+              <div className="flex flex-col md:flex-row justify-between gap-4 w-full">
+                <SectionCards />
+                <LeaderboardCard />
+              </div>
             </div>
           </div>
         </div>
