@@ -81,7 +81,8 @@ export const CreateQuestionDialog = ({
         <DialogHeader>
           <DialogTitle>Create New Question</DialogTitle>
           <DialogDescription>
-            Add a new quiz question with 1 correct answer and 3 incorrect answers. All fields are required.
+            Add a new quiz question with 1 correct answer and 3 incorrect
+            answers. All fields are required.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
