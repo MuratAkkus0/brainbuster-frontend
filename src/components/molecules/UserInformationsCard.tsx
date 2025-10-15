@@ -29,7 +29,7 @@ export const UserInformationsCard = ({}: {
             className="cursor-pointer"
           >
             <Button
-              className="cursor-pointer bg-theme-accent text-theme-dark-bg hover:bg-theme-accent-hover animate-pulse text-wrap whitespace-normal text-sm md:text-base"
+              className="max-sm:max-w-[60%] max-sm:py-3 h-fit cursor-pointer bg-theme-accent text-theme-dark-bg hover:bg-theme-accent-hover animate-pulse text-wrap whitespace-normal text-sm md:text-base"
               size={"sm"}
             >
               Play Single Player
