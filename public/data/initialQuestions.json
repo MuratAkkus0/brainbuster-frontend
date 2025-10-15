@@ -1,98 +1,586 @@
 [
-  {
-    "type": "david",
-    "difficulty": "hard",
-    "category": "debug",
-    "question": "Why the API returns 200 but frontend shows an error?",
-    "correctAnswer": "Response shape mismatched with expected schema.",
-    "incorrectAnswers": ["Server timeout", "CORS issue", "Wrong endpoint"]
-  },
-  {
-    "type": "david",
-    "difficulty": "hard",
-    "category": "debug",
-    "question": "Why my Docker container works locally but fails in CI?",
-    "correctAnswer": "Environment variables are missing in CI.",
-    "incorrectAnswers": ["Port conflict", "Out of memory", "Image corrupted"]
-  },
-  {
-    "type": "david",
-    "difficulty": "hard",
-    "category": "debug",
-    "question": "Why database migrations run locally but fail in production?",
-    "correctAnswer": "Production DB user lacks required permissions.",
-    "incorrectAnswers": [
-      "Syntax error in SQL",
-      "Missing ORM config",
-      "Bad network connection"
-    ]
-  },
-  {
-    "type": "david",
-    "difficulty": "hard",
-    "category": "debug",
-    "question": "Why my Node.js app crashes only after several hours?",
-    "correctAnswer": "Memory leak accumulating over time.",
-    "incorrectAnswers": ["Syntax error", "Infinite loop", "Database locked"]
-  },
-  {
-    "type": "david",
-    "difficulty": "hard",
-    "category": "debug",
-    "question": "Why my Nginx reverse proxy randomly drops requests?",
-    "correctAnswer": "Upstream timeout misconfiguration.",
-    "incorrectAnswers": ["Port mismatch", "SSL expired", "DNS cache issue"]
-  },
-  {
-    "type": "david",
-    "difficulty": "hard",
-    "category": "debug",
-    "question": "Why the app works in dev mode but fails after build?",
-    "correctAnswer": "Environment-specific paths or variables missing in production build.",
-    "incorrectAnswers": [
-      "Wrong npm version",
-      "Cache not cleared",
-      "Port blocked"
-    ]
-  },
-  {
-    "type": "david",
-    "difficulty": "hard",
-    "category": "debug",
-    "question": "Why the backend logs show correct output but frontend gets 500?",
-    "correctAnswer": "Response serialization failed.",
-    "incorrectAnswers": [
-      "Network latency",
-      "JSON parsing error",
-      "CORS misconfiguration"
-    ]
-  },
-  {
-    "type": "david",
-    "difficulty": "hard",
-    "category": "debug",
-    "question": "Why the Python Flask app restarts repeatedly in Docker?",
-    "correctAnswer": "Container health check failing continuously.",
-    "incorrectAnswers": [
-      "Code syntax error",
-      "Port unavailable",
-      "Gunicorn misconfigured"
-    ]
-  },
-  {
-    "type": "david",
-    "difficulty": "hard",
-    "category": "debug",
-    "question": "Why my HTTPS endpoint shows invalid certificate only on Android?",
-    "correctAnswer": "Intermediate certificate not included in chain.",
-    "incorrectAnswers": ["Expired cert", "Wrong domain", "TLS version mismatch"]
-  },
-  {
-    "type": "david",
-    "difficulty": "hard",
-    "category": "debug",
-    "question": "Why the GitHub Action workflow fails on checkout?",
-    "correctAnswer": "Token permission insufficient for private submodules.",
-    "incorrectAnswers": ["Wrong branch", "YAML indentation", "Runner offline"]
-  }
-]
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Geography",
+      "question": "The Hunua Ranges is located in...",
+      "correct_answer": "New Zealand",
+      "incorrect_answers": [
+        "Nepal",
+        "China",
+        "Mexico"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Science: Computers",
+      "question": "How many Hz does the video standard PAL support?",
+      "correct_answer": "50",
+      "incorrect_answers": [
+        "59",
+        "60",
+        "25"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Politics",
+      "question": "What are the first names of the first father and son pair that were both Prime Ministers of Canada?",
+      "correct_answer": "Justin and Pierre",
+      "incorrect_answers": [
+        "John and Louis",
+        "Brian and Justin",
+        "Brian and Pierre"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Entertainment: Film",
+      "question": "In the 1974 Christmas flick &quot;The Year Without a Santa Claus,&quot; what are the names of the two elves who help Mrs. Claus save Christmas?",
+      "correct_answer": "Jingle &amp; Jangle",
+      "incorrect_answers": [
+        "Buddy &amp; Bobby",
+        "Holly &amp; Jolly",
+        "Snowflake &amp; Icicle"
+      ]
+    },
+    {
+      "type": "boolean",
+      "difficulty": "medium",
+      "category": "Entertainment: Music",
+      "question": "Ashley Frangipane performs under the stage name Halsey.",
+      "correct_answer": "True",
+      "incorrect_answers": [
+        "False"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Entertainment: Japanese Anime &amp; Manga",
+      "question": "What animation studio produced &quot;Gurren Lagann&quot;?",
+      "correct_answer": "Gainax",
+      "incorrect_answers": [
+        "Kyoto Animation",
+        "Pierrot",
+        "A-1 Pictures"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Entertainment: Video Games",
+      "question": "Blinky, Pinky, Inky and Clyde are characters from which classic video game?",
+      "correct_answer": "Pac-Man",
+      "incorrect_answers": [
+        "Gauntlet",
+        "Space Invaders",
+        "Street Fighter"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Animals",
+      "question": "What color/colour is a polar bear&#039;s skin?",
+      "correct_answer": "Black",
+      "incorrect_answers": [
+        "White",
+        "Pink",
+        "Green"
+      ]
+    },
+    {
+      "type": "boolean",
+      "difficulty": "medium",
+      "category": "Entertainment: Comics",
+      "question": "The X-Men&#039;s Storm and Nightcrawler were originally planned to be characters in DC Comics&#039; Legion of Super-Heroes.",
+      "correct_answer": "True",
+      "incorrect_answers": [
+        "False"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Entertainment: Film",
+      "question": "In which film does Humphrey Bogart say the famous line, &quot;Here&#039;s looking at you, kid&quot;?",
+      "correct_answer": "Casablanca",
+      "incorrect_answers": [
+        "The Maltese Falcon",
+        "The Treasure of the Sierra Madre",
+        "Citizen Kane"
+      ]
+    },
+    {
+      "type": "boolean",
+      "difficulty": "easy",
+      "category": "Science: Computers",
+      "question": "Time on Computers is measured via the EPOX System.",
+      "correct_answer": "False",
+      "incorrect_answers": [
+        "True"
+      ]
+    },
+    {
+      "type": "boolean",
+      "difficulty": "medium",
+      "category": "Science &amp; Nature",
+      "question": "The &quot;Gympie Stinger&quot; is the deadliest plant in the world.",
+      "correct_answer": "False",
+      "incorrect_answers": [
+        "True"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Entertainment: Video Games",
+      "question": "In Need for Speed: Most Wanted (2005), what was the name of the main antagonist?",
+      "correct_answer": "Clarence &quot;Razor&quot; Callahan",
+      "incorrect_answers": [
+        "Hector &quot;Ming&quot; Domingo",
+        "Toru &quot;Bull&quot; Sato",
+        "Karl &quot;Baron&quot; Smit"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Science &amp; Nature",
+      "question": "Which of the following is not one of the groups on the periodic table?",
+      "correct_answer": "Fluorines",
+      "incorrect_answers": [
+        "Alkali Metals",
+        "Halogens",
+        "Noble Gases"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Entertainment: Television",
+      "question": "In which British seaside town was the BBC sitcom &quot;Fawlty Towers&quot; set?",
+      "correct_answer": "Torquay",
+      "incorrect_answers": [
+        "Blackpool",
+        "Bournemouth",
+        "Great Yarmouth"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "General Knowledge",
+      "question": "A statue of Charles Darwin sits in what London museum?",
+      "correct_answer": "Natural History Museum",
+      "incorrect_answers": [
+        "Tate",
+        "British Museum",
+        "Science Museum"
+      ]
+    },
+    {
+      "type": "boolean",
+      "difficulty": "easy",
+      "category": "Entertainment: Board Games",
+      "question": "Snakes and Ladders was originally created in India?",
+      "correct_answer": "True",
+      "incorrect_answers": [
+        "False"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Entertainment: Music",
+      "question": "In the metal band Slipknot, there are 9 members, which member labelled themselves number 6? ",
+      "correct_answer": "Shawn Crahan (Clown)",
+      "incorrect_answers": [
+        "Sid Wilson",
+        "Cory Taylor",
+        "Mick Thomson"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Entertainment: Japanese Anime &amp; Manga",
+      "question": "Who is One Punch Man voiced by in the Japanese version.",
+      "correct_answer": "Makoto Furukawa",
+      "incorrect_answers": [
+        "Zach Aguilar",
+        "Kaito Ishikawa",
+        "Max Mittelman "
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Entertainment: Music",
+      "question": "What is the name of the album released in 2014 by American band Maroon 5?",
+      "correct_answer": "V",
+      "incorrect_answers": [
+        "X",
+        "III",
+        "IV"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Entertainment: Music",
+      "question": "What date is referenced in the 1971 song &quot;September&quot; by Earth, Wind &amp; Fire?",
+      "correct_answer": "21st of September",
+      "incorrect_answers": [
+        "26th of September",
+        "23rd of September",
+        "24th of September"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Geography",
+      "question": "Which nation claims ownership of Antarctica?",
+      "correct_answer": "No one, but there are claims.",
+      "incorrect_answers": [
+        "United States of America",
+        "United Nations",
+        "Australia"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Entertainment: Film",
+      "question": "Which of these Disney classics was released in 1970?",
+      "correct_answer": "The Aristocats",
+      "incorrect_answers": [
+        "One Hundred and One Dalmatians",
+        "The Fox and the Hound",
+        "The Little Mermaid"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Entertainment: Japanese Anime &amp; Manga",
+      "question": "What is the name of the protagonist of the 2017 anime &quot;Land of the Lustrous&quot;?",
+      "correct_answer": "Phosphophyllite",
+      "incorrect_answers": [
+        "Watermelon Tourmaline",
+        "Cinnabar",
+        "Padparadscha"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Celebrities",
+      "question": "Named after a character he played in a 1969 film, what is the name of the ski resort in Utah that Robert Redford bought in 1968?",
+      "correct_answer": "Sundance",
+      "incorrect_answers": [
+        "Woodward",
+        "Turner",
+        "Booker"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Entertainment: Comics",
+      "question": "Which of the following rings from the DC Comics&#039; &quot;Lantern Corps&quot; are classified as Parasitic?",
+      "correct_answer": "Indigo (Compassion)",
+      "incorrect_answers": [
+        "Green (Willpower)",
+        "White (Life)",
+        "Yellow (Fear)"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Entertainment: Music",
+      "question": "What was the title of ABBA`s first UK hit single?",
+      "correct_answer": "Waterloo",
+      "incorrect_answers": [
+        "Mamma Mia",
+        "Fernando",
+        "Dancing Queen"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Celebrities",
+      "question": "Who out of these actresses is the youngest?",
+      "correct_answer": "Kiernan Shipka",
+      "incorrect_answers": [
+        "Ariel Winter",
+        "Emma Watson",
+        "Bonnie Wright"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Entertainment: Film",
+      "question": "Who is the main protagonist in, the 1985 film, Back to the Future?",
+      "correct_answer": "Marty McFly",
+      "incorrect_answers": [
+        "Emmett &quot;Doc&quot; Brown",
+        "Biff Tannen",
+        "George McFly"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Entertainment: Video Games",
+      "question": "Which of these characters wasn&#039;t a villian in Club Penguin?",
+      "correct_answer": "The Director",
+      "incorrect_answers": [
+        "Herbert P. Bear",
+        "Tusk",
+        "Ultimate Proto-Bot 10000"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Geography",
+      "question": "Which of the following countries does NOT recognize Armenia as an independent country?",
+      "correct_answer": "Pakistan",
+      "incorrect_answers": [
+        "Iran",
+        "Turkey",
+        "Azerbaijan"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "General Knowledge",
+      "question": "Located in Chile, El Teniente is the world&#039;s largest underground mine for what metal?",
+      "correct_answer": "Copper",
+      "incorrect_answers": [
+        "Iron",
+        "Nickel",
+        "Silver"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "History",
+      "question": "When did construction of the Suez Canal finish?",
+      "correct_answer": "1869",
+      "incorrect_answers": [
+        "1859",
+        "1860",
+        "1850"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Entertainment: Music",
+      "question": "Which singer was featured in Jack &Uuml; (Skrillex &amp; Diplo)&#039;s 2015 song &#039;Where Are &Uuml; Now&#039;?",
+      "correct_answer": "Justin Bieber",
+      "incorrect_answers": [
+        "Selena Gomez",
+        "Ellie Goulding",
+        "The Weeknd"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Entertainment: Comics",
+      "question": "In Bionicle, who was formerly a Av-Matoran and is now the Toa of Light?",
+      "correct_answer": "Takua",
+      "incorrect_answers": [
+        "Jaller",
+        "Vakama",
+        "Tahu"
+      ]
+    },
+    {
+      "type": "boolean",
+      "difficulty": "medium",
+      "category": "Politics",
+      "question": "The State of Queensland, Australia voted NO to a referendum for daylight savings in 1992.",
+      "correct_answer": "True",
+      "incorrect_answers": [
+        "False"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Entertainment: Comics",
+      "question": "In &quot;Sonic the Hedgehog&quot; comic, who was the creator of Roboticizer? ",
+      "correct_answer": "Professor Charles the Hedgehog",
+      "incorrect_answers": [
+        "Julian Robotnik",
+        "Ivo Robotnik",
+        "Snively Robotnik"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Entertainment: Television",
+      "question": "What&#039;s Dr. Doofenshmirtz first name?",
+      "correct_answer": "Heinz",
+      "incorrect_answers": [
+        "Hans",
+        "Hank",
+        "Heidi"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Science &amp; Nature",
+      "question": "What is the standard SI unit for time?",
+      "correct_answer": "Second",
+      "incorrect_answers": [
+        "Minute",
+        "Hour",
+        "Day"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "History",
+      "question": "When did Spanish Peninsular War start?",
+      "correct_answer": "1808",
+      "incorrect_answers": [
+        "1806",
+        "1810",
+        "1809"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Entertainment: Video Games",
+      "question": "What former MOBA, created by Waystone Games and published by EA, was shut down in 2014?",
+      "correct_answer": "Dawngate",
+      "incorrect_answers": [
+        "Strife",
+        "League of Legends",
+        "Heroes of Newerth"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Entertainment: Music",
+      "question": "&#039;74&ndash;&#039;75 is a 1993 single from the album Ring by what American band?",
+      "correct_answer": "The Connells",
+      "incorrect_answers": [
+        "R.E.M.",
+        "The Ocean Blue",
+        "The Bangles"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Celebrities",
+      "question": "What was the religion of famous singer &quot;Freddie Mercury&quot;?",
+      "correct_answer": "Zoroastrianism",
+      "incorrect_answers": [
+        "Paganism",
+        "Ashurism",
+        "Judaism"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Entertainment: Japanese Anime &amp; Manga",
+      "question": "Akatsuki&#039;s subclass in &quot;Log Horizon&quot; is what?",
+      "correct_answer": " Tracker",
+      "incorrect_answers": [
+        "Assassin",
+        "Scribe",
+        "Apprentice"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Science &amp; Nature",
+      "question": "At what temperature does water boil?",
+      "correct_answer": "212&deg;F",
+      "incorrect_answers": [
+        "200&deg;F",
+        "181&deg;F",
+        "178&deg;F"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Entertainment: Video Games",
+      "question": "When Halo 3: ODST was unveiled in 2008, it had a different title. What was the game formally called?",
+      "correct_answer": "Halo 3: Recon",
+      "incorrect_answers": [
+        "Halo 3: Helljumpers",
+        "Halo 3: Phantom",
+        "Halo 3: Guerilla"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Entertainment: Video Games",
+      "question": "Where does &quot;The Legend of Zelda: Majora&#039;s Mask&quot; take place?",
+      "correct_answer": "Termina",
+      "incorrect_answers": [
+        "Hyrule",
+        "Gysahl",
+        "Besaid"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Science &amp; Nature",
+      "question": "What is isobutylphenylpropanoic acid more commonly known as?",
+      "correct_answer": "Ibuprofen",
+      "incorrect_answers": [
+        "Morphine",
+        "Ketamine",
+        "Aspirin"
+      ]
+    },
+    {
+      "type": "boolean",
+      "difficulty": "medium",
+      "category": "Entertainment: Video Games",
+      "question": "DragonForce&#039;s &#039;Through the Fire and Flames&#039; is widely considered to be the hardest song in the Guitar Hero series.",
+      "correct_answer": "True",
+      "incorrect_answers": [
+        "False"
+      ]
+    },
+    {
+      "type": "boolean",
+      "difficulty": "easy",
+      "category": "Science: Mathematics",
+      "question": "The sum of any two odd integers is odd.",
+      "correct_answer": "False",
+      "incorrect_answers": [
+        "True"
+      ]
+    }
+  ]
