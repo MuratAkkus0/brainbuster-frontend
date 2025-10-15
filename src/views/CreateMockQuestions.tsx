@@ -5,21 +5,21 @@ export const CreateMockQuestions = () => {
   const createQuestion = useCreateQuestion();
 
   for (let i in questionList) {
-    let {
+    const {
       type,
       difficulty,
       category,
       question,
-      correctAnswer,
-      incorrectAnswers,
+      correct_answer,
+      incorrect_answers,
     } = questionList[i];
     createQuestion(
       type,
       difficulty,
       category,
       question,
-      correctAnswer,
-      incorrectAnswers
+      correct_answer,
+      incorrect_answers
     );
   }
 

@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FormErrorLabel } from "@/components/atoms/FormErrorLabel";
 import { useQuestions } from "@/hooks/admin/useQuestions";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useRef } from "react";
@@ -23,7 +23,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Trash2, Plus } from "lucide-react";
 
 const EditQuestionSchema = z.object({
   type: z.string().min(1, "Type is required"),
@@ -33,7 +32,7 @@ const EditQuestionSchema = z.object({
   correctAnswer: z.string().min(1, "Correct answer is required"),
   incorrectAnswers: z
     .array(z.string().min(1, "Answer cannot be empty"))
-    .min(1, "At least one incorrect answer is required"),
+    .length(3, "Exactly 3 incorrect answers are required"),
 });
 
 type EditQuestionFormData = z.infer<typeof EditQuestionSchema>;
@@ -50,21 +49,23 @@ export const EditQuestionDialog = ({
   const { updateQuestion, isLoading } = useQuestions();
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
-  // Convert incorrectAnswers to string array
+  // Convert incorrectAnswers to string array (exactly 3)
   const getIncorrectAnswersAsStrings = (): string[] => {
     if (Array.isArray(question.incorrectAnswers)) {
-      return question.incorrectAnswers.map((answer) =>
+      const answers = question.incorrectAnswers.map((answer) =>
         typeof answer === "string" ? answer : answer.text
       );
+      // Ensure exactly 3 answers
+      while (answers.length < 3) answers.push("");
+      return answers.slice(0, 3);
     }
-    return [];
+    return ["", "", ""];
   };
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    control,
     setValue,
   } = useForm<EditQuestionFormData>({
     defaultValues: {
@@ -76,11 +77,6 @@ export const EditQuestionDialog = ({
       incorrectAnswers: getIncorrectAnswersAsStrings(),
     },
     resolver: zodResolver(EditQuestionSchema),
-  });
-
-  const { fields, append, remove } = useFieldArray({
-    control: control as any,
-    name: "incorrectAnswers",
   });
 
   const onSubmit = async (data: EditQuestionFormData) => {
@@ -99,7 +95,8 @@ export const EditQuestionDialog = ({
         <DialogHeader>
           <DialogTitle>Edit Question</DialogTitle>
           <DialogDescription>
-            Update question information. All fields are required.
+            Update quiz question with 1 correct answer and 3 incorrect answers.
+            All fields are required.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -116,19 +113,12 @@ export const EditQuestionDialog = ({
           <div className="grid grid-cols-3 gap-3">
             <div className="grid gap-3">
               <Label htmlFor="type">Type</Label>
-              <Select
-                defaultValue={question.type}
-                onValueChange={(value) => setValue("type", value)}
+              <Input
+                {...register("type")}
+                id="type"
+                placeholder="e.g., Multiple Choice"
                 disabled={isLoading}
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="multiple">Multiple Choice</SelectItem>
-                  <SelectItem value="boolean">True/False</SelectItem>
-                </SelectContent>
-              </Select>
+              />
               <FormErrorLabel errMsg={errors.type?.message} />
             </div>
 
@@ -173,37 +163,14 @@ export const EditQuestionDialog = ({
           </div>
 
           <div className="grid gap-3">
-            <div className="flex items-center justify-between">
-              <Label>Incorrect Answers</Label>
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                onClick={() => append("" as any)}
+            <Label>Incorrect Answers (3 required)</Label>
+            {[0, 1, 2].map((index) => (
+              <Input
+                key={index}
+                {...register(`incorrectAnswers.${index}`)}
+                placeholder={`Incorrect answer ${index + 1}`}
                 disabled={isLoading}
-              >
-                <Plus className="h-4 w-4 mr-1" />
-                Add Answer
-              </Button>
-            </div>
-            {fields.map((field, index) => (
-              <div key={field.id} className="flex gap-2">
-                <Input
-                  {...register(`incorrectAnswers.${index}`)}
-                  disabled={isLoading}
-                />
-                {fields.length > 1 && (
-                  <Button
-                    type="button"
-                    variant="destructive"
-                    size="sm"
-                    onClick={() => remove(index)}
-                    disabled={isLoading}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                )}
-              </div>
+              />
             ))}
             <FormErrorLabel errMsg={errors.incorrectAnswers?.message} />
           </div>
